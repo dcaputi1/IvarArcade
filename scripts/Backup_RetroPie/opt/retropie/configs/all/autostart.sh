@@ -172,7 +172,7 @@ swap_banner_art()
         echo "[autostart] Switched to Marquee artwork"
     fi
     
-    # Signal daemon to refresh
+    # Signal daemon to refresh (commented out - frontend marquees aren't loaded from zip files)
  #   if pgrep -x dmarquees >/dev/null; then
  #       echo "REFRESH" > "$CMD_FIFO" 2>/dev/null || true
  #   fi

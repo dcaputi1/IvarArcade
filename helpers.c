@@ -256,6 +256,8 @@ CommandType toCommandType(const char *s)
         return CMD_NA;
     if (strcmp(s, "RESET") == 0)
         return CMD_RESET;
+    if (strcmp(s, "REFRESH") == 0)
+        return CMD_REFRESH;
     // If not a known command, treat as ROM
     return CMD_ROM;
 }
@@ -274,6 +276,8 @@ const char *fromCommandType(CommandType c)
         return "SA";
     case CMD_RESET:
         return "RESET";
+    case CMD_REFRESH:
+        return "REFRESH";
     case CMD_ROM:
     default:
         return "ROM";

@@ -12,6 +12,7 @@
      RA            => set frontend mode to RetroArch
      SA            => set frontend mode to StandAlone
      RESET         => reset the CRTC (re-acquire display)
+     REFRESH       => reload the current image from disk
  - Image is scaled nearest-neighbor to fit the screen width while preserving aspect ratio.
  - Uses a single persistent dumb framebuffer; the daemon blits into the mapped buffer
    and calls drmModeSetCrtc() once at startup to show the FB. Subsequent blits update
@@ -80,6 +81,7 @@ static void* fb_map = NULL;
 FrontendMode g_frontend_mode = eNA;
 static time_t g_ra_init_hold = 0;
 static uint8_t* image = NULL;
+static char last_image_path[512] = {0};
 
 // Try to reset CRTC by becoming master, setting CRTC, then dropping master
 // Returns true if drmModeSetCrtc succeeded
@@ -154,6 +156,9 @@ static void show_default_marquee(void)
 
     scale_and_blit_to_xrgb(image, iw, ih, (uint32_t*)fb_map, fb_w, fb_h, stride / 4, 0);
     try_reset_crtc();
+    
+    // Save the current image path for REFRESH command
+    snprintf(last_image_path, sizeof(last_image_path), "%s", imgpath);
 }
 
 static void __attribute__((unused)) print_usage(const char *prog)
@@ -415,8 +420,50 @@ static bool show_game_marquee(const char* cmd_str)
 
         scale_and_blit_to_xrgb(image, iw, ih, fbptr, fb_w, fb_h, stride_pixels, dest_x);
         try_reset_crtc();
+        
+        // Save the current image path for REFRESH command
+        snprintf(last_image_path, sizeof(last_image_path), "%s", imgpath);
     }
     return true;
+}
+
+static void refresh_current_marquee(void)
+{
+    if (!fb_map)
+        return;
+    
+    if (last_image_path[0] == '\0')
+    {
+        ts_printf("dmarquees: REFRESH - no image loaded yet\n");
+        return;
+    }
+    
+    ts_printf("dmarquees: REFRESH - reloading %s\n", last_image_path);
+    
+    int iw = 0, ih = 0;
+    
+    if (image)
+        free(image);
+    
+    image = load_png_rgba(last_image_path, &iw, &ih);
+    
+    if (image == NULL)
+    {
+        ts_fprintf(stderr, "error: png load failed during refresh: %s\n", last_image_path);
+        return;
+    }
+    
+    // Clear screen and blit refreshed image
+    uint32_t* fbptr = (uint32_t*)fb_map;
+    int fb_w = chosen_mode.hdisplay;
+    int fb_h = chosen_mode.vdisplay;
+    int stride_pixels = stride / 4;
+    
+    memset(fb_map, 0, bo_size);
+    scale_and_blit_to_xrgb(image, iw, ih, fbptr, fb_w, fb_h, stride_pixels, 0);
+    try_reset_crtc();
+    
+    ts_printf("dmarquees: REFRESH complete\n");
 }
 
 int main(int argc, char **argv)
@@ -520,6 +567,10 @@ int main(int argc, char **argv)
 
         case CMD_RESET:
             try_reset_crtc();
+            break;
+
+        case CMD_REFRESH:
+            refresh_current_marquee();
             break;
 
         case CMD_ROM:

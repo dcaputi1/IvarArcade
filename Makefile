@@ -47,6 +47,20 @@ install: $(TARGET)
 		echo "Installed: $(INSTALL_DIR)/images"; \
 	fi
 
+	# Install scripts if newer
+	@if [ -f scripts/Backup_RetroPie/home/danc/scripts/swap_banner_art.sh ]; then \
+		echo "Copying swap_banner_art.sh to /home/danc/scripts/..."; \
+		mkdir -p /home/danc/scripts; \
+		cp -u scripts/Backup_RetroPie/home/danc/scripts/swap_banner_art.sh /home/danc/scripts/; \
+		echo "Installed: /home/danc/scripts/swap_banner_art.sh"; \
+	fi
+
+	@if [ -f scripts/Backup_RetroPie/opt/retropie/configs/all/autostart.sh ]; then \
+		echo "Copying autostart.sh to /opt/retropie/configs/all/..."; \
+		sudo cp -u scripts/Backup_RetroPie/opt/retropie/configs/all/autostart.sh /opt/retropie/configs/all/; \
+		echo "Installed: /opt/retropie/configs/all/autostart.sh"; \
+	fi
+
 # Uninstall (remove installed binary)
 uninstall:
 	@echo "Removing $(INSTALL_DIR)/$(TARGET) if present..."
