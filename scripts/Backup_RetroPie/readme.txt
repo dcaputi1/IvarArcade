@@ -24,15 +24,23 @@ steps:
   :/opt/retropie/emulators/mame:/opt/retropie/emulators/retroarch/bin
 5. run sudo ./analyze_games.sh to install tinyxml2 and python3-hid packages
 6. mkdir /opt/retropie/configs/all/retroarch/config/MAME (a.mkdir ...config, b.MAME)
-7. build and install IvarArcade project:
-   cd ~/IvarArcade
+7. clone, build and install IvarArcade project:
+   cd ~
+   git clone <repository-url> IvarArcade  # clone the IvarArcade project
+   cd IvarArcade
    make                                    # build both executables
-   make install                            # deploys to ~/marquees/bin/
+   sudo make install                       # deploys binaries, scripts, plugins, and resources
    # This installs:
    #   ~/marquees/bin/dmarquees           (marquee daemon, used by autostart.sh)
    #   ~/marquees/bin/analyze_games       (game analyzer)
-   #   ~/marquees/images/                 (runtime resources)
-   #   ~/marquees/plugins/                (LED/marquee plugins)
+   #   ~/marquees/images/                 (runtime resources - default marquees)
+   #   ~/marquees/plugins/                (local copy of plugins)
+   #   ~/scripts/swap_banner_art.sh       (banner art switcher)
+   #   ~/scripts/xinmo-swap.py            (xinmo controller utility)
+   #   ~/scripts/xinmo-swapcheck.py       (xinmo controller checker)
+   #   /opt/retropie/emulators/mame/plugins/leds/       (LED plugin for MAME)
+   #   /opt/retropie/emulators/mame/plugins/marquee/    (marquee plugin for MAME)
+   #   /opt/retropie/configs/all/autostart.sh           (system autostart script)
 8. reboot (for path to take effect)
 9. run ~/marquees/bin/analyze_games (not sudo!)
 
