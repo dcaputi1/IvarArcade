@@ -24,56 +24,80 @@ install: all
 	@mkdir -p $(INSTALL_DIR)/bin
 	
 	# Install executables
-	@echo "Installing executables to $(INSTALL_DIR)/bin..."
-	@cp -p dmarquees/dmarquees $(INSTALL_DIR)/bin/
-	@cp -p analyze_games/analyze_games $(INSTALL_DIR)/bin/
-	@echo "Installed: $(INSTALL_DIR)/bin/dmarquees"
-	@echo "Installed: $(INSTALL_DIR)/bin/analyze_games"
+	@if [ ! -f $(INSTALL_DIR)/bin/dmarquees ] || [ dmarquees/dmarquees -nt $(INSTALL_DIR)/bin/dmarquees ]; then \
+		cp -p dmarquees/dmarquees $(INSTALL_DIR)/bin/ && echo "Updated: $(INSTALL_DIR)/bin/dmarquees"; \
+	else \
+		echo "Skipped: $(INSTALL_DIR)/bin/dmarquees (up to date)"; \
+	fi
+	
+	@if [ ! -f $(INSTALL_DIR)/bin/analyze_games ] || [ analyze_games/analyze_games -nt $(INSTALL_DIR)/bin/analyze_games ]; then \
+		cp -p analyze_games/analyze_games $(INSTALL_DIR)/bin/ && echo "Updated: $(INSTALL_DIR)/bin/analyze_games"; \
+	else \
+		echo "Skipped: $(INSTALL_DIR)/bin/analyze_games (up to date)"; \
+	fi
 	
 	# Install runtime resources (images directory)
 	@if [ -d images ]; then \
-		echo "Copying images/ to $(INSTALL_DIR)/images..."; \
-		cp -a images $(INSTALL_DIR)/; \
-		echo "Installed: $(INSTALL_DIR)/images"; \
+		if [ ! -d $(INSTALL_DIR)/images ]; then \
+			cp -a images $(INSTALL_DIR)/ && echo "Updated: $(INSTALL_DIR)/images"; \
+		else \
+			echo "Skipped: $(INSTALL_DIR)/images (already exists)"; \
+		fi; \
 	fi
 	
 	# Install plugins to local directory
 	@if [ -d plugins ]; then \
-		echo "Copying plugins/ to $(INSTALL_DIR)/plugins..."; \
-		cp -a plugins $(INSTALL_DIR)/; \
-		echo "Installed: $(INSTALL_DIR)/plugins"; \
+		if [ ! -d $(INSTALL_DIR)/plugins ]; then \
+			cp -a plugins $(INSTALL_DIR)/ && echo "Updated: $(INSTALL_DIR)/plugins"; \
+		else \
+			echo "Skipped: $(INSTALL_DIR)/plugins (already exists)"; \
+		fi; \
 	fi
 	
-	# Install plugins to MAME (only if newer)
+	# Install plugins to MAME
 	@if [ -f plugins/leds/init.lua ]; then \
-		echo "Copying leds plugin to /opt/retropie/emulators/mame/plugins/leds/..."; \
 		mkdir -p /opt/retropie/emulators/mame/plugins/leds; \
-		cp -u plugins/leds/init.lua /opt/retropie/emulators/mame/plugins/leds/; \
-		cp -u plugins/leds/plugin.json /opt/retropie/emulators/mame/plugins/leds/; \
-		echo "Installed: /opt/retropie/emulators/mame/plugins/leds/"; \
+		if [ ! -f /opt/retropie/emulators/mame/plugins/leds/init.lua ] || [ plugins/leds/init.lua -nt /opt/retropie/emulators/mame/plugins/leds/init.lua ]; then \
+			cp plugins/leds/init.lua /opt/retropie/emulators/mame/plugins/leds/ && echo "Updated: /opt/retropie/emulators/mame/plugins/leds/init.lua"; \
+		else \
+			echo "Skipped: /opt/retropie/emulators/mame/plugins/leds/init.lua (up to date)"; \
+		fi; \
+		if [ ! -f /opt/retropie/emulators/mame/plugins/leds/plugin.json ] || [ plugins/leds/plugin.json -nt /opt/retropie/emulators/mame/plugins/leds/plugin.json ]; then \
+			cp plugins/leds/plugin.json /opt/retropie/emulators/mame/plugins/leds/ && echo "Updated: /opt/retropie/emulators/mame/plugins/leds/plugin.json"; \
+		else \
+			echo "Skipped: /opt/retropie/emulators/mame/plugins/leds/plugin.json (up to date)"; \
+		fi; \
 	fi
 	
 	@if [ -f plugins/marquee/init.lua ]; then \
-		echo "Copying marquee plugin to /opt/retropie/emulators/mame/plugins/marquee/..."; \
 		mkdir -p /opt/retropie/emulators/mame/plugins/marquee; \
-		cp -u plugins/marquee/init.lua /opt/retropie/emulators/mame/plugins/marquee/; \
-		cp -u plugins/marquee/plugin.json /opt/retropie/emulators/mame/plugins/marquee/; \
-		echo "Installed: /opt/retropie/emulators/mame/plugins/marquee/"; \
+		if [ ! -f /opt/retropie/emulators/mame/plugins/marquee/init.lua ] || [ plugins/marquee/init.lua -nt /opt/retropie/emulators/mame/plugins/marquee/init.lua ]; then \
+			cp plugins/marquee/init.lua /opt/retropie/emulators/mame/plugins/marquee/ && echo "Updated: /opt/retropie/emulators/mame/plugins/marquee/init.lua"; \
+		else \
+			echo "Skipped: /opt/retropie/emulators/mame/plugins/marquee/init.lua (up to date)"; \
+		fi; \
+		if [ ! -f /opt/retropie/emulators/mame/plugins/marquee/plugin.json ] || [ plugins/marquee/plugin.json -nt /opt/retropie/emulators/mame/plugins/marquee/plugin.json ]; then \
+			cp plugins/marquee/plugin.json /opt/retropie/emulators/mame/plugins/marquee/ && echo "Updated: /opt/retropie/emulators/mame/plugins/marquee/plugin.json"; \
+		else \
+			echo "Skipped: /opt/retropie/emulators/mame/plugins/marquee/plugin.json (up to date)"; \
+		fi; \
 	fi
 	
 	# Install scripts
 	@if [ -f scripts/Backup_RetroPie/home/danc/scripts/swap_banner_art.sh ]; then \
-		echo "Copying swap_banner_art.sh to /home/danc/scripts/..."; \
 		mkdir -p /home/danc/scripts; \
-		cp -u scripts/Backup_RetroPie/home/danc/scripts/swap_banner_art.sh /home/danc/scripts/; \
-		echo "Installed: /home/danc/scripts/swap_banner_art.sh"; \
+		if [ ! -f /home/danc/scripts/swap_banner_art.sh ] || [ scripts/Backup_RetroPie/home/danc/scripts/swap_banner_art.sh -nt /home/danc/scripts/swap_banner_art.sh ]; then \
+			cp scripts/Backup_RetroPie/home/danc/scripts/swap_banner_art.sh /home/danc/scripts/ && echo "Updated: /home/danc/scripts/swap_banner_art.sh"; \
+		else \
+			echo "Skipped: /home/danc/scripts/swap_banner_art.sh (up to date)"; \
+		fi; \
 	fi
 	
 	@if [ -f scripts/Backup_RetroPie/opt/retropie/configs/all/autostart.sh ]; then \
 		if [ ! -f /opt/retropie/configs/all/autostart.sh ] || [ scripts/Backup_RetroPie/opt/retropie/configs/all/autostart.sh -nt /opt/retropie/configs/all/autostart.sh ]; then \
-			echo "Copying autostart.sh to /opt/retropie/configs/all/..."; \
-			cp -u scripts/Backup_RetroPie/opt/retropie/configs/all/autostart.sh /opt/retropie/configs/all/; \
-			echo "Installed: /opt/retropie/configs/all/autostart.sh"; \
+			cp scripts/Backup_RetroPie/opt/retropie/configs/all/autostart.sh /opt/retropie/configs/all/ && echo "Updated: /opt/retropie/configs/all/autostart.sh"; \
+		else \
+			echo "Skipped: /opt/retropie/configs/all/autostart.sh (up to date)"; \
 		fi; \
 	fi
 	
