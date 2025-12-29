@@ -37,11 +37,28 @@ install: all
 		echo "Installed: $(INSTALL_DIR)/images"; \
 	fi
 	
-	# Install plugins
+	# Install plugins to local directory
 	@if [ -d plugins ]; then \
 		echo "Copying plugins/ to $(INSTALL_DIR)/plugins..."; \
 		cp -a plugins $(INSTALL_DIR)/; \
 		echo "Installed: $(INSTALL_DIR)/plugins"; \
+	fi
+	
+	# Install plugins to MAME (only if newer)
+	@if [ -f plugins/leds/init.lua ]; then \
+		echo "Copying leds plugin to /opt/retropie/emulators/mame/plugins/leds/..."; \
+		mkdir -p /opt/retropie/emulators/mame/plugins/leds; \
+		cp -u plugins/leds/init.lua /opt/retropie/emulators/mame/plugins/leds/; \
+		cp -u plugins/leds/plugin.json /opt/retropie/emulators/mame/plugins/leds/; \
+		echo "Installed: /opt/retropie/emulators/mame/plugins/leds/"; \
+	fi
+	
+	@if [ -f plugins/marquee/init.lua ]; then \
+		echo "Copying marquee plugin to /opt/retropie/emulators/mame/plugins/marquee/..."; \
+		mkdir -p /opt/retropie/emulators/mame/plugins/marquee; \
+		cp -u plugins/marquee/init.lua /opt/retropie/emulators/mame/plugins/marquee/; \
+		cp -u plugins/marquee/plugin.json /opt/retropie/emulators/mame/plugins/marquee/; \
+		echo "Installed: /opt/retropie/emulators/mame/plugins/marquee/"; \
 	fi
 	
 	# Install scripts
@@ -54,7 +71,7 @@ install: all
 	
 	@if [ -f scripts/Backup_RetroPie/opt/retropie/configs/all/autostart.sh ]; then \
 		echo "Copying autostart.sh to /opt/retropie/configs/all/..."; \
-		sudo cp -u scripts/Backup_RetroPie/opt/retropie/configs/all/autostart.sh /opt/retropie/configs/all/; \
+		cp -u scripts/Backup_RetroPie/opt/retropie/configs/all/autostart.sh /opt/retropie/configs/all/; \
 		echo "Installed: /opt/retropie/configs/all/autostart.sh"; \
 	fi
 	
