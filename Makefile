@@ -1,82 +1,102 @@
-# Makefile for marquee-drm.c
-# Single-file project with logging and clang-tidy support
+# IvarArcade Parent Makefile
+# Builds both dmarquees and analyze_games executables
 
-# Compiler
-CC = gcc
+.PHONY: all dmarquees analyze_games install clean help
 
-# Target executable
-TARGET = dmarquees
-
-# Source files
-SRCS = dmarquees.c helpers.c
-
-# Compiler and linker flags
-CFLAGS = -Wall -O2 $(shell pkg-config --cflags libdrm)
-LDFLAGS = $(shell pkg-config --libs libdrm) -lpng
-
-# Log file
-LOGFILE = build.log
-
-# Default build
-all: $(TARGET) install
-
-# Install directory (can be overridden: make INSTALL_DIR=/some/path install)
+# Install directory
 INSTALL_DIR ?= $(HOME)/marquees
 
-# Compile object file
-%.o: %.c
-	@echo "Compiling $<..."
-	@$(CC) $(CFLAGS) -c $< -o $@ 2>&1 | tee -a $(LOGFILE)
+all: dmarquees analyze_games
 
-# Link executable
-$(TARGET): $(SRCS:.c=.o)
-	@echo "Linking $@..."
-	@$(CC) -o $@ $^ $(LDFLAGS) 2>&1 | tee -a $(LOGFILE)
+# Build dmarquees
+dmarquees:
+	@echo "Building dmarquees..."
+	@$(MAKE) -C dmarquees
 
-# Install the binary to $(INSTALL_DIR)
-install: $(TARGET)
-	@echo "Installing $(TARGET) to $(INSTALL_DIR)..."
-	@mkdir -p $(INSTALL_DIR)
-	@cp -p $(TARGET) $(INSTALL_DIR)/
-	@echo "Installed: $(INSTALL_DIR)/$(TARGET)"
+# Build analyze_games
+analyze_games:
+	@echo "Building analyze_games..."
+	@$(MAKE) -C analyze_games
 
-	# Install runtime resources (images directory) if present
+# Install both executables and resources
+install: all
+	@echo "Installing IvarArcade components..."
+	@mkdir -p $(INSTALL_DIR)/bin
+	
+	# Install executables
+	@echo "Installing executables to $(INSTALL_DIR)/bin..."
+	@cp -p dmarquees/dmarquees $(INSTALL_DIR)/bin/
+	@cp -p analyze_games/analyze_games $(INSTALL_DIR)/bin/
+	@echo "Installed: $(INSTALL_DIR)/bin/dmarquees"
+	@echo "Installed: $(INSTALL_DIR)/bin/analyze_games"
+	
+	# Install runtime resources (images directory)
 	@if [ -d images ]; then \
 		echo "Copying images/ to $(INSTALL_DIR)/images..."; \
 		cp -a images $(INSTALL_DIR)/; \
 		echo "Installed: $(INSTALL_DIR)/images"; \
 	fi
-
-	# Install scripts if newer
+	
+	# Install plugins
+	@if [ -d plugins ]; then \
+		echo "Copying plugins/ to $(INSTALL_DIR)/plugins..."; \
+		cp -a plugins $(INSTALL_DIR)/; \
+		echo "Installed: $(INSTALL_DIR)/plugins"; \
+	fi
+	
+	# Install scripts
 	@if [ -f scripts/Backup_RetroPie/home/danc/scripts/swap_banner_art.sh ]; then \
 		echo "Copying swap_banner_art.sh to /home/danc/scripts/..."; \
 		mkdir -p /home/danc/scripts; \
 		cp -u scripts/Backup_RetroPie/home/danc/scripts/swap_banner_art.sh /home/danc/scripts/; \
 		echo "Installed: /home/danc/scripts/swap_banner_art.sh"; \
 	fi
-
+	
 	@if [ -f scripts/Backup_RetroPie/opt/retropie/configs/all/autostart.sh ]; then \
 		echo "Copying autostart.sh to /opt/retropie/configs/all/..."; \
 		sudo cp -u scripts/Backup_RetroPie/opt/retropie/configs/all/autostart.sh /opt/retropie/configs/all/; \
 		echo "Installed: /opt/retropie/configs/all/autostart.sh"; \
 	fi
+	
+	@echo "Installation complete!"
 
-# Uninstall (remove installed binary)
+# Clean all build artifacts
+clean:
+	@echo "Cleaning all build artifacts..."
+	@$(MAKE) -C dmarquees clean
+	@$(MAKE) -C analyze_games clean
+	@rm -f build.log
+	@echo "Clean complete."
+
+# Uninstall
 uninstall:
-	@echo "Removing $(INSTALL_DIR)/$(TARGET) if present..."
-	@rm -f $(INSTALL_DIR)/$(TARGET) || true
-	@echo "Removing $(INSTALL_DIR)/images if present..."
-	@rm -rf $(INSTALL_DIR)/images || true
-	# Try to remove the install dir if empty (don't force removal of non-empty dirs)
+	@echo "Removing installed files..."
+	@rm -f $(INSTALL_DIR)/bin/dmarquees
+	@rm -f $(INSTALL_DIR)/bin/analyze_games
+	@rm -rf $(INSTALL_DIR)/images
+	@rm -rf $(INSTALL_DIR)/plugins
+	@rmdir --ignore-fail-on-non-empty $(INSTALL_DIR)/bin || true
 	@rmdir --ignore-fail-on-non-empty $(INSTALL_DIR) || true
 	@echo "Uninstall complete."
 
-# Generate compile_commands.json safely
-compile_commands.json:
-	@echo "Generating compile_commands.json..."
-	@bear -- $(CC) $(CFLAGS) -c $(SRCS) 2>/dev/null || true
-
-# Clean build artifacts
-clean:
-	@echo "Cleaning..."
-	@rm -f $(TARGET) *.o $(LOGFILE) compile_commands.json
+# Help
+help:
+	@echo "IvarArcade Build System"
+	@echo ""
+	@echo "Available targets:"
+	@echo "  all           - Build both dmarquees and analyze_games (default)"
+	@echo "  dmarquees     - Build only dmarquees executable"
+	@echo "  analyze_games - Build only analyze_games executable"
+	@echo "  install       - Build and install all components to $(INSTALL_DIR)"
+	@echo "  clean         - Remove all build artifacts"
+	@echo "  uninstall     - Remove installed files"
+	@echo "  help          - Show this help message"
+	@echo ""
+	@echo "Variables:"
+	@echo "  INSTALL_DIR   - Installation directory (default: $(HOME)/marquees)"
+	@echo ""
+	@echo "Examples:"
+	@echo "  make"
+	@echo "  make install"
+	@echo "  make install INSTALL_DIR=/usr/local/ivararcade"
+	@echo "  make clean"
