@@ -184,16 +184,16 @@ local function on_frame()
     if s1_edge and not is_simultaneous then
         if credits >= 1 then
             credits = credits - 1
+            attract_on = false
         end
-        attract_on = false
     end
 
     -- Normal Start 2 behavior (only if not a simultaneous press)
     if s2_edge and not is_simultaneous then
         if credits >= 2 then
             credits = credits - 2
+            attract_on = false
         end
-        attract_on = false
     end
 
     last_coins1 = coin_now
