@@ -93,6 +93,24 @@ install: all
 		fi; \
 	fi
 	
+	@if [ -f scripts/Backup_RetroPie/home/danc/scripts/xinmo-swap.py ]; then \
+		mkdir -p /home/danc/scripts; \
+		if [ ! -f /home/danc/scripts/xinmo-swap.py ] || [ scripts/Backup_RetroPie/home/danc/scripts/xinmo-swap.py -nt /home/danc/scripts/xinmo-swap.py ]; then \
+			cp scripts/Backup_RetroPie/home/danc/scripts/xinmo-swap.py /home/danc/scripts/ && echo "Updated: /home/danc/scripts/xinmo-swap.py"; \
+		else \
+			echo "Skipped: /home/danc/scripts/xinmo-swap.py (up to date)"; \
+		fi; \
+	fi
+	
+	@if [ -f scripts/Backup_RetroPie/home/danc/scripts/xinmo-swapcheck.py ]; then \
+		mkdir -p /home/danc/scripts; \
+		if [ ! -f /home/danc/scripts/xinmo-swapcheck.py ] || [ scripts/Backup_RetroPie/home/danc/scripts/xinmo-swapcheck.py -nt /home/danc/scripts/xinmo-swapcheck.py ]; then \
+			cp scripts/Backup_RetroPie/home/danc/scripts/xinmo-swapcheck.py /home/danc/scripts/ && echo "Updated: /home/danc/scripts/xinmo-swapcheck.py"; \
+		else \
+			echo "Skipped: /home/danc/scripts/xinmo-swapcheck.py (up to date)"; \
+		fi; \
+	fi
+	
 	@if [ -f scripts/Backup_RetroPie/opt/retropie/configs/all/autostart.sh ]; then \
 		if [ ! -f /opt/retropie/configs/all/autostart.sh ] || [ scripts/Backup_RetroPie/opt/retropie/configs/all/autostart.sh -nt /opt/retropie/configs/all/autostart.sh ]; then \
 			cp scripts/Backup_RetroPie/opt/retropie/configs/all/autostart.sh /opt/retropie/configs/all/ && echo "Updated: /opt/retropie/configs/all/autostart.sh"; \
