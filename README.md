@@ -26,13 +26,26 @@ See [analyze_games/README.md](analyze_games/README.md) for details.
 ## Quick Start
 
 ### Build Everything
+
+**Linux (Make):**
 ```bash
 make
 ```
 
+**Cross-platform (CMake):**
+```bash
+mkdir build && cd build
+cmake ..
+cmake --build .
+```
+
+See [BUILDING.md](BUILDING.md) for detailed build instructions including Windows support.
+
 ### Install Everything
 ```bash
-make install
+make install  # Make build system
+# or
+cmake --install build  # CMake build system
 ```
 
 This installs executables to `$HOME/marquees/bin/` and copies shared resources (images, plugins, scripts).
@@ -43,22 +56,19 @@ make dmarquees      # Build only the marquee daemon
 make analyze_games  # Build only the game analyzer
 ```
 
-### Clean Build Artifacts
-```bash
-make clean
-```
-
 ## Dependencies
 
-### For dmarquees:
+See [BUILDING.md](BUILDING.md) for complete build instructions for Linux and Windows.
+
+### Linux (RetroPie/Raspberry Pi)
 ```bash
-sudo apt install libdrm-dev libpng-dev pkg-config
+sudo apt install libdrm-dev libpng-dev libtinyxml2-dev pkg-config cmake
 ```
 
-### For analyze_games:
-```bash
-sudo apt install libtinyxml2-dev
-```
+### Windows
+- Visual Studio 2019+ with C++ support
+- CMake 3.15+
+- vcpkg for dependencies (tinyxml2)
 
 ## Project Structure
 
@@ -70,6 +80,15 @@ IvarArcade/
 ├── plugins/          # EmulationStation plugins
 └── scripts/          # Utility scripts and backups
 ```
+
+## Platform Support
+
+| Component      | Linux | Windows | macOS |
+|----------------|-------|---------|-------|
+| dmarquees      | ✅    | ❌      | ❌    |
+| analyze_games  | ✅    | ✅      | ✅    |
+
+**Note:** dmarquees requires Linux DRM and is not available on other platforms. analyze_games is fully cross-platform.
 
 ## License
 

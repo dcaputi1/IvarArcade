@@ -9,3 +9,19 @@ analyze_games/analyze_games
 
 # Backup files
 Makefile.old
+
+# CMake build artifacts
+build/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+*.cmake
+!CMakeLists.txt
+
+# IDE files
+.vs/
+.vscode/settings.json
+*.user
+*.suo
+*.sln
+*.vcxproj*
