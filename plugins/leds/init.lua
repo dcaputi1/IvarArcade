@@ -159,12 +159,14 @@ local function on_frame()
     
     -- Check for simultaneous press (both buttons pressed within time window)
     local is_simultaneous = false
-    if s1_currently_pressed and s2_currently_pressed and not swap_triggered then
+    if s1_currently_pressed and s2_currently_pressed then
         local time_diff = math.abs(start1_press_time - start2_press_time)
         if time_diff <= SIMULTANEOUS_WINDOW then
             is_simultaneous = true
-            swap_triggered = true
-            trigger_swap_banner_art()
+            if not swap_triggered then
+                swap_triggered = true
+                trigger_swap_banner_art()
+            end
         end
     end
     
@@ -184,7 +186,6 @@ local function on_frame()
             credits = credits - 1
         end
         attract_on = false
-        set_led_mask(0x00)
     end
 
     -- Normal Start 2 behavior (only if not a simultaneous press)
@@ -193,7 +194,6 @@ local function on_frame()
             credits = credits - 2
         end
         attract_on = false
-        set_led_mask(0x00)
     end
 
     last_coins1 = coin_now
