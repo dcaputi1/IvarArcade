@@ -55,7 +55,7 @@
 #define DEVICE_PATH "/dev/dri/card1"
 #define IMAGE_DIR "/home/danc/mnt/marquees"
 #define CMD_FIFO "/tmp/dmarquees_cmd"
-#define PROGRAM_DIR "/home/danc/marquees"
+#define PROGRAM_DIR "/home/danc/IvarArcade"
 #define DEF_MARQUEE_DIR PROGRAM_DIR "/images"
 #define DEF_MARQUEE_NAME "RetroPieMarquee"
 #define DEF_RA_MARQUEE_NAME "RetroArch_logo"

@@ -35,8 +35,8 @@ setup_dmarquees()
     local ZIP="/home/danc/MAME_0.256_EXTRAs/marquees.zip"
     local MNT="/home/danc/mnt/marquees"
     local CMD_FIFO="/tmp/dmarquees_cmd"
-    local DAEMON="/home/danc/marquees/bin/dmarquees"
-    local LOG="/home/danc/marquees/dmarquees.log"
+    local DAEMON="/home/danc/IvarArcade/bin/dmarquees"
+    local LOG="/home/danc/IvarArcade/dmarquees.log"
 
     echo "[autostart] Setting up marquee..."
 
@@ -94,7 +94,7 @@ shutdown_dmarquees()
 {
     local MNT="/home/danc/mnt/marquees"
     local CMD_FIFO="/tmp/dmarquees_cmd"
-    local LOG="/home/danc/marquees/dmarquees.log"
+    local LOG="/home/danc/IvarArcade/dmarquees.log"
 
     echo "[autostart] Shutting down marquees..."
 
