@@ -70,9 +70,11 @@ install: all
 	fi
 	
 	@if [ -f scripts/Backup_RetroPie/opt/retropie/configs/all/autostart.sh ]; then \
-		echo "Copying autostart.sh to /opt/retropie/configs/all/..."; \
-		cp -u scripts/Backup_RetroPie/opt/retropie/configs/all/autostart.sh /opt/retropie/configs/all/; \
-		echo "Installed: /opt/retropie/configs/all/autostart.sh"; \
+		if [ ! -f /opt/retropie/configs/all/autostart.sh ] || [ scripts/Backup_RetroPie/opt/retropie/configs/all/autostart.sh -nt /opt/retropie/configs/all/autostart.sh ]; then \
+			echo "Copying autostart.sh to /opt/retropie/configs/all/..."; \
+			cp -u scripts/Backup_RetroPie/opt/retropie/configs/all/autostart.sh /opt/retropie/configs/all/; \
+			echo "Installed: /opt/retropie/configs/all/autostart.sh"; \
+		fi; \
 	fi
 	
 	@echo "Installation complete!"
