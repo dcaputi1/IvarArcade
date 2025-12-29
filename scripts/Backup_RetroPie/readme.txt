@@ -22,11 +22,19 @@ steps:
 3. create empty files: breakout.zip and pong.zip in ~/RetroPie/roms/arcade
 4. add paths for mame and (optional) retroarch, frontends to /etc/profile (user long path)
   :/opt/retropie/emulators/mame:/opt/retropie/emulators/retroarch/bin
-5. run sudo ./analyze_games.sh to install tinyxml2 (so python can parse mame metadata)
+5. run sudo ./analyze_games.sh to install tinyxml2 and python3-hid packages
 6. mkdir /opt/retropie/configs/all/retroarch/config/MAME (a.mkdir ...config, b.MAME)
-7. g++ analyze_games.cpp -ltinyxml2 -std=c++17 -o analyze_games (rebuild w/ latest so.x)
+7. build and install IvarArcade project:
+   cd ~/IvarArcade
+   make                                    # build both executables
+   make install                            # deploys to ~/marquees/bin/
+   # This installs:
+   #   ~/marquees/bin/dmarquees           (marquee daemon, used by autostart.sh)
+   #   ~/marquees/bin/analyze_games       (game analyzer)
+   #   ~/marquees/images/                 (runtime resources)
+   #   ~/marquees/plugins/                (LED/marquee plugins)
 8. reboot (for path to take effect)
-9. run ./analyze_games (not sudo!)
+9. run ~/marquees/bin/analyze_games (not sudo!)
 
 optional:
 A. sudo apt install meld
