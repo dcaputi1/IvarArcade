@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TIMEOUT=10
+TIMEOUT=60
 BASE_PATH="/opt/retropie/emulators/mame"
 CFG_PATH="$BASE_PATH/cfg"
 INI_PATH="$BASE_PATH/ini"
@@ -244,7 +244,7 @@ if [ $status -eq 1 ]; then
 fi
 
 # Invoke the "Choice" dialog box menu...
-CHOICE=$(dialog --timeout $TIMEOUT --title "Arcade Menu" --default-item "$DEF_KEY" --menu "Choose Your Font-End:" 15 50 4 \
+CHOICE=$(dialog --timeout $TIMEOUT --title "Arcade Menu" --default-item "$DEF_KEY" --menu "Choose Fontend: (timeout 1 min.)" 15 50 4 \
       "${MENU_ITEMS[@]}" \
        2>&1 > /dev/tty)
 
