@@ -18,12 +18,20 @@ analyze_games:
 	@echo "Building analyze_games..."
 	@$(MAKE) -C analyze_games
 
+# Define installation lists
+SCRIPTS_TO_INSTALL = \
+	swap_banner_art.sh \
+	xinmo-swap.py \
+	xinmo-swapcheck.py \
+	leds_off.py \
+	set_leds.py
+
 # Install both executables and resources
 install: all
 	@echo "Installing IvarArcade components..."
 	@mkdir -p $(INSTALL_DIR)/bin
 	
-	# Install executables
+	@# Install executables
 	@if [ ! -f $(INSTALL_DIR)/bin/dmarquees ] || [ dmarquees/dmarquees -nt $(INSTALL_DIR)/bin/dmarquees ]; then \
 		cp -p dmarquees/dmarquees $(INSTALL_DIR)/bin/ && echo "Updated: $(INSTALL_DIR)/bin/dmarquees"; \
 	else \
@@ -36,7 +44,7 @@ install: all
 		echo "Skipped: $(INSTALL_DIR)/bin/analyze_games (up to date)"; \
 	fi
 	
-	# Install runtime resources (images directory)
+	@# Install runtime resources (images directory)
 	@if [ -d images ]; then \
 		if [ ! -d $(INSTALL_DIR)/images ]; then \
 			cp -a images $(INSTALL_DIR)/ && echo "Updated: $(INSTALL_DIR)/images"; \
@@ -45,7 +53,7 @@ install: all
 		fi; \
 	fi
 	
-	# Install plugins to local directory
+	@# Install plugins to local directory
 	@if [ -d plugins ]; then \
 		if [ ! -d $(INSTALL_DIR)/plugins ]; then \
 			cp -a plugins $(INSTALL_DIR)/ && echo "Updated: $(INSTALL_DIR)/plugins"; \
@@ -54,7 +62,7 @@ install: all
 		fi; \
 	fi
 	
-	# Install plugins to MAME
+	@# Install plugins to MAME
 	@if [ -f plugins/leds/init.lua ]; then \
 		mkdir -p /opt/retropie/emulators/mame/plugins/leds; \
 		if [ ! -f /opt/retropie/emulators/mame/plugins/leds/init.lua ] || [ plugins/leds/init.lua -nt /opt/retropie/emulators/mame/plugins/leds/init.lua ]; then \
@@ -83,34 +91,21 @@ install: all
 		fi; \
 	fi
 	
-	# Install scripts
-	@if [ -f scripts/Backup_RetroPie/home/danc/scripts/swap_banner_art.sh ]; then \
-		mkdir -p /home/danc/scripts; \
-		if [ ! -f /home/danc/scripts/swap_banner_art.sh ] || [ scripts/Backup_RetroPie/home/danc/scripts/swap_banner_art.sh -nt /home/danc/scripts/swap_banner_art.sh ]; then \
-			cp scripts/Backup_RetroPie/home/danc/scripts/swap_banner_art.sh /home/danc/scripts/ && echo "Updated: /home/danc/scripts/swap_banner_art.sh"; \
-		else \
-			echo "Skipped: /home/danc/scripts/swap_banner_art.sh (up to date)"; \
+	@# Install scripts using list
+	@mkdir -p /home/danc/scripts
+	@for script in $(SCRIPTS_TO_INSTALL); do \
+		src="scripts/Backup_RetroPie/home/danc/scripts/$$script"; \
+		dest="/home/danc/scripts/$$script"; \
+		if [ -f "$$src" ]; then \
+			if [ ! -f "$$dest" ] || [ "$$src" -nt "$$dest" ]; then \
+				cp "$$src" "$$dest" && echo "Updated: $$dest"; \
+			else \
+				echo "Skipped: $$dest (up to date)"; \
+			fi; \
 		fi; \
-	fi
+	done
 	
-	@if [ -f scripts/Backup_RetroPie/home/danc/scripts/xinmo-swap.py ]; then \
-		mkdir -p /home/danc/scripts; \
-		if [ ! -f /home/danc/scripts/xinmo-swap.py ] || [ scripts/Backup_RetroPie/home/danc/scripts/xinmo-swap.py -nt /home/danc/scripts/xinmo-swap.py ]; then \
-			cp scripts/Backup_RetroPie/home/danc/scripts/xinmo-swap.py /home/danc/scripts/ && echo "Updated: /home/danc/scripts/xinmo-swap.py"; \
-		else \
-			echo "Skipped: /home/danc/scripts/xinmo-swap.py (up to date)"; \
-		fi; \
-	fi
-	
-	@if [ -f scripts/Backup_RetroPie/home/danc/scripts/xinmo-swapcheck.py ]; then \
-		mkdir -p /home/danc/scripts; \
-		if [ ! -f /home/danc/scripts/xinmo-swapcheck.py ] || [ scripts/Backup_RetroPie/home/danc/scripts/xinmo-swapcheck.py -nt /home/danc/scripts/xinmo-swapcheck.py ]; then \
-			cp scripts/Backup_RetroPie/home/danc/scripts/xinmo-swapcheck.py /home/danc/scripts/ && echo "Updated: /home/danc/scripts/xinmo-swapcheck.py"; \
-		else \
-			echo "Skipped: /home/danc/scripts/xinmo-swapcheck.py (up to date)"; \
-		fi; \
-	fi
-	
+	@# Install autostart.sh
 	@if [ -f scripts/Backup_RetroPie/opt/retropie/configs/all/autostart.sh ]; then \
 		if [ ! -f /opt/retropie/configs/all/autostart.sh ] || [ scripts/Backup_RetroPie/opt/retropie/configs/all/autostart.sh -nt /opt/retropie/configs/all/autostart.sh ]; then \
 			cp scripts/Backup_RetroPie/opt/retropie/configs/all/autostart.sh /opt/retropie/configs/all/ && echo "Updated: /opt/retropie/configs/all/autostart.sh"; \
