@@ -1,4 +1,4 @@
-lssteps to create an SD image baseline
+steps to create an SD image baseline
 
 preliminary:
 a. use pi imager tool to create an SD pi5 64-bit full OS image with:
@@ -13,7 +13,9 @@ f. reboot and run:
 > cd RetroPie-Setup
 > sudo ./retropie_setup.sh
 g. install all core packs
+   12/30/2025 - RetroArch must be installed from source! (compatable with lr-mame)
 h. install experimental lr-mame (~2 hours from source)
+   12/30/2025 - TBD test install from binary
 i. enable autostart emulationstation
 
 steps:
@@ -25,22 +27,11 @@ steps:
 5. run sudo ./analyze_games.sh to install tinyxml2 and python3-hid packages
 6. mkdir /opt/retropie/configs/all/retroarch/config/MAME (a.mkdir ...config, b.MAME)
 7. clone, build and install IvarArcade project:
-   cd ~
-   git clone <repository-url> IvarArcade  # clone the IvarArcade project
-   cd IvarArcade
-   make                                    # build both executables
-   sudo make install                       # deploys binaries, scripts, plugins, and resources
-   # This installs:
-   #   ~/marquees/bin/dmarquees           (marquee daemon, used by autostart.sh)
-   #   ~/marquees/bin/analyze_games       (game analyzer)
-   #   ~/marquees/images/                 (runtime resources - default marquees)
-   #   ~/marquees/plugins/                (local copy of plugins)
-   #   ~/scripts/swap_banner_art.sh       (banner art switcher)
-   #   ~/scripts/xinmo-swap.py            (xinmo controller utility)
-   #   ~/scripts/xinmo-swapcheck.py       (xinmo controller checker)
-   #   /opt/retropie/emulators/mame/plugins/leds/       (LED plugin for MAME)
-   #   /opt/retropie/emulators/mame/plugins/marquee/    (marquee plugin for MAME)
-   #   /opt/retropie/configs/all/autostart.sh           (system autostart script)
+> cd ~
+> git clone https://github.com/dcaputi1/IvarArcade.git
+> cd IvarArcade
+> make all
+> make install # deploys binaries, scripts, plugins, etc...
 8. reboot (for path to take effect)
 9. run ~/marquees/bin/analyze_games (not sudo!)
 
@@ -49,5 +40,6 @@ A. sudo apt install meld
 B. sudo apt install joystick
 C. sudo apt install jstest-gtk
 D. sudo apt install code
-E. sudo apt install fuse-zip (not optional: mounts zip file w/ PNGs)
+required:
+E. sudo apt install fuse-zip (mounts zip file w/ PNGs)
    sudo nano /etc/fuse.conf and uncomment #user_allow_other

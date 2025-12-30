@@ -26,6 +26,13 @@ SCRIPTS_TO_INSTALL = \
 	leds_off.py \
 	set_leds.py
 
+BACKUP_FILES = \
+	readme.txt \
+	analyze_games.sh \
+	cp_opt.sh \
+	cp_roms.sh \
+	rm_cfg.sh
+
 # Install both executables and resources
 install: all
 	@echo "Installing IvarArcade components..."
@@ -94,7 +101,7 @@ install: all
 	@# Install scripts using list
 	@mkdir -p /home/danc/scripts
 	@for script in $(SCRIPTS_TO_INSTALL); do \
-		src="scripts/Backup_RetroPie/home/danc/scripts/$$script"; \
+		src="Backup_RetroPie/home/danc/scripts/$$script"; \
 		dest="/home/danc/scripts/$$script"; \
 		if [ -f "$$src" ]; then \
 			if [ ! -f "$$dest" ] || [ "$$src" -nt "$$dest" ]; then \
@@ -106,12 +113,29 @@ install: all
 	done
 	
 	@# Install autostart.sh
-	@if [ -f scripts/Backup_RetroPie/opt/retropie/configs/all/autostart.sh ]; then \
-		if [ ! -f /opt/retropie/configs/all/autostart.sh ] || [ scripts/Backup_RetroPie/opt/retropie/configs/all/autostart.sh -nt /opt/retropie/configs/all/autostart.sh ]; then \
-			cp scripts/Backup_RetroPie/opt/retropie/configs/all/autostart.sh /opt/retropie/configs/all/ && echo "Updated: /opt/retropie/configs/all/autostart.sh"; \
+	@if [ -f Backup_RetroPie/opt/retropie/configs/all/autostart.sh ]; then \
+		if [ ! -f /opt/retropie/configs/all/autostart.sh ] || [ Backup_RetroPie/opt/retropie/configs/all/autostart.sh -nt /opt/retropie/configs/all/autostart.sh ]; then \
+			cp Backup_RetroPie/opt/retropie/configs/all/autostart.sh /opt/retropie/configs/all/ && echo "Updated: /opt/retropie/configs/all/autostart.sh"; \
 		else \
 			echo "Skipped: /opt/retropie/configs/all/autostart.sh (up to date)"; \
 		fi; \
+	fi
+	
+	@# Install backup files to backup location
+	@if [ -d /media/danc/ExtremeSSD/Backup_RetroPie ]; then \
+		for file in $(BACKUP_FILES); do \
+			src="Backup_RetroPie/$$file"; \
+			dest="/media/danc/ExtremeSSD/Backup_RetroPie/$$file"; \
+			if [ -f "$$src" ]; then \
+				if [ ! -f "$$dest" ] || [ "$$src" -nt "$$dest" ]; then \
+					cp "$$src" "$$dest" && echo "Updated: $$dest"; \
+				else \
+					echo "Skipped: $$dest (up to date)"; \
+				fi; \
+			fi; \
+		done; \
+	else \
+		echo "Error: /media/danc/ExtremeSSD/Backup_RetroPie does not exist (SSD not mounted?)"; \
 	fi
 	
 	@echo "Installation complete!"

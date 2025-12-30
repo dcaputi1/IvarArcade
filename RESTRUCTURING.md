@@ -53,7 +53,7 @@ marquees/ (IvarArcade)
 - Now: `$HOME/marquees/bin/dmarquees` and `$HOME/marquees/bin/analyze_games`
 
 ### 4. Script Updates
-The [autostart.sh](scripts/Backup_RetroPie/opt/retropie/configs/all/autostart.sh) script has been updated to reference the new binary location.
+The [autostart.sh](Backup_RetroPie/opt/retropie/configs/all/autostart.sh) script has been updated to reference the new binary location.
 
 ## Build Commands
 
