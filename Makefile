@@ -33,6 +33,14 @@ BACKUP_FILES = \
 	cp_roms.sh \
 	rm_cfg.sh
 
+ALL_CONFIGS = \
+	autostart.sh \
+	emulators.cfg \
+	retroarch-core-options.cfg \
+	retroarch.cfg \
+	runcommand-onend.sh \
+	runcommand-onlaunch.sh
+
 # Install both executables and resources
 install: all
 	@echo "Installing IvarArcade components..."
@@ -112,14 +120,19 @@ install: all
 		fi; \
 	done
 	
-	@# Install autostart.sh
-	@if [ -f Backup_RetroPie/opt/retropie/configs/all/autostart.sh ]; then \
-		if [ ! -f /opt/retropie/configs/all/autostart.sh ] || [ Backup_RetroPie/opt/retropie/configs/all/autostart.sh -nt /opt/retropie/configs/all/autostart.sh ]; then \
-			cp Backup_RetroPie/opt/retropie/configs/all/autostart.sh /opt/retropie/configs/all/ && echo "Updated: /opt/retropie/configs/all/autostart.sh"; \
-		else \
-			echo "Skipped: /opt/retropie/configs/all/autostart.sh (up to date)"; \
+	@# Install all config files using list
+	@mkdir -p /opt/retropie/configs/all
+	@for config in $(ALL_CONFIGS); do \
+		src="Backup_RetroPie/opt/retropie/configs/all/$$config"; \
+		dest="/opt/retropie/configs/all/$$config"; \
+		if [ -f "$$src" ]; then \
+			if [ ! -f "$$dest" ] || [ "$$src" -nt "$$dest" ]; then \
+				cp "$$src" "$$dest" && echo "Updated: $$dest"; \
+			else \
+				echo "Skipped: $$dest (up to date)"; \
+			fi; \
 		fi; \
-	fi
+	done
 	
 	@# Install backup files to backup location
 	@if [ -d /media/danc/ExtremeSSD/Backup_RetroPie ]; then \
