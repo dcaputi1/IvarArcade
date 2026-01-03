@@ -1,0 +1,20 @@
+﻿#
+# PLUGINS OPTIONS
+#
+leds                      1
+autofire                  0
+inputmacro                0
+console                   0
+timer                     0
+dummy                     0
+layout                    1
+timecode                  0
+nvdiff                    0
+gdbstub                   0
+discord                   0
+cheat                     0
+portname                  0
+cheatfind                 0
+marquee                   0
+data                      1
+hiscore                   0

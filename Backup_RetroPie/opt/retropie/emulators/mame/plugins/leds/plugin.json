@@ -1,0 +1,10 @@
+{
+  "plugin": {
+    "name": "leds",
+    "version": "1.2.7",
+    "description": "LED control plugin",
+    "author": "Dan ChatGPT",
+    "type": "plugin",
+    "start": "true"
+  }
+}

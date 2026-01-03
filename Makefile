@@ -26,13 +26,6 @@ SCRIPTS_TO_INSTALL = \
 	leds_off.py \
 	set_leds.py
 
-BACKUP_FILES = \
-	readme.txt \
-	analyze_games.sh \
-	cp_opt.sh \
-	cp_roms.sh \
-	rm_cfg.sh
-
 ALL_CONFIGS = \
 	autostart.sh \
 	emulators.cfg \
@@ -134,21 +127,12 @@ install: all
 		fi; \
 	done
 	
-	@# Install backup files to backup location
-	@if [ -d /media/danc/ExtremeSSD/Backup_RetroPie ]; then \
-		for file in $(BACKUP_FILES); do \
-			src="Backup_RetroPie/$$file"; \
-			dest="/media/danc/ExtremeSSD/Backup_RetroPie/$$file"; \
-			if [ -f "$$src" ]; then \
-				if [ ! -f "$$dest" ] || [ "$$src" -nt "$$dest" ]; then \
-					cp "$$src" "$$dest" && echo "Updated: $$dest"; \
-				else \
-					echo "Skipped: $$dest (up to date)"; \
-				fi; \
-			fi; \
-		done; \
+	@# Sync Backup_RetroPie contents back to system (only newer files)
+	@if [ ! -d Backup_RetroPie ]; then \
+		echo "Error: Backup_RetroPie source directory missing"; \
 	else \
-		echo "Error: /media/danc/ExtremeSSD/Backup_RetroPie does not exist (SSD not mounted?)"; \
+		rsync -av --update --no-perms --no-owner --no-group --omit-dir-times --info=NAME,STATS Backup_RetroPie/opt/ /opt/; \
+		rsync -av --update --no-perms --no-owner --no-group --omit-dir-times --info=NAME,STATS Backup_RetroPie/home/ /home/; \
 	fi
 	
 	@echo "Installation complete!"

@@ -1,0 +1,10 @@
+{
+  "plugin": {
+    "name": "nvdiff",
+    "version": "1.0.0",
+    "description": "Diff nvram files",
+    "author": "Dan ChatGPT",
+    "type": "plugin",
+    "start": "true"
+  }
+}
