@@ -1,4 +1,4 @@
-local VERSION = "1.2.7"
+local VERSION = "1.3.0"
 
 local exports = {
     name = "leds",
@@ -16,6 +16,7 @@ local leds = exports
 
 local SCRIPT_PATH = "/home/danc/scripts/"
 local SCRIPT_FILE = "set_leds.py"
+local SWAP_BANNER_SCRIPT = "/home/danc/scripts/swap_banner_art.sh"
 
 -----------------------------------------------------------
 -- Internal State
@@ -36,6 +37,12 @@ local credits = 0
 local last_coins1 = 0
 local last_start1 = 0
 local last_start2 = 0
+
+-- Simultaneous button press detection
+local SIMULTANEOUS_WINDOW = 0.15  -- 150ms window to detect simultaneous press
+local start1_press_time = 0
+local start2_press_time = 0
+local swap_triggered = false
 
 -----------------------------------------------------------
 -- Helper Functions
@@ -93,6 +100,16 @@ local function is_pressed(current, field)
     return ((current & field.mask) ~ field.defvalue) ~= 0
 end
 
+local function trigger_swap_banner_art()
+    print("LEDS Plugin: Simultaneous start button press detected! Swapping banner art...")
+    local result = os.execute(SWAP_BANNER_SCRIPT)
+    if result then
+        print("LEDS Plugin: Banner art swap completed successfully.")
+    else
+        print("LEDS Plugin: Banner art swap failed.")
+    end
+end
+
 local function cleanup_notifiers()
     if reset_subscriber then
         emu.remove_notifier(reset_subscriber)
@@ -121,28 +138,62 @@ local function on_frame()
     local coin_now = coins1.port:read()
     local s1_now = start1.port:read()
     local s2_now = start2.port:read()
+    
+    local current_time = os.clock()
+    
+    local s1_currently_pressed = is_pressed(s1_now, start1.field)
+    local s2_currently_pressed = is_pressed(s2_now, start2.field)
+    
+    -- Detect rising edge on Start 1
+    local s1_edge = s1_currently_pressed and s1_now ~= last_start1
+    -- Detect rising edge on Start 2
+    local s2_edge = s2_currently_pressed and s2_now ~= last_start2
+
+    -- Update press times on rising edges
+    if s1_edge then
+        start1_press_time = current_time
+    end
+    if s2_edge then
+        start2_press_time = current_time
+    end
+    
+    -- Check for simultaneous press (both buttons pressed within time window)
+    local is_simultaneous = false
+    if s1_currently_pressed and s2_currently_pressed then
+        local time_diff = math.abs(start1_press_time - start2_press_time)
+        if time_diff <= SIMULTANEOUS_WINDOW then
+            is_simultaneous = true
+            if not swap_triggered then
+                swap_triggered = true
+                trigger_swap_banner_art()
+            end
+        end
+    end
+    
+    -- Reset swap trigger when both buttons are released
+    if not s1_currently_pressed and not s2_currently_pressed then
+        swap_triggered = false
+    end
 
     -- Detect rising edge on Coin 1
     if is_pressed(coin_now, coins1.field) and coin_now ~= last_coins1 then
         credits = credits + 1
     end
 
-    -- Detect rising edge on Start 1
-    if is_pressed(s1_now, start1.field) and s1_now ~= last_start1 then
+    -- Normal Start 1 behavior (only if not a simultaneous press)
+    if s1_edge and not is_simultaneous then
         if credits >= 1 then
             credits = credits - 1
+            attract_on = false
         end
-        attract_on = false
-        set_led_mask(0x00)
     end
 
-    -- Detect rising edge on Start 2
-    if is_pressed(s2_now, start2.field) and s2_now ~= last_start2 then
+    -- Normal Start 2 behavior (only if not a simultaneous press)
+    if s2_edge and not is_simultaneous then
         if credits >= 2 then
             credits = credits - 2
+            attract_on = false
         end
-        attract_on = false
-        set_led_mask(0x00)
     end
 
     last_coins1 = coin_now
@@ -173,6 +224,9 @@ local function on_game_start()
     last_start1 = 0
     last_start2 = 0
     credits = 0
+    start1_press_time = 0
+    start2_press_time = 0
+    swap_triggered = false
     
     local gamename = emu.romname()
     if gamename == "___empty" then return end
