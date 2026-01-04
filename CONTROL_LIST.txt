@@ -1,0 +1,979 @@
+╔════════════════════════════════════════════════════════════════════╗
+║           COMPREHENSIVE INPUT DEVICE LISTING                      ║
+║   ALL Control Types: Joysticks, Buttons, Wheels, Pedals, etc.    ║
+╚════════════════════════════════════════════════════════════════════╝
+
+Generated from MAME 0.276 machine definitions
+This file shows EVERY input device each game requires:
+  - Joysticks (with direction ways)
+  - All buttons and their counts
+  - Analog controls (pedals, paddles, dials, wheels)
+  - Specialized input (trackballs, light guns, flight yokes)
+Use this to understand your hardware mapping requirements.
+
+
+═══════════════════════════════════════════════════════════════════
+breakout - Breakout [TTL]
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • paddle (1 buttons)
+        → Paddle/Potentiometer (analog horizontal)
+    Player 2:
+      • paddle
+        → Paddle/Potentiometer (analog horizontal)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: Antenna
+
+═══════════════════════════════════════════════════════════════════
+crusnusa - Cruis'n USA
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • paddle (8 buttons)
+        → Paddle/Potentiometer (analog horizontal)
+      • pedal
+        → Pedal/Throttle (analog axis)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: Motion Status - Mat Not Plugged In
+    Button 2: Motion Status - Mat Stepped On
+    Button 3: Motion Status - Opto Path Broken
+    Button 4: Motion Status - Opto Detector Not Receiving
+    Button 5: Motion Status - Opto LED Not Emitting
+    Button 6: Motion Status - Fail Safe Switch Engaged
+    Button 7: Motion Status - Fail Safe Switch Not Connected Correctly
+    Button 8: Motion Status - Board Not Plugged In
+    Button 9: Motion Stop
+    Button 10: Motion Status - Device 1
+    Button 11: Motion Status - Device 2
+    Button 12: Motion Status - Device 3
+    Button 13: Motion Status - Device 4
+
+  ⚠ INCOMPLETE LABEL DATA:
+    Source: midway/midvunit.cpp | Downloaded | Trying: [crusnusa, midvunit] | Found 13 labels (⚠ expected 8 for 8 declared buttons)
+
+═══════════════════════════════════════════════════════════════════
+joust - Joust
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • joy (1 buttons) 2-way
+        → Joystick (2-way, 8 directions)
+    Player 2:
+      • joy (1 buttons) 2-way
+        → Joystick (2-way, 8 directions)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: Auto Up / Manual Down
+    Button 2: Advance
+    Button 3: High Score Reset
+
+  ⚠ INCOMPLETE LABEL DATA:
+    Source: midway/williams.cpp | Downloaded | Trying: [joust, williams] | Found 3 labels (⚠ expected 2 for 2 declared buttons)
+
+═══════════════════════════════════════════════════════════════════
+junglek - Jungle King
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • joy (1 buttons) 8-way
+        → Joystick (8-way, 8 directions)
+    Player 2:
+      • joy (1 buttons) 8-way
+        → Joystick (8-way, 8 directions)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: P1 1st Gear
+    Button 2: P1 2nd Gear
+    Button 3: P1 3rd Gear
+    Button 4: P2 1st Gear
+    Button 5: P2 2nd Gear
+    Button 6: P2 3rd Gear
+
+  ⚠ INCOMPLETE LABEL DATA:
+    Source: taito/taitosj.cpp | Downloaded | Trying: [junglek, taitosj] | Found 6 labels (⚠ expected 2 for 2 declared buttons)
+
+═══════════════════════════════════════════════════════════════════
+marble - Marble Madness
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • trackball
+        → Trackball (X/Y positioning, analog)
+    Player 2:
+      • trackball
+        → Trackball (X/Y positioning, analog)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: Left Throw/P1 Start
+    Button 2: Right Throw/P2 Start
+    Button 3: Jump
+
+═══════════════════════════════════════════════════════════════════
+missile - Missile Command
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • trackball (3 buttons)
+        → Trackball (X/Y positioning, analog) + 3 buttons
+    Player 2:
+      • trackball (3 buttons)
+        → Trackball (X/Y positioning, analog) + 3 buttons
+
+  ⚠ BUTTON LABEL LOOKUP FAILED:
+    Source: atari/missile.cpp | Downloaded | Trying: [missile, missile] | No INPUT_PORTS blocks matched (check driver structure)
+
+═══════════════════════════════════════════════════════════════════
+mpatrol - Moon Patrol
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • joy (2 buttons) 2-way
+        → Joystick (2-way, 8 directions)
+    Player 2:
+      • joy (2 buttons) 2-way
+        → Joystick (2-way, 8 directions)
+
+  ⚠ BUTTON LABEL LOOKUP FAILED:
+    Source: irem/m52.cpp | Downloaded | Trying: [mpatrol, m52] | No INPUT_PORTS blocks matched (check driver structure)
+
+═══════════════════════════════════════════════════════════════════
+mk - Mortal Kombat
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • joy (6 buttons) 8-way
+        → Joystick (8-way, 8 directions)
+    Player 2:
+      • joy (6 buttons) 8-way
+        → Joystick (8-way, 8 directions)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: P1 High Punch
+    Button 2: P1 Block
+    Button 3: P1 High Kick
+    Button 4: P2 High Punch
+    Button 5: P2 Block
+    Button 6: P2 High Kick
+    Button 7: P2 Low Punch
+    Button 8: P2 Low Kick
+    Button 9: P2 Block 2
+    Button 10: P1 Low Punch
+    Button 11: P1 Low Kick
+    Button 12: P1 Block 2
+
+═══════════════════════════════════════════════════════════════════
+outrun - Out Run
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • paddle (1 buttons)
+        → Paddle/Potentiometer (analog horizontal)
+      • pedal
+        → Pedal/Throttle (analog axis)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: Gear Shift
+
+═══════════════════════════════════════════════════════════════════
+pacman - Pac-man
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • joy 4-way
+        → Joystick (4-way, 8 directions)
+    Player 2:
+      • joy 4-way
+        → Joystick (4-way, 8 directions)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: Start 1 / P1 Button 1
+    Button 2: Start 2 / P1 Button 1
+
+═══════════════════════════════════════════════════════════════════
+polepos - Pole Position
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • dial (1 buttons)
+        → Dial/Spinner (analog rotary)
+      • pedal
+        → Pedal/Throttle (analog axis)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: Gear Change
+
+═══════════════════════════════════════════════════════════════════
+pong - Pong (Rev E) external [TTL]
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • paddle
+        → Paddle/Potentiometer (analog horizontal)
+    Player 2:
+      • paddle
+        → Paddle/Potentiometer (analog horizontal)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: Antenna
+
+═══════════════════════════════════════════════════════════════════
+redbaron - Red Baron
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • joy (1 buttons) 4-way
+        → Joystick (4-way, 8 directions)
+      • stick
+        → Stick/Joystick (4-way or 8-way movement)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: Armor Piercing (Single Shot)
+    Button 2: High Explosive (Single Shot)
+    Button 3: Armor Piercing (Low Rate)
+    Button 4: High Explosive (Low Rate)
+    Button 5: Armor Piercing (High Rate)
+    Button 6: High Explosive (High Rate)
+    Button 7: Select TOW Missiles
+    Button 8: 7.62 mm Machine Gun
+    Button 9: Magnification Toggle
+
+  ⚠ INCOMPLETE LABEL DATA:
+    Source: atari/bzone.cpp | Downloaded | Trying: [redbaron, bzone] | Found 9 labels (⚠ expected 1 for 1 declared buttons)
+
+═══════════════════════════════════════════════════════════════════
+robotron - Robotron: 2084
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • doublejoy
+        → Dual joysticks (movement + firing, 2 × 8-way)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: Move Up
+    Button 2: Move Down
+    Button 3: Move Left
+    Button 4: Move Right
+    Button 5: Fire Up
+    Button 6: Fire Down
+    Button 7: Fire Left
+    Button 8: Fire Right
+    Button 9: Auto Up / Manual Down
+    Button 10: Advance
+    Button 11: High Score Reset
+
+═══════════════════════════════════════════════════════════════════
+spacduel - Space Duel
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • joy (3 buttons) 2-way
+        → Joystick (2-way, 8 directions)
+    Player 2:
+      • joy (3 buttons) 2-way
+        → Joystick (2-way, 8 directions)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: Diagnostic Step
+    Button 2: Start
+    Button 3: Select
+
+  ⚠ INCOMPLETE LABEL DATA:
+    Source: atari/bwidow.cpp | Downloaded | Trying: [spacduel, bwidow] | Found 3 labels (⚠ expected 6 for 6 declared buttons)
+
+═══════════════════════════════════════════════════════════════════
+sprint1 - Sprint 1
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • dial (5 buttons)
+        → Dial/Spinner (analog rotary)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: Gas
+    Button 2: Gear 1
+    Button 3: Gear 2
+    Button 4: Gear 3
+    Button 5: Gear 4
+
+═══════════════════════════════════════════════════════════════════
+starwars - Star Wars
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • stick (4 buttons)
+        → Stick/Joystick (4-way or 8-way movement)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: Diagnostic Step
+
+  ⚠ INCOMPLETE LABEL DATA:
+    Source: atari/starwars.cpp | Downloaded | Trying: [starwars, starwars] | Found 1 labels (⚠ expected 4 for 4 declared buttons)
+
+═══════════════════════════════════════════════════════════════════
+sf - Street Fighter
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • joy (6 buttons) 8-way
+        → Joystick (8-way, 8 directions)
+    Player 2:
+      • joy (6 buttons) 8-way
+        → Joystick (8-way, 8 directions)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: P1 Punch
+    Button 2: P2 Punch
+    Button 3: P1 Kick
+    Button 4: P2 Kick
+
+  ⚠ INCOMPLETE LABEL DATA:
+    Source: capcom/sf.cpp | Downloaded | Trying: [sf, sf] | Found 4 labels (⚠ expected 12 for 12 declared buttons)
+
+═══════════════════════════════════════════════════════════════════
+sf2 - Street Fighter II: The World Warrior
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • joy (6 buttons) 8-way
+        → Joystick (8-way, 8 directions)
+    Player 2:
+      • joy (6 buttons) 8-way
+        → Joystick (8-way, 8 directions)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: P1 Jab Punch
+    Button 2: P1 Strong Punch
+    Button 3: P1 Fierce Punch
+    Button 4: P2 Jab Punch
+    Button 5: P2 Strong Punch
+    Button 6: P2 Fierce Punch
+    Button 7: P1 Short Kick
+    Button 8: P1 Forward Kick
+    Button 9: P1 Roundhouse Kick
+    Button 10: P2 Short Kick
+    Button 11: P2 Forward Kick
+    Button 12: P2 Roundhouse Kick
+
+═══════════════════════════════════════════════════════════════════
+trackfld - Track & Field
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • only_buttons (3 buttons)
+        → Hardware: only_buttons
+    Player 2:
+      • only_buttons (3 buttons)
+        → Hardware: only_buttons
+    Player 3:
+      • only_buttons (3 buttons)
+        → Hardware: only_buttons
+    Player 4:
+      • only_buttons (3 buttons)
+        → Hardware: only_buttons
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: P2 - C
+    Button 2: P2 - B
+    Button 3: P2 - A
+    Button 4: Set
+    Button 5: P1 - C
+    Button 6: P1 - B
+    Button 7: P1 - A
+    Button 8: Select
+
+  ⚠ INCOMPLETE LABEL DATA:
+    Source: konami/trackfld.cpp | Downloaded | Trying: [trackfld, trackfld] | Found 8 labels (⚠ expected 12 for 12 declared buttons)
+
+═══════════════════════════════════════════════════════════════════
+btime - Burger Time
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • joy (1 buttons) 4-way
+        → Joystick (4-way, 8 directions)
+    Player 2:
+      • joy (1 buttons) 4-way
+        → Joystick (4-way, 8 directions)
+
+  ⚠ BUTTON LABEL LOOKUP FAILED:
+    Source: dataeast/btime.cpp | Downloaded | Trying: [btime, btime] | No INPUT_PORTS blocks matched (check driver structure)
+
+═══════════════════════════════════════════════════════════════════
+centiped - Centipede
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • joy (1 buttons) 8-way
+        → Joystick (8-way, 8 directions)
+      • trackball
+        → Trackball (X/Y positioning, analog)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: P1 Reverse
+    Button 2: P1 Fire
+    Button 3: P1 Reverse
+    Button 4: P2 Fire
+
+  ⚠ INCOMPLETE LABEL DATA:
+    Source: atari/centiped.cpp | Downloaded | Trying: [centiped, centiped] | Found 4 labels (⚠ expected 1 for 1 declared buttons)
+
+═══════════════════════════════════════════════════════════════════
+defender - Defender
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • joy (5 buttons) vertical2-way
+        → Joystick (vertical2-way, 8 directions)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: Fire
+    Button 2: Thrust
+    Button 3: Smart Bomb
+    Button 4: Hyperspace
+    Button 5: Auto Up / Manual Down
+    Button 6: Advance
+    Button 7: High Score Reset
+
+  ⚠ INCOMPLETE LABEL DATA:
+    Source: midway/williams.cpp | Downloaded | Trying: [defender, williams] | Found 7 labels (⚠ expected 5 for 5 declared buttons)
+
+═══════════════════════════════════════════════════════════════════
+digdug - Dig Dug
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • joy (1 buttons) 4-way
+        → Joystick (4-way, 8 directions)
+    Player 2:
+      • joy (1 buttons) 4-way
+        → Joystick (4-way, 8 directions)
+
+  ⚠ BUTTON LABEL LOOKUP FAILED:
+    Source: namco/galaga.cpp | Downloaded | Trying: [digdug, galaga] | No INPUT_PORTS blocks matched (check driver structure)
+
+═══════════════════════════════════════════════════════════════════
+asteroid - Asteroids
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • only_buttons (5 buttons)
+        → Hardware: only_buttons
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: Diagnostic Step
+
+  ⚠ INCOMPLETE LABEL DATA:
+    Source: atari/asteroid.cpp | Downloaded | Trying: [asteroid, asteroid] | Found 1 labels (⚠ expected 5 for 5 declared buttons)
+
+═══════════════════════════════════════════════════════════════════
+astdelux - Asteroids Deluxe
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • only_buttons (5 buttons)
+        → Hardware: only_buttons
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: Diagnostic Step
+
+  ⚠ INCOMPLETE LABEL DATA:
+    Source: atari/asteroid.cpp | Downloaded | Trying: [astdelux, asteroid] | Found 1 labels (⚠ expected 5 for 5 declared buttons)
+
+═══════════════════════════════════════════════════════════════════
+galaga - Galaga
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • joy (1 buttons) 2-way
+        → Joystick (2-way, 8 directions)
+    Player 2:
+      • joy (1 buttons) 2-way
+        → Joystick (2-way, 8 directions)
+
+  ⚠ BUTTON LABEL LOOKUP FAILED:
+    Source: namco/galaga.cpp | Downloaded | Trying: [galaga, galaga] | No INPUT_PORTS blocks matched (check driver structure)
+
+═══════════════════════════════════════════════════════════════════
+galaxian - Galaxian
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • joy (1 buttons) 2-way
+        → Joystick (2-way, 8 directions)
+    Player 2:
+      • joy (1 buttons) 2-way
+        → Joystick (2-way, 8 directions)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: Unknown 1
+    Button 2: Bet / Hold
+    Button 3: Unknown 2
+    Button 4: Unknown 3
+    Button 5: Unknown 4
+    Button 6: Unknown 5
+    Button 7: Unknown 6
+    Button 8: Unknown 7
+    Button 9: Unknown 8
+    Button 10: Unknown 9
+    Button 11: Unknown 10
+
+  ⚠ INCOMPLETE LABEL DATA:
+    Source: galaxian/galaxian.cpp | Downloaded | Trying: [galaxian, galaxian] | Found 11 labels (⚠ expected 2 for 2 declared buttons)
+
+═══════════════════════════════════════════════════════════════════
+gtg2 - Golden Tee Golf II
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • trackball (2 buttons)
+        → Trackball (X/Y positioning, analog) + 2 buttons
+    Player 2:
+      • trackball (2 buttons)
+        → Trackball (X/Y positioning, analog) + 2 buttons
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: P1 Face Right
+    Button 2: P1 Face Left
+    Button 3: P2 Face Right
+    Button 4: P2 Face Left
+
+═══════════════════════════════════════════════════════════════════
+milliped - Millipede
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • joy (1 buttons) 8-way
+        → Joystick (8-way, 8 directions)
+      • trackball
+        → Trackball (X/Y positioning, analog)
+    Player 2:
+      • joy (1 buttons) 8-way
+        → Joystick (8-way, 8 directions)
+      • trackball
+        → Trackball (X/Y positioning, analog)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: P1 Reverse
+    Button 2: P1 Fire
+    Button 3: P1 Reverse
+    Button 4: P2 Fire
+
+  ⚠ INCOMPLETE LABEL DATA:
+    Source: atari/centiped.cpp | Downloaded | Trying: [milliped, centiped] | Found 4 labels (⚠ expected 2 for 2 declared buttons)
+
+═══════════════════════════════════════════════════════════════════
+mspacman - Ms. Pac-Man
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • joy 4-way
+        → Joystick (4-way, 8 directions)
+    Player 2:
+      • joy 4-way
+        → Joystick (4-way, 8 directions)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: Start 1 / P1 Button 1
+    Button 2: Start 2 / P1 Button 1
+
+═══════════════════════════════════════════════════════════════════
+pengo - Pengo
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • joy (1 buttons) 4-way
+        → Joystick (4-way, 8 directions)
+    Player 2:
+      • joy (1 buttons) 4-way
+        → Joystick (4-way, 8 directions)
+
+  ⚠ BUTTON LABEL LOOKUP FAILED:
+    Source: pacman/pengo.cpp | Downloaded | Trying: [pengo, pengo] | No INPUT_PORTS blocks matched (check driver structure)
+
+═══════════════════════════════════════════════════════════════════
+invaders - Space Invaders / Space Invaders M
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • joy (1 buttons) 2-way
+        → Joystick (2-way, 8 directions)
+    Player 2:
+      • joy (1 buttons) 2-way
+        → Joystick (2-way, 8 directions)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: P1 Hit
+    Button 2: P2 Hit
+    Button 3: P1 Move Outfield Left
+    Button 4: P1 Move Outfield Right
+    Button 5: P1 Pitch Left
+    Button 6: P1 Pitch Right
+    Button 7: P1 Pitch Slow
+    Button 8: P1 Pitch Fast
+    Button 9: P2 Move Outfield Left
+    Button 10: P2 Move Outfield Right
+    Button 11: P2 Pitch Left
+    Button 12: P2 Pitch Right
+    Button 13: P2 Pitch Slow
+    Button 14: P2 Pitch Fast
+    Button 15: SCORE Input (Not Used)
+
+  ⚠ INCOMPLETE LABEL DATA:
+    Source: midw8080/mw8080bw.cpp | Downloaded | Trying: [invaders, mw8080bw] | Found 15 labels (⚠ expected 2 for 2 declared buttons)
+
+═══════════════════════════════════════════════════════════════════
+spyhunt - Spy Hunter
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • paddle (5 buttons)
+        → Paddle/Potentiometer (analog horizontal)
+      • pedal
+        → Pedal/Throttle (analog axis)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: Gear Shift
+    Button 2: Left Button / Oil Slick
+    Button 3: Left Trigger / Missiles
+    Button 4: Center Button / Weapons Van
+    Button 5: Right Button / Smoke Screen
+    Button 6: Right Trigger / Machine Guns
+
+  ⚠ INCOMPLETE LABEL DATA:
+    Source: midway/mcr3.cpp | Downloaded | Trying: [spyhunt, mcr3] | Found 6 labels (⚠ expected 5 for 5 declared buttons)
+
+═══════════════════════════════════════════════════════════════════
+sbrkout - Super Breakout
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • paddle (1 buttons)
+        → Paddle/Potentiometer (analog horizontal)
+
+  ⚠ BUTTON LABEL LOOKUP FAILED:
+    Source: atari/sbrkout.cpp | Downloaded | Trying: [sbrkout, sbrkout] | No INPUT_PORTS blocks matched (check driver structure)
+
+═══════════════════════════════════════════════════════════════════
+superbug - Super Bug
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • dial (6 buttons)
+        → Dial/Spinner (analog rotary)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: Gas
+    Button 2: Hiscore Reset
+    Button 3: Track Select
+    Button 4: Gear 1
+    Button 5: Gear 2
+    Button 6: Gear 3
+    Button 7: Gear 4
+
+  ⚠ INCOMPLETE LABEL DATA:
+    Source: atari/firetrk.cpp | Downloaded | Trying: [superbug, firetrk] | Found 7 labels (⚠ expected 6 for 6 declared buttons)
+
+═══════════════════════════════════════════════════════════════════
+frogger - Frogger
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • joy 4-way
+        → Joystick (4-way, 8 directions)
+    Player 2:
+      • joy 4-way
+        → Joystick (4-way, 8 directions)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: Unknown 1
+    Button 2: Bet / Hold
+    Button 3: Unknown 2
+    Button 4: Unknown 3
+    Button 5: Unknown 4
+    Button 6: Unknown 5
+    Button 7: Unknown 6
+    Button 8: Unknown 7
+    Button 9: Unknown 8
+    Button 10: Unknown 9
+    Button 11: Unknown 10
+
+═══════════════════════════════════════════════════════════════════
+gravitar - Gravitar
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • joy (3 buttons) 2-way
+        → Joystick (2-way, 8 directions)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: Diagnostic Step
+
+  ⚠ INCOMPLETE LABEL DATA:
+    Source: atari/bwidow.cpp | Downloaded | Trying: [gravitar, bwidow] | Found 1 labels (⚠ expected 3 for 3 declared buttons)
+
+═══════════════════════════════════════════════════════════════════
+llander - Lunar Lander
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • pedal (3 buttons)
+        → Pedal/Throttle (analog axis)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: Diagnostic Step
+    Button 2: Select Game
+    Button 3: Abort
+
+═══════════════════════════════════════════════════════════════════
+mhavoc - Major Havoc
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • dial (2 buttons)
+        → Dial/Spinner (analog rotary)
+    Player 2:
+      • only_buttons (2 buttons)
+        → Hardware: only_buttons
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: Diagnostic Step
+
+  ⚠ INCOMPLETE LABEL DATA:
+    Source: atari/mhavoc.cpp | Downloaded | Trying: [mhavoc, mhavoc] | Found 1 labels (⚠ expected 4 for 4 declared buttons)
+
+═══════════════════════════════════════════════════════════════════
+qix - Qix
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • joy (2 buttons) 4-way
+        → Joystick (4-way, 8 directions)
+    Player 2:
+      • joy (2 buttons) 4-way
+        → Joystick (4-way, 8 directions)
+
+  ⚠ BUTTON LABEL LOOKUP FAILED:
+    Source: taito/qix.cpp | Downloaded | Trying: [qix, qix] | No INPUT_PORTS blocks matched (check driver structure)
+
+═══════════════════════════════════════════════════════════════════
+tempest - Tempest
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • dial (2 buttons)
+        → Dial/Spinner (analog rotary)
+    Player 2:
+      • dial (2 buttons)
+        → Dial/Spinner (analog rotary)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: Diagnostic Step
+
+  ⚠ INCOMPLETE LABEL DATA:
+    Source: atari/tempest.cpp | Downloaded | Trying: [tempest, tempest] | Found 1 labels (⚠ expected 4 for 4 declared buttons)
+
+═══════════════════════════════════════════════════════════════════
+tron - Tron
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • joy (1 buttons) 8-way
+        → Joystick (8-way, 8 directions)
+      • dial
+        → Dial/Spinner (analog rotary)
+    Player 2:
+      • joy (1 buttons) 8-way
+        → Joystick (8-way, 8 directions)
+      • dial
+        → Dial/Spinner (analog rotary)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: Coin-drop
+    Button 2: Door 1 Open
+    Button 3: Door 1 Lock
+    Button 4: Door 2 Open
+    Button 5: Door 2 Lock
+
+  ⚠ INCOMPLETE LABEL DATA:
+    Source: midway/mcr.cpp | Downloaded | Trying: [tron, mcr] | Found 5 labels (⚠ expected 2 for 2 declared buttons)
+
+═══════════════════════════════════════════════════════════════════
+zaxxon - Zaxxon
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • joy (1 buttons) 8-way
+        → Joystick (8-way, 8 directions)
+    Player 2:
+      • joy (1 buttons) 8-way
+        → Joystick (8-way, 8 directions)
+
+  ⚠ BUTTON LABEL LOOKUP FAILED:
+    Source: sega/zaxxon.cpp | Downloaded | Trying: [zaxxon, zaxxon] | No INPUT_PORTS blocks matched (check driver structure)
+
+═══════════════════════════════════════════════════════════════════
+berzerk - Berzerk
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • joy (1 buttons) 8-way
+        → Joystick (8-way, 8 directions)
+    Player 2:
+      • joy (1 buttons) 8-way
+        → Joystick (8-way, 8 directions)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: Free Game (not logged in bookkeeping)
+    Button 2: Bookkeeping
+
+═══════════════════════════════════════════════════════════════════
+punchout - Punch-out!!
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • joy (3 buttons) 4-way
+        → Joystick (4-way, 8 directions)
+
+  ⚠ BUTTON LABEL LOOKUP FAILED:
+    Source: nintendo/punchout.cpp | Downloaded | Trying: [punchout, punchout] | No INPUT_PORTS blocks matched (check driver structure)
+
+═══════════════════════════════════════════════════════════════════
+atetris - Tetris
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • joy (1 buttons) 3 (half4)-way
+        → Joystick (3 (half4)-way, 8 directions)
+    Player 2:
+      • joy (1 buttons) 3 (half4)-way
+        → Joystick (3 (half4)-way, 8 directions)
+
+  ⚠ BUTTON LABEL LOOKUP FAILED:
+    Source: atari/atetris.cpp | Downloaded | Trying: [atetris, atetris] | No INPUT_PORTS blocks matched (check driver structure)
+
+═══════════════════════════════════════════════════════════════════
+dkong - Donkey Kong
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • joy (1 buttons) 4-way
+        → Joystick (4-way, 8 directions)
+    Player 2:
+      • joy (1 buttons) 4-way
+        → Joystick (4-way, 8 directions)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: Start 1 / P1 Button 1
+    Button 2: Start 2 / P1 Button 2
+
+═══════════════════════════════════════════════════════════════════
+dkongjr - Donkey Kong Junior
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • joy (1 buttons) 4-way
+        → Joystick (4-way, 8 directions)
+    Player 2:
+      • joy (1 buttons) 4-way
+        → Joystick (4-way, 8 directions)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: Start 1 / P1 Button 1
+    Button 2: Start 2 / P1 Button 2
+
+═══════════════════════════════════════════════════════════════════
+indytemp - Indiana Jones And The Temple Of Doom
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • joy (1 buttons) 8-way
+        → Joystick (8-way, 8 directions)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: Left Whip/P1 Start
+    Button 2: Right Whip/P2 Start
+
+  ⚠ INCOMPLETE LABEL DATA:
+    Source: atari/atarisy1.cpp | Downloaded | Trying: [indytemp, atarisy1, atarisy1] | Found 2 labels (⚠ expected 1 for 1 declared buttons)
+
+═══════════════════════════════════════════════════════════════════
+qbert - Q-bert
+═══════════════════════════════════════════════════════════════════
+
+  ▼ CONTROL SUMMARY:
+    Player 1:
+      • joy 4-way
+        → Joystick (4-way, 8 directions)
+    Player 2:
+      • joy 4-way
+        → Joystick (4-way, 8 directions)
+
+  ▼ BUTTON LABELS (from MAME source code):
+    Button 1: Select in Service Mode
+    Button 2: P1 Right (Down-Right)
+    Button 3: P1 Left (Up-Left)
+    Button 4: P1 Up (Up-Right)
+    Button 5: P1 Down (Down-Left)
+    Button 6: P2 Right (Down-Right)
+    Button 7: P2 Left (Up-Left)
+    Button 8: P2 Up (Up-Right)
+    Button 9: P2 Down (Down-Left)
+
+
+═══════════════════════════════════════════════════════════════════
+SUMMARY
+═══════════════════════════════════════════════════════════════════
+Total games processed: 51

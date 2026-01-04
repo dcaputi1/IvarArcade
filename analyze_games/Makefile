@@ -4,33 +4,47 @@
 # Compiler
 CXX = g++
 
-# Target executable
-TARGET = analyze_games
+# Target executables
+TARGETS = analyze_games analyze_controls list_controls
 
 # Source files
-SRCS = analyze_games.cpp
+SRCS_ANALYZE_GAMES = analyze_games.cpp
+SRCS_ANALYZE_CONTROLS = analyze_controls.cpp
+SRCS_LIST_CONTROLS = list_controls.cpp
 
 # Compiler and linker flags
 CXXFLAGS = -Wall -O2 -std=c++17
 LDFLAGS = -ltinyxml2
 
 # Default build
-all: $(TARGET)
+all: $(TARGETS)
 
 # Compile object file
 %.o: %.cpp
 	@echo "Compiling $<..."
 	@$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Link executable
-$(TARGET): $(SRCS:.cpp=.o)
+# Link analyze_games executable
+analyze_games: analyze_games.o
 	@echo "Linking $@..."
 	@$(CXX) -o $@ $^ $(LDFLAGS)
-	@echo "Built: $(TARGET)"
+	@echo "Built: $@"
+
+# Link analyze_controls executable
+analyze_controls: analyze_controls.o
+	@echo "Linking $@..."
+	@$(CXX) -o $@ $^ $(LDFLAGS)
+	@echo "Built: $@"
+
+# Link list_controls executable
+list_controls: list_controls.o
+	@echo "Linking $@..."
+	@$(CXX) -o $@ $^ $(LDFLAGS)
+	@echo "Built: $@"
 
 # Clean build artifacts
 clean:
-	@echo "Cleaning analyze_games build artifacts..."
-	@rm -f $(TARGET) *.o
+	@echo "Cleaning analyze_games and analyze_controls build artifacts..."
+	@rm -f $(TARGETS) *.o
 
 .PHONY: all clean
