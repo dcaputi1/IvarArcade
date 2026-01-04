@@ -157,16 +157,49 @@ void writeJoystickIni(const GameInfo& info)
     }
 
     string filePath = INI_OUTPUT_DIR + info.shortName + ".ini";
+    string mapLine = "joystick_map s8.4s8.44s8.4445";
 
-    ofstream out(filePath);
-    if (!out)
+    // Check if file exists and if it already contains the joystick_map line
+    if (fs::exists(filePath))
     {
-        cerr << "Failed to write INI file: " << filePath << endl;
-        return;
-    }
+        ifstream in(filePath);
+        if (in)
+        {
+            string line;
+            while (getline(in, line))
+            {
+                if (line.find(mapLine) != string::npos)
+                {
+                    // Line already exists, no need to append
+                    in.close();
+                    return;
+                }
+            }
+            in.close();
+        }
 
-    out << "joystick_map s8.4s8.44s8.4445" << endl;
-    out.close();
+        // File exists but doesn't have the line, append it
+        ofstream out(filePath, ios::app);
+        if (!out)
+        {
+            cerr << "Failed to append to INI file: " << filePath << endl;
+            return;
+        }
+        out << mapLine << endl;
+        out.close();
+    }
+    else
+    {
+        // File doesn't exist, create it with the line
+        ofstream out(filePath);
+        if (!out)
+        {
+            cerr << "Failed to write INI file: " << filePath << endl;
+            return;
+        }
+        out << mapLine << endl;
+        out.close();
+    }
 }
 
 int main()
