@@ -25,9 +25,9 @@ P2_JOYSTICK_UP    | HAT1UP + HAT1RIGHT
 P2_JOYSTICK_DOWN  | HAT1DOWN + HAT1LEFT
 
 Special Mappings:
-- START2: KEYCODE_2 OR JOYCODE_5_START OR JOYCODE_1_BUTTON5
-- COIN1: KEYCODE_5 OR JOYCODE_1_SELECT OR JOYCODE_2_SELECT OR JOYCODE_3_SELECT 
-         OR JOYCODE_4_SELECT OR JOYCODE_1_BUTTON2
+- START2: KEYCODE_2 OR JOYCODE_3_START OR JOYCODE_1_BUTTON5
+- COIN1: KEYCODE_5 OR JOYCODE_1_SELECT OR JOYCODE_2_SELECT OR JOYCODE_4_SELECT 
+         OR JOYCODE_5_SELECT OR JOYCODE_1_BUTTON2
 
 ### cfg_sa (Standalone) - Using JOYCODE_1:
 
@@ -72,7 +72,7 @@ P1_PADDLE         | XAXIS (steering wheel - analog)
 ### cfg_sa (Standalone) - Not present, uses default.cfg
 
 Notes:
-- Uses JOYCODE_2 (Xinmotek Player 1 side) for all controls
+- Uses JOYCODE_2 (Xinmotek Player 1 side - js1) for all controls
 - Analog steering via XAXIS (X-axis analog stick)
 - Analog gas pedal via RYAXIS (right Y-axis)
 - Multiple weapon buttons mapped to BUTTON3/4/5/6
@@ -90,9 +90,9 @@ Indiana Jones Tempest likely requires spinner/trackball control for aiming.
 
 Control     | Joystick Input
 ------------|----------------------------------------------------------------
-P1_BUTTON1  | JOYCODE_1_BUTTON2 OR JOYCODE_2_BUTTON2 OR JOYCODE_3_BUTTON2 
-            | OR JOYCODE_4_BUTTON2 OR JOYCODE_1/2/3/4_START
-START2      | KEYCODE_2 OR JOYCODE_1_BUTTON5 OR JOYCODE_5_START OR JOYCODE_1_BUTTON4
+P1_BUTTON1  | JOYCODE_1_BUTTON2 OR JOYCODE_2_BUTTON2 OR JOYCODE_4_BUTTON2 
+            | OR JOYCODE_5_BUTTON2 OR JOYCODE_1/2/4/5_START
+START2      | KEYCODE_2 OR JOYCODE_1_BUTTON5 OR JOYCODE_3_START OR JOYCODE_1_BUTTON4
 
 ### cfg_sa (Standalone):
 
@@ -101,9 +101,9 @@ Control     | Joystick Input
 (Same as default.cfg - no custom overrides documented)
 
 Notes:
-- Accepts button input from ALL controllers (JOYCODE_1/2/3/4)
+- Accepts button input from ALL controllers (JOYCODE_1/2/4/5 - all except P2 xinmo)
 - P1_BUTTON1 also triggered by START buttons (unusual mapping)
-- START2 uses JOYCODE_1_BUTTON4 or BUTTON5
+- START2 uses JOYCODE_1_BUTTON4 or BUTTON5, or js2 START (JOYCODE_3)
 - Coins recorded: 18 (in cfg_ra)
 - Likely needs spinner/trackball for full gameplay (not shown in config)
 

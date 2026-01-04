@@ -2,7 +2,20 @@
 # End-to-End Controller Mapping System
 
 Generated: December 31, 2025
+Updated: January 4, 2026 - Device order now consistent across both frontends
 System: IvarArcade - RetroPie on Raspberry Pi
+
+## IMPORTANT UPDATE (January 4, 2026):
+Device order has been unified across both standalone MAME (via allctrlrs.cfg) 
+and libretro MAME (via RetroArch port bindings). The new order matches the 
+native hardware physical order:
+  1. JOYCODE_1 = js0 (Trooper V2)
+  2. JOYCODE_2 = js1 (Xinmotek Player 1)
+  3. JOYCODE_3 = js2 (Xinmotek Player 2)
+  4. JOYCODE_4 = js3 (Ultrastik)
+  5. JOYCODE_5 = js4 (Racing Wheel)
+
+This provides consistent controller mappings across all MAME frontends.
 
 ================================================================================
 ## DOCUMENTATION FILES OVERVIEW
@@ -108,8 +121,8 @@ Physical → js Device → MAME Direct → Game
 ### js0 - Trooper V2 (Player 1)
 - 6 buttons: A, B, LB, RB, SEL, START
 - Joystick with axes
-- cfg_ra: JOYCODE_1 (mapped)
-- cfg_sa: NOT in default.cfg (needs custom config)
+- cfg_ra: JOYCODE_1
+- cfg_sa: JOYCODE_1
 - Best for: Simple 6-button fighting games
 
 ### js1 - Xinmotek Controller Player 1 (Player 1)
@@ -126,8 +139,8 @@ Physical → js Device → MAME Direct → Game
 - START button (Player 2 specific)
 - COIN button
 - Part of dual-stick fight stick panel
-- cfg_ra: JOYCODE_5
-- cfg_sa: JOYCODE_5
+- cfg_ra: JOYCODE_3
+- cfg_sa: JOYCODE_3
 - Best for: 2-player fighting games
 
 ### js3 - Ultimarc Ultra-Stik Custom Panel (Player 1 + P2 Start)
@@ -136,8 +149,8 @@ Physical → js Device → MAME Direct → Game
 - START 2 (Player 2) - Special cross-player feature!
 - COIN button
 - Ultimarc analog joystick
-- cfg_ra: JOYCODE_3
-- cfg_sa: JOYCODE_3
+- cfg_ra: JOYCODE_4
+- cfg_sa: JOYCODE_4
 - Best for: Classic arcade games, general use
 
 ### js4 - Hori MarioKart Pro Racing Wheel (Player 1)
@@ -146,8 +159,8 @@ Physical → js Device → MAME Direct → Game
 - Multiple buttons and paddles
 - D-pad for menu navigation
 - Device marketed for Nintendo Switch (generic USB controller)
-- cfg_ra: JOYCODE_4
-- cfg_sa: JOYCODE_4
+- cfg_ra: JOYCODE_5
+- cfg_sa: JOYCODE_5
 - Best for: Racing games, driving simulations
 
 ================================================================================
@@ -156,11 +169,11 @@ Physical → js Device → MAME Direct → Game
 
 Device | cfg_ra    | cfg_sa    | Player | Notes
 -------|-----------|-----------|--------|--------------------------------
-js0    | JOYCODE_1 | NOT USED  | P1     | Not in cfg_sa default
+js0    | JOYCODE_1 | JOYCODE_1 | P1     | Trooper V2
 js1    | JOYCODE_2 | JOYCODE_2 | P1     | Xinmotek P1 side
-js2    | JOYCODE_5 | JOYCODE_5 | P2     | Xinmotek P2 side
-js3    | JOYCODE_3 | JOYCODE_3 | P1+P2  | Has P2 START button
-js4    | JOYCODE_4 | JOYCODE_4 | P1     | Racing wheel
+js2    | JOYCODE_3 | JOYCODE_3 | P2     | Xinmotek P2 side
+js3    | JOYCODE_4 | JOYCODE_4 | P1+P2  | Ultrastik, has P2 START
+js4    | JOYCODE_5 | JOYCODE_5 | P1     | Racing wheel
 
 Note: JOYCODE numbers don't match js device numbers!
 

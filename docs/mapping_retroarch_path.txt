@@ -66,19 +66,19 @@ NOTE: Xinmotek is JOYCODE_2 in MAME's cfg_ra
 Physical Button | Joystick ID | RetroPad Button | MAME Control (cfg_ra)
 ----------------|-------------|-----------------|----------------------
 Y               | Button 0    | y               | P2_BUTTON? (needs mapping)
-A               | Button 1    | a               | P2_BUTTON1 (JOYCODE_5_BUTTON2)
-B               | Button 2    | b               | P2_BUTTON2 (JOYCODE_5_BUTTON3)
-L               | Button 3    | l               | P2_BUTTON5 (JOYCODE_5_BUTTON4)
-R               | Button 4    | r               | P2_BUTTON6 (JOYCODE_5_BUTTON5)
-X               | Button 5    | x               | P2_BUTTON3 (JOYCODE_5_BUTTON6)
-START           | Button 8    | start           | P2_START (JOYCODE_5_START)
-COIN            | Button 9    | select          | P2_SELECT (JOYCODE_5_SELECT) / COIN2
-Up              | Axis -1     | up              | P2_JOYSTICK_UP (JOYCODE_5_YAXIS_UP_SWITCH)
-Down            | Axis +1     | down            | P2_JOYSTICK_DOWN (JOYCODE_5_YAXIS_DOWN_SWITCH)
-Left            | Axis -0     | left            | P2_JOYSTICK_LEFT (JOYCODE_5_XAXIS_LEFT_SWITCH)
-Right           | Axis +0     | right           | P2_JOYSTICK_RIGHT (JOYCODE_5_XAXIS_RIGHT_SWITCH)
+A               | Button 1    | a               | P2_BUTTON1 (JOYCODE_3_BUTTON2)
+B               | Button 2    | b               | P2_BUTTON2 (JOYCODE_3_BUTTON3)
+L               | Button 3    | l               | P2_BUTTON5 (JOYCODE_3_BUTTON4)
+R               | Button 4    | r               | P2_BUTTON6 (JOYCODE_3_BUTTON5)
+X               | Button 5    | x               | P2_BUTTON3 (JOYCODE_3_BUTTON6)
+START           | Button 8    | start           | P2_START (JOYCODE_3_START)
+COIN            | Button 9    | select          | P2_SELECT (JOYCODE_3_SELECT) / COIN2
+Up              | Axis -1     | up              | P2_JOYSTICK_UP (JOYCODE_3_YAXIS_UP_SWITCH)
+Down            | Axis +1     | down            | P2_JOYSTICK_DOWN (JOYCODE_3_YAXIS_DOWN_SWITCH)
+Left            | Axis -0     | left            | P2_JOYSTICK_LEFT (JOYCODE_3_XAXIS_LEFT_SWITCH)
+Right           | Axis +0     | right           | P2_JOYSTICK_RIGHT (JOYCODE_3_XAXIS_RIGHT_SWITCH)
 
-NOTE: js2 appears as JOYCODE_5 in MAME cfg_ra
+NOTE: js2 appears as JOYCODE_3 in MAME cfg_ra
       Player 2 specific mappings
 
 ================================================================================
@@ -87,20 +87,20 @@ NOTE: js2 appears as JOYCODE_5 in MAME cfg_ra
 
 Physical Button | Joystick ID | RetroPad Button | MAME Control (cfg_ra)
 ----------------|-------------|-----------------|----------------------
-A               | Button 0    | a               | P1_BUTTON2 (JOYCODE_3_BUTTON1)
-B               | Button 1    | b               | P1_BUTTON1 (JOYCODE_3_BUTTON2)
-X               | Button 2    | x               | P1_BUTTON3 (JOYCODE_3_BUTTON5)
-Y               | Button 3    | y               | P1_BUTTON4 (JOYCODE_3_BUTTON6)
-START 1         | Button 4    | start           | P1_START (JOYCODE_3_START) / START1
-COIN            | Button 5    | select          | P1_SELECT (JOYCODE_3_SELECT) / COIN1
+A               | Button 0    | a               | P1_BUTTON2 (JOYCODE_4_BUTTON1)
+B               | Button 1    | b               | P1_BUTTON1 (JOYCODE_4_BUTTON2)
+X               | Button 2    | x               | P1_BUTTON3 (JOYCODE_4_BUTTON5)
+Y               | Button 3    | y               | P1_BUTTON4 (JOYCODE_4_BUTTON6)
+START 1         | Button 4    | start           | P1_START (JOYCODE_4_START) / START1
+COIN            | Button 5    | select          | P1_SELECT (JOYCODE_4_SELECT) / COIN1
 START 2         | Button 6    | l               | START2 (JOYCODE_1_BUTTON5) - Special mapping!
-Joystick Up     | Axis -1     | up              | P1_JOYSTICK_UP (JOYCODE_3_HAT1UP)
-Joystick Down   | Axis +1     | down            | P1_JOYSTICK_DOWN (JOYCODE_3_HAT1DOWN)
-Joystick Left   | Axis -0     | left            | P1_JOYSTICK_LEFT (JOYCODE_3_HAT1LEFT)
-Joystick Right  | Axis +0     | right           | P1_JOYSTICK_RIGHT (JOYCODE_3_HAT1RIGHT)
+Joystick Up     | Axis -1     | up              | P1_JOYSTICK_UP (JOYCODE_4_HAT1UP)
+Joystick Down   | Axis +1     | down            | P1_JOYSTICK_DOWN (JOYCODE_4_HAT1DOWN)
+Joystick Left   | Axis -0     | left            | P1_JOYSTICK_LEFT (JOYCODE_4_HAT1LEFT)
+Joystick Right  | Axis +0     | right           | P1_JOYSTICK_RIGHT (JOYCODE_4_HAT1RIGHT)
 
 NOTE: Button 6 (START 2) is mapped to L button in retropad, then triggers Player 2 start
-      Ultimarc is JOYCODE_3 in cfg_ra
+      Ultrastik is JOYCODE_4 in cfg_ra
 
 ================================================================================
 ## JS4 - HORI MARIOKART PRO RACING WHEEL → RETROPAD → MAME (Player 1)
@@ -108,28 +108,28 @@ NOTE: Button 6 (START 2) is mapped to L button in retropad, then triggers Player
 
 Physical Control| Joystick ID | RetroPad Button | MAME Control (cfg_ra)
 ----------------|-------------|-----------------|----------------------
-A               | Button 0    | a               | P1_BUTTON2 (JOYCODE_4_BUTTON1)
-B               | Button 1    | b               | P1_BUTTON1 (JOYCODE_4_BUTTON2)
-X               | Button 2    | x               | P1_BUTTON4 (JOYCODE_4_BUTTON3)
-Y               | Button 3    | y               | P1_BUTTON3 (JOYCODE_4_BUTTON4)
+A               | Button 0    | a               | P1_BUTTON2 (JOYCODE_5_BUTTON1)
+B               | Button 1    | b               | P1_BUTTON1 (JOYCODE_5_BUTTON2)
+X               | Button 2    | x               | P1_BUTTON4 (JOYCODE_5_BUTTON3)
+Y               | Button 3    | y               | P1_BUTTON3 (JOYCODE_5_BUTTON4)
 L-Paddle        | Button 4    | l2              | (trigger - not standard button)
 R-Paddle        | Button 5    | r2              | (trigger - not standard button)
-- (minus)       | Button 6    | select          | P1_SELECT (JOYCODE_4_SELECT) / COIN1
-+ (plus)        | Button 7    | start           | P1_START (JOYCODE_4_START) / START1
+- (minus)       | Button 6    | select          | P1_SELECT (JOYCODE_5_SELECT) / COIN1
++ (plus)        | Button 7    | start           | P1_START (JOYCODE_5_START) / START1
 Home            | Button 8    | l3              | (stick button - special)
-LSB             | Button 9    | l               | P1_BUTTON5 (JOYCODE_4_BUTTON5)
-RSB             | Button 10   | r               | P1_BUTTON6 (JOYCODE_4_BUTTON6)
+LSB             | Button 9    | l               | P1_BUTTON5 (JOYCODE_5_BUTTON5)
+RSB             | Button 10   | r               | P1_BUTTON6 (JOYCODE_5_BUTTON6)
 Wheel Left      | Axis -0     | left analog     | P1_JOYSTICK_LEFT (analog)
 Wheel Right     | Axis +0     | right analog    | P1_JOYSTICK_RIGHT (analog)
 L-Pedal         | Axis -2     | l2 analog       | P1_PEDAL (JOYCODE_2_YAXIS)
 Item/ZL         | Axis +2     | l2 analog       | (alternate axis)
-D-Pad Up        | Axis -7     | up              | P1_JOYSTICK_UP (JOYCODE_4_HAT1UP)
-D-Pad Down      | Axis +7     | down            | P1_JOYSTICK_DOWN (JOYCODE_4_HAT1DOWN)
+D-Pad Up        | Axis -7     | up              | P1_JOYSTICK_UP (JOYCODE_5_HAT1UP)
+D-Pad Down      | Axis +7     | down            | P1_JOYSTICK_DOWN (JOYCODE_5_HAT1DOWN)
 R-Pedal/ZR      | Axis 5      | r2 analog       | P1_PEDAL2 (JOYCODE_2_ZAXIS)
 
 NOTE: Racing wheel has mixed digital/analog controls
       Pedals may use JOYCODE_2 axis assignments per cfg_ra
-      JOYCODE_4 used for button mappings
+      Racing wheel is JOYCODE_5 (device order updated)
 
 ================================================================================
 ## RETROPAD TO MAME CONTROL MAPPING (cfg_ra summary)
@@ -137,7 +137,7 @@ NOTE: Racing wheel has mixed digital/analog controls
 
 This section shows how RetroPad buttons map to MAME's P1 controls in cfg_ra:
 
-RetroPad → MAME P1 (for JOYCODE_1/2/3/4):
+RetroPad → MAME P1 (for JOYCODE_1/2/4/5):
 - a → P1_BUTTON2 (note: swapped with b)
 - b → P1_BUTTON1 (note: swapped with a)  
 - x → P1_BUTTON3 or P1_BUTTON4 (varies by device)
