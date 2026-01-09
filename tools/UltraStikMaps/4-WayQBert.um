@@ -1,0 +1,12 @@
+MapFileFormatVersion=1.0
+
+MapSize=9
+MapRow1=W,W,W,W,*,N,N,N,N
+MapRow2=W,W,W,W,*,N,N,N,N
+MapRow3=W,W,W,W,C,N,N,N,N
+MapRow4=W,W,W,C,C,C,N,N,N
+MapRow5=*,*,C,C,C,C,C,*,*
+MapRow6=S,S,S,C,C,C,E,E,E
+MapRow7=S,S,S,S,C,E,E,E,E
+MapRow8=S,S,S,S,*,E,E,E,E
+MapRow9=S,S,S,S,*,E,E,E,E

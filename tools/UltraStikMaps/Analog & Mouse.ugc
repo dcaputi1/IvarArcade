@@ -1,0 +1,7 @@
+# This is an Ultimarc UltraStik Game Configuration file
+UltraStikGameConfigurationFileFormatVersion=1.0
+
+UltraStik1MapFile=Analog
+UltraStik2MapFile=Mouse Pointer
+UltraStik3MapFile=Analog
+UltraStik4MapFile=Analog
