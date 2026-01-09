@@ -20,7 +20,7 @@ if [[ -n "$ROM" ]]; then
     if [[ "$command" == "qbert" ]]; then
         echo "Q*bert detected - using diagonal joystick config" >> /tmp/rc.out
         # Configure UltraStik for Q*bert's 45° rotated control
-        /usr/local/bin/ultrastikcmd -c 1 -u "/home/danc/IvarArcade/tools/UltraStikMaps/4-WayQBert.um" >> /tmp/rc.out 2>&1
+        sudo /usr/local/bin/ultrastikcmd -c 1 -u "/home/danc/IvarArcade/tools/UltraStikMaps/4-WayQBert.um" >> /tmp/rc.out 2>&1
     else
         # Check if game needs 4-way joystick configuration
         INI_FILE="/opt/retropie/emulators/mame/ini/${command}.ini"
@@ -29,16 +29,16 @@ if [[ -n "$ROM" ]]; then
             if grep -q "^joystick_map" "$INI_FILE"; then
                 echo "4-way game detected: $command" >> /tmp/rc.out
                 # Configure UltraStik for 4-way mode with sticky diagonals
-                /usr/local/bin/ultrastikcmd -c 1 -u "/home/danc/IvarArcade/tools/UltraStikMaps/4-Way.um" >> /tmp/rc.out 2>&1
+                sudo /usr/local/bin/ultrastikcmd -c 1 -u "/home/danc/IvarArcade/tools/UltraStikMaps/4-Way.um" >> /tmp/rc.out 2>&1
             else
                 echo "8-way game (has INI but no joystick_map): $command" >> /tmp/rc.out
                 # Configure UltraStik for 8-way with easy diagonals
-                /usr/local/bin/ultrastikcmd -c 1 -u "/home/danc/IvarArcade/tools/UltraStikMaps/8-WayEasyDiagonals.um" >> /tmp/rc.out 2>&1
+                sudo /usr/local/bin/ultrastikcmd -c 1 -u "/home/danc/IvarArcade/tools/UltraStikMaps/8-WayEasyDiagonals.um" >> /tmp/rc.out 2>&1
             fi
         else
             echo "No custom INI file found, assuming 8-way: $command" >> /tmp/rc.out
             # Configure UltraStik for 8-way with easy diagonals
-            /usr/local/bin/ultrastikcmd -c 1 -u "/home/danc/IvarArcade/tools/UltraStikMaps/8-WayEasyDiagonals.um" >> /tmp/rc.out 2>&1
+            sudo /usr/local/bin/ultrastikcmd -c 1 -u "/home/danc/IvarArcade/tools/UltraStikMaps/8-WayEasyDiagonals.um" >> /tmp/rc.out 2>&1
         fi
     fi
     # Write the ROM short name to the marquee command file - do this last (TBD - race condition?)
