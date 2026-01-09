@@ -25,3 +25,5 @@ cmake_install.cmake
 *.suo
 *.sln
 *.vcxproj*
+# Ignore vendorized UltrastikCmd source/build tree
+tools/linux/UltrastikCmd/
