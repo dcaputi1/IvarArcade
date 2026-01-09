@@ -34,7 +34,9 @@ steps:
 > make install # deploys binaries, scripts, plugins, etc...
 8. reboot (for path to take effect)
 9. run ~/marquees/bin/analyze_games (not sudo!)
-10. build and install ultrastikcmd tool for per-game joystick mapping:
+10. clone, build, install ultrastikcmd tool for per-game joystick mapping:
+> cd ~/IvarArcade/tools/linux
+> git clone https://github.com/dcaputi1/UltrastikCmd.git
 > cd ~/IvarArcade/tools/linux/UltrastikCmd
 > cd libusb-1.0.19 && ./configure --prefix=/usr/local && make && sudo make install && cd ..
 > cd libusb-compat-0.1.5 && ./configure --prefix=/usr/local && make && sudo make install && cd ..
