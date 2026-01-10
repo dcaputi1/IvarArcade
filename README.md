@@ -53,3 +53,10 @@ make analyze_games  # Build only the game analyzer
 ```bash
 sudo apt install libdrm-dev libpng-dev libtinyxml2-dev pkg-config cmake
 ```
+
+## Dev Notes
+
+Here's a list of stuff I keep forgetting about:
+
+- vector games in lr-mame look like crap. To work-around this, I use mame standalone as the emulator. Unfortunately, that requires some special config handling. Off hand I don't remember how it hooks in (used AI to get it working - go figure) but look in emulators.cfg and run_mame.sh
+- much more stuff TBD
