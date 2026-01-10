@@ -1,0 +1,988 @@
+<?xml version="1.0"?>
+<gameList>
+	<game>
+		<path>./breakout.zip</path>
+		<name>Breakout [TTL]</name>
+		<favorite>true</favorite>
+		<playcount>2</playcount>
+		<lastplayed>20250119T230739</lastplayed>
+	</game>
+	<game>
+		<path>./crusnusa.zip</path>
+		<name>Cruis'n USA</name>
+		<favorite>true</favorite>
+		<desc>Cruis'n USA is an arcade racing game originally released in 1994. It was developed by Midway Games and published and distributed by Nintendo. It is the first game in the Cruis'n series and features locations around the United States.</desc>
+		<image>./media/screenshots/crusnusa.png</image>
+		<marquee>./media/marquees/crusnusa.png</marquee>
+		<rating />
+		<releasedate>19941101T000000</releasedate>
+		<developer>Midway</developer>
+		<publisher>Nintendo</publisher>
+		<genre>Racing</genre>
+		<players>4</players>
+		<kidgame>true</kidgame>
+		<playcount>1</playcount>
+		<lastplayed>20240420T141054</lastplayed>
+	</game>
+	<game>
+		<path>./joust.zip</path>
+		<name>Joust</name>
+		<favorite>true</favorite>
+		<thumbnail />
+		<image>./media/screenshots/joust.png</image>
+		<marquee>./media/marquees/joust.png</marquee>
+		<video>./media/videos/joust.mp4</video>
+		<rating>0.8</rating>
+		<desc>Joust is an arcade game developed by Williams Electronics and released in 1982. It is a platformer game that features two-dimensional (2D) graphics. The player uses a button and joystick to control a knight riding a flying ostrich. The object is to progress through levels by defeating groups of enemy knights riding buzzards.</desc>
+		<releasedate>19820101T000000</releasedate>
+		<developer>Williams Electronics, Inc.</developer>
+		<publisher>Williams Electronic Games, Inc.</publisher>
+		<genre>Platform, Platform / Run Jump</genre>
+		<players>2</players>
+		<kidgame>true</kidgame>
+	</game>
+	<game>
+		<path>./junglek.zip</path>
+		<name>Jungle King</name>
+		<favorite>true</favorite>
+		<desc>The player controls a Tarzan-like jungle man who must swing across vines in the forest, swim through a crocodile-infested river, jump and duck rocks while climbing a hill and rescue his woman from a pair of barbaric cannibals.</desc>
+		<image>./media/screenshots/junglek.png</image>
+		<video>./media/videos/junglek.mp4</video>
+		<marquee>./media/marquees/junglek.png</marquee>
+		<rating>0.9</rating>
+		<releasedate>19820101T000000</releasedate>
+		<developer>Taito Corporation</developer>
+		<publisher>Taito Corporation</publisher>
+		<genre>Platform, Platform / Run Jump Scrolling</genre>
+		<players>2</players>
+		<kidgame>true</kidgame>
+		<playcount>1</playcount>
+		<lastplayed>20240423T031648</lastplayed>
+	</game>
+	<game>
+		<path>./marble.zip</path>
+		<name>Marble Madness</name>
+		<favorite>true</favorite>
+		<desc>Marble Madness is an isometric platform game where the player manipulates an onscreen marble from a third-person perspective. The player controls the marble's movements with a trackball, though most home versions use game controllers with directional pads. The aim of the game is for the player to traverse six maze-like, isometric courses before a set amount of time expires. Each course has its own time limit, with the remaining time left over from completing a course added to the succeeding one.</desc>
+		<image>./media/screenshots/marble.png</image>
+		<video>./media/videos/marble.mp4</video>
+		<marquee>./media/marquees/marble.png</marquee>
+		<rating />
+		<releasedate>19841201T000000</releasedate>
+		<developer>Atari Games</developer>
+		<publisher>Atari Games</publisher>
+		<genre>Puzzle, Strategy, Racing</genre>
+		<players>2</players>
+		<playcount>5</playcount>
+		<lastplayed>20240419T211450</lastplayed>
+	</game>
+	<game>
+		<path>./missile.zip</path>
+		<name>Missile Command</name>
+		<favorite>true</favorite>
+		<desc>Missile Command is a one or two-player game depicting the outbreak of a nuclear war. Players must defend six cities from waves of incoming nuclear missiles by launching their own anti-ballistic missiles (ABMs) from one of three missile batteries. 
+
+The game is played by moving a cross-hair across the sky and pressing one of three buttons to launch an ABM from the corresponding battery (either Alpha Base, Delta Base or Omega Base). Upon reaching the cross-hair the player's ABM explodes, creating a fireball that lasts for several seconds and destroys any enemy missiles that enter it. Each battery is initially armed with ten anti-ballistic missiles and becomes useless when either all of its missiles have been fired or it's been destroyed by enemy missiles. 
+
+</desc>
+		<image>./media/screenshots/missile.png</image>
+		<video>./media/videos/missile.mp4</video>
+		<marquee>./media/marquees/missile.png</marquee>
+		<rating>0.9</rating>
+		<releasedate>19800101T000000</releasedate>
+		<developer>Atari</developer>
+		<publisher>Atari</publisher>
+		<genre>Shooter, Shooter / Missile Command Like</genre>
+		<players>2</players>
+		<playcount>9</playcount>
+		<lastplayed>20240423T033107</lastplayed>
+	</game>
+	<game>
+		<path>./mpatrol.zip</path>
+		<name>Moon Patrol</name>
+		<favorite>true</favorite>
+		<desc>Moon Patrol is an arcade game originally released in 1982 by Irem and later licensed for release in North America by Williams Electronics. It is a side-scrolling shooter that puts players at the controls of a six-wheeled moon rover that can jump and shoot. The goal is to move through the entire course as quickly as possible while shooting enemies for additional points. Cannons are mounted on the front and top of the vehicle, and both fire simultaneously when the fire button is pressed. Rocks, mines, and pits in the course prevent you from just holding to the right for maximum speed. Rocks and mines can be shot, but pits must be jumped. Some enemies fire shots that create new pits in the course, forcing players to react quickly.</desc>
+		<image>./media/screenshots/mpatrol.png</image>
+		<video>./media/videos/mpatrol.mp4</video>
+		<marquee>./media/marquees/mpatrol.png</marquee>
+		<rating>0.9</rating>
+		<releasedate>19820101T000000</releasedate>
+		<developer>Irem Corp.</developer>
+		<publisher>Williams Electronic Games, Inc.</publisher>
+		<genre>Shooter, Shooter / Vehicle, Horizontal</genre>
+		<players>2</players>
+		<kidgame>true</kidgame>
+		<playcount>1</playcount>
+		<lastplayed>20240423T032734</lastplayed>
+	</game>
+	<game>
+		<path>./mk.zip</path>
+		<name>Mortal Kombat</name>
+		<favorite>true</favorite>
+		<thumbnail />
+		<image>./media/screenshots/mk.png</image>
+		<marquee>./media/marquees/mk.png</marquee>
+		<video>./media/videos/mk.mp4</video>
+		<rating>0.9</rating>
+		<desc>The game takes place on a fictional island in Earthrealm, where a tournament is being held at Shang Tsung's Island, on which seven of its locations serve as stages in the game. For 500 years straight, Goro has been undefeated in the tournament, and now a new generation of warriors must challenge him. The player receives information about the characters in biographies displayed during the attract mode. Additional information about the characters and their motivations for entering the tournament is received upon completion of the game with each character.</desc>
+		<releasedate>19921008T000000</releasedate>
+		<developer>Midway</developer>
+		<publisher>Midway Games</publisher>
+		<genre>Fight, Fight / Versus</genre>
+		<players>2</players>
+	</game>
+	<game>
+		<path>./outrun.zip</path>
+		<name>Out Run</name>
+		<favorite>true</favorite>
+		<desc>Out Run is an arcade game released by Sega in 1986. It was designed by Yu Suzuki and developed by Sega AM2. The game was a critical and commercial success, becoming one of the best-selling video games of its time. It is notable for its pioneering hardware, graphics and music, and innovative features such as a selectable soundtrack and nonlinear gameplay.
+
+The object of the game is to reach one of a variety of destinations against a timer. If the timer reaches zero, the game ends. The player periodically encounters checkpoints near junctions, which add time to the clock. At each junction, the player must choose one of two directions, each of which lead to different environments.</desc>
+		<image>./media/screenshots/outrun.png</image>
+		<video>./media/videos/outrun.mp4</video>
+		<marquee>./media/marquees/outrun.png</marquee>
+		<rating>0.9</rating>
+		<releasedate>19860101T000000</releasedate>
+		<developer>SEGA</developer>
+		<publisher>Sega</publisher>
+		<genre>Race, Driving, Race 3rd Pers. view</genre>
+		<playcount>1</playcount>
+		<lastplayed>20240421T204039</lastplayed>
+	</game>
+	<game>
+		<path>./pacman.zip</path>
+		<name>Pac-man</name>
+		<favorite>true</favorite>
+		<desc>One of the most popular and influential games of the 1980's, Pac-Man stars a little, yellow dot-muncher who works his way around to clear a maze of the various dots and fruit which inhabit the board. Pac-Man's goal is continually challenged by four ghosts: The shy blue ghost Bashful (Inky), the trailing red ghost Shadow (Blinky), the fast pink ghost Speedy (Pinky), and the forgetful orange ghost Pokey (Clyde). One touch from any of these ghosts means a loss of life for Pac-Man.</desc>
+		<image>./media/screenshots/pacman.png</image>
+		<video>./media/videos/pacman.mp4</video>
+		<marquee>./media/marquees/pacman.png</marquee>
+		<rating />
+		<releasedate>19810101T000000</releasedate>
+		<developer>Namco</developer>
+		<publisher>Coleco Industries, Inc.</publisher>
+		<genre>Thinking, Action / Labyrinth, Action</genre>
+		<players>2</players>
+		<kidgame>true</kidgame>
+		<playcount>1</playcount>
+		<lastplayed>20230424T221153</lastplayed>
+	</game>
+	<game>
+		<path>./polepos.zip</path>
+		<name>Pole Position</name>
+		<favorite>true</favorite>
+		<thumbnail />
+		<image>./media/screenshots/polepos.png</image>
+		<marquee>./media/marquees/polepos.png</marquee>
+		<video>./media/videos/polepos.mp4</video>
+		<rating />
+		<desc>Pole Position is a racing video game released in 1982 by Namco. It was published by Namco in Japan and by Atari, Inc. in the United States. The game popularized the use of sprite-based, pseudo-3D graphics with its "rear-view racer format"—where the player’s view is behind and above the vehicle, looking forward along the road with the horizon in sight—which would remain in use even after true 3D computer graphics became standard for racing games.</desc>
+		<releasedate>19821130T000000</releasedate>
+		<developer>Namco</developer>
+		<publisher>Atari, Inc.</publisher>
+		<genre>Racing</genre>
+		<players>1</players>
+		<kidgame>true</kidgame>
+	</game>
+	<game>
+		<path>./pong.zip</path>
+		<name>Pong (Rev E) external [TTL]</name>
+		<favorite>true</favorite>
+		<playcount>1</playcount>
+		<lastplayed>20250105T133510</lastplayed>
+	</game>
+	<game>
+		<path>./redbaron.zip</path>
+		<name>Red Baron</name>
+		<favorite>true</favorite>
+		<desc>Red Baron is a realistic flying simulation. Your player is a World War I fighter pilot searching the skies for the enemy. The horizon shifts and tilts as he maneuvers the joystick. Three dimensional hills and valleys sweep by below.
+
+Suddenly out of the horizon, an enemy biplane appears. The pilot dives, climbs, lines up the plane in his sights! He fires a deadly hail of tracers and the enemy airplane tumbles to earth.
+
+But watch out, there are more coming. The first four planes are relatively slow. As time progresses, the player moves more quickly and the enemy planes take more evasive action, adding to the difficulty and challenge.
+
+Next the player faces ground targets. An observation blimp floats into view over a low rise of hills. Bright ground objects start to appear, a tank, a pill-box, then dimmer targets, a pyramid, a building. They make good targets for strafing runs but danger can appear at any time.
+
+As the game progresses, tanks, pill-boxes and blimps will begin shooting back. The game is composed of randomly alternating series of ground and plane phases. Finally, the planes will also shoot at the player.
+
+There are other dangers too. Dive too low and the player can crash and explode on a mountain. Squeeze the trigger too long and the guns overheat. And an enemy plane can get on the pilot's tail, almost certain death unless the player is a flying ace.
+
+When a player is hit by a returning plane, bullet holes and cracks appear on the screen, his plane plummets to earth and explodes. If an enemy shell finds its mark, the result is the same but the shell remains visible.</desc>
+		<image>./media/screenshots/redbaron.png</image>
+		<video>./media/videos/redbaron.mp4</video>
+		<marquee>./media/marquees/redbaron.png</marquee>
+		<rating>0.7</rating>
+		<releasedate>19800101T000000</releasedate>
+		<developer>Atari</developer>
+		<publisher>Atari</publisher>
+		<genre>N/A, Action, Shooter, Shooter / Plane, 1st person</genre>
+		<playcount>1</playcount>
+		<lastplayed>20240422T025930</lastplayed>
+	</game>
+	<game>
+		<path>./robotron.zip</path>
+		<favorite>true</favorite>
+		<name>Robotron: 2084</name>
+		<desc>Robotron: 2084 is an arcade video game developed by Eugene Jarvis and Larry DeMar of Vid Kidz and released by Williams Electronics (part of WMS Industries) in 1982. It is a shoot 'em up with two-dimensional graphics. The game is set in the year 2084 in a fictional world where robots have turned against humans in a cybernetic revolt. The aim is to defeat endless waves of robots, rescue surviving humans, and earn as many points as possible.
+
+The game uses a two-joystick control scheme; the left joystick controls the on-screen character's movement, while the right controls the direction the character's weapon fires. Both joysticks allow for an input direction in one of eight ways. Each level, referred to as a "wave", is a single screen populated with a large number of various enemy robots and obstacles; types include invincible giants to robots that continually manufacture other robots that shoot the protagonist. Coming into contact with an enemy, projectile, or obstacle costs the player one life, but extra lives can be earned at certain point totals. Waves also include human family members who can be rescued to score additional points, but certain robots can either kill them or turn them into enemies. Destroying all vulnerable robots allows the player to progress to the next wave; the cycle continues until all reserve lives are lost.
+
+		</desc>
+		<image>./media/screenshots/robotron.jpg</image>
+		<video>./media/videos/robotron.mp4</video>
+		<marquee>./media/marquees/robotron.png</marquee>
+		<releasedate>19821203T000000</releasedate>
+		<developer>Vid Kidz</developer>
+		<publisher>Williams</publisher>
+		<genre>Action / Shooter</genre>
+		<players>2</players>
+		<playcount>2</playcount>
+		<lastplayed>20240422T030403</lastplayed>
+	</game>
+	<game>
+		<path>./spacduel.zip</path>
+		<name>Space Duel</name>
+		<favorite>true</favorite>
+		<desc>Space Duel is a 1- or 2-player game with a color X-Y video display. This display, with its 3-color guns and higher voltage, has the same technology that was used in previous Atari black-and-white X-Y displays. However, the screen now displays dazzling color and unique visual effects in a spectacular multi-dimensional video display.
+
+Space Duel offers players a choice of 4 different game versions. One player can control a fighter or a space station. Two players, playing at the same time, can control fighters or a space station. The game offers players 12 different targets (7 split when hit), and 18 different waves. At the beginning of each wave, objects enter from the screen edge. The player(s) then tries to shoot and destroy the objects. The wave ends when all the objects are destroyed.
+
+</desc>
+		<image>./media/screenshots/spacduel.png</image>
+		<video>./media/videos/spacduel.mp4</video>
+		<marquee>./media/marquees/spacduel.png</marquee>
+		<rating>0.9</rating>
+		<releasedate>19820101T000000</releasedate>
+		<developer>Atari</developer>
+		<publisher>Atari</publisher>
+		<genre>Shoot'em Up, N/A, Shooter</genre>
+		<players>2</players>
+		<playcount>2</playcount>
+		<lastplayed>20240422T030452</lastplayed>
+	</game>
+	<game>
+		<path>./sprint1.zip</path>
+		<name>Sprint 1</name>
+		<favorite>true</favorite>
+		<desc>In this game you control a race car on a semi-circular track. You are looking down on the action from above. Your only goal is to drive around the track as many times as possible, and as fast as you can. There will be four cars on the track at all times (the computer lets you know that 'Grey cars drive automatically').You control the white car, while the computer controls a black car and two grey cars. The game will rate you at the end, you can get rated Granny, Rookie, or Pro, and getting a score over 250 points will extend the game an extra 30 seconds. The game has several different tracks available, and they change randomly throughout the game (they literally change while you are still driving). This is different than the original "Sprint 2", which allowed you to select your track manually. The graphics are simple black and white with two shades of gray thrown in for good measure. They are simple, but they get the job done.</desc>
+		<image>./media/screenshots/sprint1.png</image>
+		<video>./media/videos/sprint1.mp4</video>
+		<marquee>./media/marquees/sprint1.png</marquee>
+		<rating>0.7</rating>
+		<releasedate>19780101T000000</releasedate>
+		<developer>Atari</developer>
+		<publisher>Atari</publisher>
+		<genre>Race, Driving, Race, Driving / Race</genre>
+		<playcount>3</playcount>
+		<lastplayed>20240427T034234</lastplayed>
+	</game>
+	<game>
+		<path>./starwars.zip</path>
+		<name>Star Wars</name>
+		<favorite>true</favorite>
+		<desc>Strap on your helmet, climb aboard your X-Wing Fighter, and prepare to take on the Empire! The first scene is the Space Attack, with waves of hostile space-craft attacking your lonely but powerful ship. You battle to the Death Star, and once there fly close to the ground in a daring attempt to blast the space towers and flying stars, steering your way through the barrage. Finally, you emerge in the trench, jumping and ducking the stretch barriers and shooting the missile emplacements fastened to each side of the death-defying walls. There are many levels to the game with stirring music and speech synthesis - fast and furious action is guaranteed throughout!</desc>
+		<image>./media/screenshots/starwars.png</image>
+		<marquee>./media/marquees/starwars.png</marquee>
+		<rating>0.8</rating>
+		<releasedate>19830101T000000</releasedate>
+		<developer>Midway</developer>
+		<publisher>Atari, Inc.</publisher>
+		<genre>Action, Fight</genre>
+		<playcount>2</playcount>
+		<lastplayed>20240427T032203</lastplayed>
+	</game>
+	<game>
+		<path>./sf.zip</path>
+		<name>Street Fighter</name>
+		<favorite>true</favorite>
+		<thumbnail />
+		<image>./media/screenshots/sf.png</image>
+		<marquee>./media/marquees/sf.png</marquee>
+		<video />
+		<rating>0.9</rating>
+		<desc>Martial arts masters Ryu and Ken enter a worldwide martial arts tournament spanning 5 nations as they face 10 of the world's greatest fighters. The game can be played alone or with 2 players competing, with Player 1 taking the role of Ryu and Player 2 as Ken. The predecessor to the ultra-popular "Street Fighter II - The World Warrior".</desc>
+		<releasedate>19870101T000000</releasedate>
+		<developer>Capcom</developer>
+		<publisher>Capcom</publisher>
+		<genre>Fight, Fight / Versus</genre>
+		<players>2</players>
+	</game>
+	<game>
+		<path>./sf2.zip</path>
+		<name>Street Fighter II: The World Warrior</name>
+		<favorite>true</favorite>
+		<thumbnail />
+		<image>./media/screenshots/sf2.png</image>
+		<marquee>./media/marquees/sf2.png</marquee>
+		<video />
+		<rating />
+		<desc>Street Fighter II: The World Warrior is a competitive fighting game originally released for the arcades in 1991. It is the second entry in the Street Fighter series and the arcade sequel to the original Street Fighter released in 1987. It is Capcom's fourteenth title that runs on the CP System arcade hardware. Street Fighter II improves upon the many concepts introduced in the first game, including the use of command-based special moves and a six-button configuration, while offering players a selection of multiple playable characters, each with their own unique fighting style, and introducing a combo system and competitive multiplayer combat between two players.
+
+The success of Street Fighter II is credited with starting the fighting-game boom during the 1990s which inspired other game developers to produce their own fighting-game franchises, popularizing the genre, and setting off a renaissance for the arcade game industry in the early 1990s. The game is widely considered among critics to be one of the greatest fighting games as well as one of the greatest video games ever made. It was then ported to the Super Nintendo Entertainment System platform, for which it became a long-lasting system-seller. Its success led to a subseries of updated versions, each offering additional features and characters over previous versions, as well as several home versions.
+
+By 1994, the game had been played by at least 25 million people in the United States, at home and in arcades. The video game console ports sold more than 14 million copies worldwide; the Super NES port of the original game sold 6.3 million units, making it Capcom's best-selling single consumer game software until 2013 (when it was surpassed by Resident Evil 5) and remaining their best-selling game software on a single platform through to the present day. Adjusted for inflation, all versions of Street Fighter II are estimated to have exceeded $10 billion in gross revenue, making it one of the highest-grossing video games of all time.</desc>
+		<releasedate>19910522T000000</releasedate>
+		<developer>Capcom</developer>
+		<publisher>Capcom</publisher>
+		<genre>Fighting</genre>
+		<players>2</players>
+	</game>
+	<game>
+		<path>./trackfld.zip</path>
+		<name>Track &amp; Field</name>
+		<favorite>true</favorite>
+		<thumbnail />
+		<image>./media/screenshots/trackfld.png</image>
+		<marquee>./media/marquees/trackfld.png</marquee>
+		<video />
+		<rating>0.9</rating>
+		<desc>Track &amp; Field, known in Japan as Hyper Olympic (ハイパーオリンピック?), is a 1983 Olympic-themed arcade game developed and published by Konami.
+
+The arcade version was released in 1983. The simple gameplay, based on quick repeating button presses, set the basics for sequels and similar games in the genre for the next decades. There were several home versions of the original; the ZX Spectrum and Amstrad CPC versions were only released as part of the Game, Set and Match II compilation in 1988, and are poorly regarded by fans.</desc>
+		<releasedate>19830101T000000</releasedate>
+		<developer>Konami</developer>
+		<publisher>Konami</publisher>
+		<genre>Sports, Sports / Running trails, Sports / Multisports</genre>
+		<players>4</players>
+	</game>
+	<game>
+		<path>./btime.zip</path>
+		<name>Burger Time</name>
+		<desc>The player is chef Peter Pepper, who must walk over hamburger ingredients located across a maze of platforms while avoiding pursuing characters. The game's original Japanese title, Hamburger, was changed to BurgerTime before its introduction to the United States.
+
+In the United States, Data East USA licensed BurgerTime for distribution by Bally Midway as a standard dedicated arcade game. Data East also released its own version of BurgerTime in the US through the DECO Cassette System. The Data East and Midway versions are distinguished by the manufacturer's name on the title screen and by the marquee and cabinet artworks, as the game itself is identical.</desc>
+		<image>./media/screenshots/btime.png</image>
+		<video>./media/videos/btime.mp4</video>
+		<marquee>./media/marquees/btime.png</marquee>
+		<rating>0.9</rating>
+		<releasedate>19820101T000000</releasedate>
+		<developer>Data East Corporation</developer>
+		<publisher>Midway Games</publisher>
+		<genre>Platform, Platform / Run Jump</genre>
+		<players>2</players>
+		<favorite>true</favorite>
+		<kidgame>true</kidgame>
+		<playcount>4</playcount>
+		<lastplayed>20250218T202051</lastplayed>
+	</game>
+	<game>
+		<path>./centiped.zip</path>
+		<name>Centipede</name>
+		<desc>Centipede is a vertically oriented single screen shoot-em-up in which the aim is to use the 'Bug Blaster' to shoot the centipedes that snake down towards the bottom of the screen to amass as high a score as possible. 
+
+The play-field is littered with randomly placed mushrooms and the rapidly descending Centipede changes direction when it runs into a mushroom. When a segment of the Centipede is shot, the segment is destroyed and a mushroom appears in its place, the Centipede then breaks into two smaller centipedes, each with its own head, and continues its descent. 
+
+Players can move the Bug Blaster vertically as well as horizontally, although only for the lower fifth of the play-field. Mushrooms can also be shot for points and to clear blocked areas. Once a Centipede reaches the bottom of the screen, it starts snaking back up, but remains within the lower section of the play-field near the player's Bug Blaster.
+
+Additionally, any Centipede that reaches the very bottom of the screen without being shot releases its tail section which then becomes a new head. Other new heads also enter the screen from the bottom corners of the play-field as time progresses.
+
+Randomly moving Spiders also appear in the first wave. Spiders can destroy any mushrooms they move over, eliminating many mushroom targets for a player. If the Bug Blaster and a Spider collide, both are destroyed. the Spider either moves at a 45-degree angle or vertically up and down, never simply left or right like the centipede does.
+
+A bombardment of Fleas appears from the second wave onward. As a Flea descends, it leaves a trail of new mushrooms behind it. Fleas appear when a certain number of mushrooms remains at the bottom of the screen. This number increases as the game progresses, meaning Fleas appear more often later on in the game. The Bug Blaster must hit a Flea twice to destroy it; the first shot simply speeds up its descent.
+
+When a Centipede with fewer than eleven segments appears, a Scorpion enters from either side, moving at a relatively slow speed. As the player earns more points, the Scorpion's speed increases. As the Scorpion travels across the screen, it 'poisons' the mushrooms that it moves over and changes their colours. These mushrooms cause any Centipedes that would collide with them to head straight towards the bottom of the screen, rather than continue snaking left and right. The Bug Blaster can stop a poisoned Centipede by shooting its head.
+
+If a player earns at least 60,000 po</desc>
+		<image>./media/screenshots/centiped.png</image>
+		<video>./media/videos/centiped.mp4</video>
+		<marquee>./media/marquees/centiped.png</marquee>
+		<rating>0.7</rating>
+		<releasedate>19800101T000000</releasedate>
+		<developer>Atari</developer>
+		<publisher>Atari</publisher>
+		<genre>Shooter, Shooter / Space Invaders Like</genre>
+		<players>2</players>
+		<favorite>true</favorite>
+		<playcount>48</playcount>
+		<lastplayed>20250219T194544</lastplayed>
+	</game>
+	<game>
+		<path>./defender.zip</path>
+		<name>Defender</name>
+		<desc>Defender is an arcade video game developed released by Williams Electronics in 1980. A shooting game featuring two-dimensional (2D) graphics, the game is set on a fictional planet where the player must defeat waves of invading aliens while protecting astronauts. Development was led by Eugene Jarvis, a pinball programmer at Williams; Defender was Jarvis's first video game project, and drew inspiration from Space Invaders and Asteroids. Williams planned to display the game at the Amusement &amp; Music Operators Association (AMOA) trade show, though development delays resulted in the team working on the game up until the show started.
+
+Defender was commercially successful, selling over 55,000 units to become the company's best selling arcade game. Praise among critics focused on the game's audio-visuals and gameplay. It is frequently listed as one of Jarvis's best contributions to the video game industry, as well as one of the most difficult video games. Defender was ported to numerous platforms, inspired the development of other games, and was followed by sequels and many imitations.</desc>
+		<image>./media/screenshots/defender.png</image>
+		<video>./media/videos/defender.mp4</video>
+		<marquee>./media/marquees/defender.png</marquee>
+		<rating>0.9</rating>
+		<releasedate>19800101T000000</releasedate>
+		<developer>Williams Electronics, Inc.</developer>
+		<publisher>Williams Electronic Games, Inc.</publisher>
+		<genre>Shoot'em up / Horizontal, Shoot'em Up</genre>
+		<players>2</players>
+		<favorite>true</favorite>
+		<kidgame>true</kidgame>
+		<playcount>2</playcount>
+		<lastplayed>20250219T194652</lastplayed>
+	</game>
+	<game>
+		<path>./digdug.zip</path>
+		<name>Dig Dug</name>
+		<desc>Dig Dug is an arcade game developed and published by Namco in Japan in 1982 for Namco Galaga hardware. It was later published outside of Japan by Atari. A popular game based on a simple concept, it was also released as a video game on many consoles.</desc>
+		<image>./media/screenshots/digdug.png</image>
+		<video>./media/videos/digdug.mp4</video>
+		<marquee>./media/marquees/digdug.png</marquee>
+		<rating>0.9</rating>
+		<releasedate>19820101T000000</releasedate>
+		<developer>Namco</developer>
+		<publisher>Atari, Inc.</publisher>
+		<genre>Action / Labyrinth, Action</genre>
+		<players>2</players>
+		<favorite>true</favorite>
+		<kidgame>true</kidgame>
+		<playcount>5</playcount>
+		<lastplayed>20250219T194627</lastplayed>
+	</game>
+	<game>
+		<path>./asteroid.zip</path>
+		<name>Asteroids</name>
+		<desc>Asteroids (c) 1979 Atari, Incorporated.
+
+Asteroids is a legendary, genre defining game - in an era replete with genre-defining classics - in which a single player takes control of a spaceship trapped in the middle of an asteroid belt. A number of large, slow-moving asteroids drift randomly around the play area and must be shot by the player. When shot, the asteroids will break into a number of smaller pieces which must also be shot until eventually, all of the asteroids and fragments will be destroyed and the next wave begins. 
+
+Asteroids introduced real-world physics to video games for the first time, with speed and inertia all adding to the player's problems. As well as the inertia of the player's ship - forcing the player to allow for the ship slowing down and speeding up whenever the Thrust button was utilized - shot asteroids would often send fragments flying in seemingly random directions, and at varying and unpredictable speeds. 
+
+As well as the ever-present asteroids, flying saucers also make a regular appearance. These move horizontally and diagonally around the screen, firing at the player's ship, and must be quickly destroyed. They are destroyed when hit by the player's shot, when hit by a saucer's shot or when they collide with an asteroid. 
+
+CAST OF CHARACTERS - 
+
+Spaceship - This is you, the player. You can rotate 360 degrees, fire bullets, thrust forward in any direction, and hyperspace to safety if you feel you are in danger. 
+
+Large Asteroid - These are the large rocks that fill the screen at the beginning of each stage. Hitting one with a bullet will break it apart into two Medium Asteroids. 
+
+Medium Asteroid - Slightly smaller than Large Asteroids, but faster moving. Shooting one of these will result in two Small Asteroids. 
+
+Small Asteroid - These are the smallest and fastest rocks on the screen. If a bullet hits one of these, it will vaporize. 
+
+Large Saucer - Large flying saucers appear on the screen from time to time, randomly firing shots around the screen. They pose a minor threat. 
+
+Small Saucer - The smaller flying saucers are deadlier than the large variety. They are much more precise with their shots, and are more likely to kill you. Eliminate them quickly or get out of their range.</desc>
+		<image>./media/screenshots/asteroid.png</image>
+		<video>./media/videos/asteroid.mp4</video>
+		<marquee>./media/marquees/asteroid.png</marquee>
+		<rating>0.7</rating>
+		<releasedate>19790101T000000</releasedate>
+		<developer>Atari</developer>
+		<publisher>Atari</publisher>
+		<genre>Action</genre>
+		<players>2</players>
+		<favorite>true</favorite>
+		<playcount>34</playcount>
+		<lastplayed>20250219T214649</lastplayed>
+	</game>
+	<game>
+		<path>./astdelux.zip</path>
+		<name>Asteroids Deluxe</name>
+		<desc>Asteroids Deluxe is a 1 or 2-player game with an X-Y or vector-generator monitor. The game depicts a third-person view of a player's spaceship battling to destroy asteroids, flying saucers and enemy ships or 'death stars' (shaped like clusters of triangles). When hit, the asteroids and death stars will break into progressively smaller pieces. 
+
+Players can put up an octagon-shaped 'shield' to temporarily protect their spaceship. However, this shield wears out with use. 
+
+Large asteroids appear and drift in from the outer edges of the display. By pressing the ROTATE LEFT and ROTATE RIGHT pushbuttons on the control panel, the player may aim a spaceship toward any of the asteroids. The player uses the FIRE pushbutton to shoot at the asteroids and other objects. 
+
+When shot, each large asteroid divides into two medium-sized asteroids, and the game adds 20 points to the player's score. Medium-sized asteroids, when shot, divide into two small-sized asteroids, and the game awards 50 points to the player. When shot the smallest asteroid disappears and the game adds 100 points to the player's score. 
+
+In addition to asteroids, the players can score points for shooting the various enemy ships. When hit, the large ships ('death stars' shaped like hexagons) score 50 points and break into three diamond shapes. The medium-sized enemy or diamond, when hit, grants the player 100 points and breaks into two small triangular pieces. These small pieces disappear when the player hits them, and the score increases by 200 points. 
+
+At any time during game play, a flying saucer may appear from either side of the display. The game awards players 200 points for shooting a large saucer and 1,000 points for a small saucer (the latter is a smaller target for players, though not any faster moving than the large one. It also shoots more accurately). 
+
+The player's objective in the game is to shoot and destroy as many asteroids, saucers, and enemy ships as possible before all his or her spaceships are destroyed. A ship is destroyed if an asteroid, saucer or enemy ship smashes into it, or if a flying saucer shoots it. To prevent losing a ship, the player may press the THRUST pushbutton to move out of the path of an oncoming object. 
+
+As an emergency maneuver, a player can press the Shields button. An octagon will then appear around the player's ship as protection from all enemies. For challenge the shield power lasts only about 10 seconds, but the power is renewed with each ship. The amou</desc>
+		<image>./media/screenshots/astdelux.png</image>
+		<video>./media/videos/astdelux.mp4</video>
+		<marquee>./media/marquees/astdelux.png</marquee>
+		<rating>0.8</rating>
+		<releasedate>19800101T000000</releasedate>
+		<developer>Dave Shepperd</developer>
+		<publisher>Atari</publisher>
+		<genre>Action</genre>
+		<players>2</players>
+		<favorite>true</favorite>
+		<playcount>5</playcount>
+		<lastplayed>20250219T214706</lastplayed>
+	</game>
+	<game>
+		<path>./galaga.zip</path>
+		<name>Galaga</name>
+		<desc>Galaga is a fixed shooter arcade game developed and published by Namco in Japan and published by Midway in North America in 1981. It is the sequel to Galaxian, released in 1979. The gameplay of Galaga puts the player in control of a space ship which is situated on the bottom of the screen. At the beginning of each stage, the area is empty, but over time, enemy aliens fly in formation, and once all of the enemies arrive on screen, they will come down at the player's ship in formations of one or more and may either shoot it or collide with it. During the entire stage, the player may fire upon the enemies, and once all enemies are vanquished, the player moves onto the next stage. Galaga has proven very successful. The arcade version of it has been ported to many consoles, and it has had several sequels, most recently Galaga Legions for the PlayStation Network and Xbox Live Arcade services. The objective of Galaga is to score as many points as possible by destroying insect-like enemies. The player controls a starfighter that can move left and right along the bottom of the playfield. Enemies swarm in groups in a formation near the top of the screen, and then begin flying down toward the player, firing bombs at the fighter. The game ends when the player's last fighter is lost, either by colliding with an enemy or one of its bullets, or by being captured.
+
+Galaga introduces a number of new features over its predecessor, Galaxian. Among these is the ability to fire more than one bullet at a time, a count of the player's "hit/miss ratio" at the end of the game, and a bonus "Challenging Stage" that occurs every few levels, in which a series of enemies fly onto and out of the screen in set patterns without firing at the player's ship or trying to crash into it.</desc>
+		<image>./media/screenshots/galaga.png</image>
+		<video>./media/videos/galaga.mp4</video>
+		<marquee>./media/marquees/galaga.png</marquee>
+		<rating>0.9</rating>
+		<releasedate>19810101T000000</releasedate>
+		<developer>Namco</developer>
+		<publisher>Midway</publisher>
+		<genre>Shooter, Shooter / Space Invaders Like, Shoot'em up / Vertical, Shoot'em Up</genre>
+		<players>2</players>
+		<favorite>true</favorite>
+		<kidgame>true</kidgame>
+		<playcount>2</playcount>
+		<lastplayed>20250219T215808</lastplayed>
+	</game>
+	<game>
+		<path>./galaxian.zip</path>
+		<name>Galaxian</name>
+		<desc>Galaxian expanded on the formula pioneered by Space Invaders. As in the earlier game, Galaxian featured a horde of attacking aliens that exchanged shots with the player. In contrast to Space Invaders, Galaxian added an element of drama by having the aliens periodically make kamikaze-like dives at the player's ship, the Galaxip.</desc>
+		<image>./media/screenshots/galaxian.png</image>
+		<video>./media/videos/galaxian.mp4</video>
+		<marquee>./media/marquees/galaxian.png</marquee>
+		<rating />
+		<releasedate>19791225T000000</releasedate>
+		<developer>Namco</developer>
+		<publisher />
+		<genre>Action, Shooter</genre>
+		<players>2</players>
+		<favorite>true</favorite>
+		<kidgame>true</kidgame>
+		<playcount>3</playcount>
+		<lastplayed>20250219T215837</lastplayed>
+	</game>
+	<game>
+		<path>./gtg2.zip</path>
+		<name>Golden Tee Golf II</name>
+		<desc>Golden Tee Golf is a golf arcade game series by Incredible Technologies.</desc>
+		<image>./media/screenshots/gtg2.png</image>
+		<video>./media/videos/gtg2.mp4</video>
+		<marquee>./media/marquees/gtg2.png</marquee>
+		<rating>0.5</rating>
+		<releasedate>19900101T000000</releasedate>
+		<developer>Strata</developer>
+		<publisher>Strata</publisher>
+		<genre>Sports, Sports / Golf</genre>
+		<players>4</players>
+		<favorite>true</favorite>
+		<kidgame>true</kidgame>
+		<playcount>8</playcount>
+		<lastplayed>20250219T215902</lastplayed>
+	</game>
+	<game>
+		<path>./milliped.zip</path>
+		<name>Millipede</name>
+		<desc>
+Millipede is a 1- or 2-player game with a color raster-scan video display. The game action takes place on a playfield filled with mushrooms, flowers, and deadly DDT bombs. The player tries to destroy a variety of insects that drop from the top of the screen or enter from the sides of the screen, most of them to attack the player. The player controls a bow-shaped vehicle called the Archer. The object of the game is to shoot and destroy as many objects as possible for a high point score, before the player's lives are all used up.
+
+Player control consists of a Midi Trak-Ball control and a FIRE button. The Archer is moved by rotating the Midi Trak-Ball control. The Archer can be moved in all directions, but only within the bottom fifth of the screen. However, the Archer must move around mushrooms, flowers, and DDT bombs, since these are fixed and not 'transparent' objects. Pressing the FIRE button causes the Archer to emit an arrow that travels upward. The Archer may fire one or many arrows (by holding down the FIRE button constantly). But only one arrow will appear on the screen at a time.
+
+</desc>
+		<image>./media/screenshots/milliped.png</image>
+		<video>./media/videos/milliped.mp4</video>
+		<marquee>./media/marquees/milliped.png</marquee>
+		<rating>0.9</rating>
+		<releasedate>19820101T000000</releasedate>
+		<developer>Atari</developer>
+		<publisher>Atari</publisher>
+		<genre>Shooter, Shooter / Space Invaders Like</genre>
+		<players>2</players>
+		<favorite>true</favorite>
+		<playcount>7</playcount>
+		<lastplayed>20250219T220054</lastplayed>
+	</game>
+	<game>
+		<path>./mspacman.zip</path>
+		<name>Ms. Pac-Man</name>
+		<desc>The gameplay of Ms. Pac-Man is identical to the original Pac-Man. The player earns points by eating pellets and avoiding ghosts (contact with one causes Ms. Pac-Man to lose a life). Eating an energizer (or "power pellet") causes the ghosts to turn blue, allowing them to be eaten for extra points. Bonus fruits can be eaten for increasing point values, twice per round. As the rounds increase, the speed increases, and energizers generally lessen the extent of the ghosts' vulnerability, eventually stopping altogether.</desc>
+		<image>./media/screenshots/mspacman.png</image>
+		<video>./media/videos/mspacman.mp4</video>
+		<marquee>./media/marquees/mspacman.png</marquee>
+		<rating />
+		<releasedate>19820113T000000</releasedate>
+		<developer>General Computer Corporation</developer>
+		<publisher />
+		<genre>Action, Puzzle</genre>
+		<players>2</players>
+		<favorite>true</favorite>
+		<kidgame>true</kidgame>
+		<playcount>7</playcount>
+		<lastplayed>20250219T220117</lastplayed>
+	</game>
+	<game>
+		<path>./pengo.zip</path>
+		<name>Pengo</name>
+		<desc>Pengo is an arcade game developed by Coreland and published by Sega in 1982. The player controls Pengo, a red penguin that resides in the Antarctic. The game takes place in an overhead maze made of ice blocks, where Pengo fights the patrolling, blob-like Sno-Bees. The objective of the game is for Pengo to survive a series of rounds by eliminating all Sno-Bees, while amassing bonuses by bringing together the three diamonds dispersed in the maze.</desc>
+		<image>./media/screenshots/pengo.png</image>
+		<video>./media/videos/pengo.mp4</video>
+		<marquee>./media/marquees/pengo.png</marquee>
+		<rating>0.9</rating>
+		<releasedate>19820101T000000</releasedate>
+		<developer>Coreland</developer>
+		<publisher>Sega</publisher>
+		<genre>Action / Labyrinth, Action</genre>
+		<players>2</players>
+		<favorite>true</favorite>
+		<kidgame>true</kidgame>
+		<playcount>3</playcount>
+		<lastplayed>20250219T220135</lastplayed>
+	</game>
+	<game>
+		<path>./invaders.zip</path>
+		<name>Space Invaders / Space Invaders M</name>
+		<favorite>true</favorite>
+		<playcount>9</playcount>
+		<lastplayed>20250219T220815</lastplayed>
+	</game>
+	<game>
+		<path>./spyhunt.zip</path>
+		<name>Spy Hunter</name>
+		<desc>Spy Hunter is a 1983 arcade game developed and released by Bally Midway. It has also been ported to various home computers and video game systems.
+
+As a cabinet-style arcade game, Spy Hunter was produced in both sit-down and standard upright versions with the latter being more common.[citation needed] The game's controls consist of a steering wheel in the form of a futuristic aircraft-style yoke with several special-purpose buttons, a two-position stick shift (offering 'low' and 'high' gears), and a pedal used for acceleration. It is a single-player game.</desc>
+		<image>./media/screenshots/spyhunt.png</image>
+		<marquee>./media/marquees/spyhunt.png</marquee>
+		<rating />
+		<releasedate>19830101T000000</releasedate>
+		<developer>Midway</developer>
+		<publisher>Midway Games</publisher>
+		<genre>Racing, Shooter</genre>
+		<favorite>true</favorite>
+		<playcount>104</playcount>
+		<lastplayed>20250219T220846</lastplayed>
+	</game>
+	<game>
+		<path>./sbrkout.zip</path>
+		<name>Super Breakout</name>
+		<desc>Super Breakout allows the player(s) to select any one of three different action-packed Super Breakout games by turning the game select knob on the control panel to the desired game. The three available Super Breakout modes are the following: 
+
+Double Breakout: before serving the ball, the Double Breakout playfield contains 52 orange bricks (4x13) at the top of the screen and 52 green bricks (4x13) immediately below the orange brick wall. 
+Two paddles are displayed at the bottom end of the screen. When the Serve pushbutton is pressed, two balls are served. If the first ball served is missed, it counts as a missed serve and goes against the player's allotted serves per game. Otherwise the second ball is served. If the second ball served is missed after striking the first served ball, the player may continue with the first ball. 
+
+Cavity Breakout: before serving the ball, the Cavity Breakout playfield contains 44 orange bricks and 52 (4x13) green bricks located immediately below the orange brick wall. At approximately 3 columns in and 2 rows down into the orange brick wall, from both the left and the right side of the wall, two cavities appear. These two cavities occupy the space of 4 bricks (a 2x2 brick area).
+One paddle is provided in this game, and only one ball is served, unlike in Double Breakout. When enough bricks are removed to release a captive ball from its cavity, the score doubles for each brick removed by any of the two balls in the playfield (as long as the served ball and the freed ball both remain active in the playfield). If the third ball is freed and all three balls are played in the playfield, the score triples. If any one of the balls is missed and lost, the score returns to double points. If the second ball is missed and only one ball remains in the playfield, points are then scored as normal. 
+
+Progressive Breakout: before serving the ball, the Progressive Breakout playfield contains 4x13 brick walls (one blue and the other green). The blue brick wall, which consists of 52 bricks, is at the top. Then occurs a space equivalent to this wall. In the middle of the screen is a green brick wall consisting of 52 bricks. 
+The brick walls move or 'scroll' toward the paddle at a rate determined by the number of hits on the ball. As the bricks are knocked out and the walls progressively creep up on the player's paddle, new bricks enter the playfield at a progressively faster rate. Four rows of bricks are always separated by four rows of blanks. 
+A</desc>
+		<image>./media/screenshots/sbrkout.png</image>
+		<video>./media/videos/sbrkout.mp4</video>
+		<marquee>./media/marquees/sbrkout.png</marquee>
+		<rating>0.7</rating>
+		<releasedate>19780101T000000</releasedate>
+		<developer>Atari</developer>
+		<publisher>Atari</publisher>
+		<genre>Action, Action / Breakout games</genre>
+		<players>2</players>
+		<favorite>true</favorite>
+		<playcount>4</playcount>
+		<lastplayed>20250219T220922</lastplayed>
+	</game>
+	<game>
+		<path>./superbug.zip</path>
+		<name>Super Bug</name>
+		<desc>A great and pioneer top-view racing game. 
+
+Super Bug! Super Thrills!
+
+The player drive a bright yellow "modified bug" speeds through tree-lined city streets in a fast moving rally race. The constantly moving streets provide new excitement and driving challenge every time the game is played, as the driver races the clock to cover as much distance as possible for highest score.
+
+Directional arrows appear on the road to warn drivers as they approach turns. Quick reflexes are a must to avoid crashing into curbs and parked cars. And to avoid sliding into oil slicks and sand traps.
+
+Players can select "Novice" or "Expert" tracks, shift into first, step on the accelerator and take off. The roar of acceleration, crash and skid sounds add to the exciment. Score, Fuel (time remaining) and driver Ratings are displayed on the screen, as well as "Crunch" whenever the player crashes.</desc>
+		<image>./media/screenshots/superbug.png</image>
+		<video>./media/videos/superbug.mp4</video>
+		<marquee>./media/marquees/superbug.png</marquee>
+		<rating>0.5</rating>
+		<releasedate>19770101T000000</releasedate>
+		<developer>Kee Games</developer>
+		<publisher>Atari</publisher>
+		<genre>Race, Driving</genre>
+		<favorite>true</favorite>
+		<playcount>48</playcount>
+		<lastplayed>20250219T220950</lastplayed>
+	</game>
+	<game>
+		<path>./dkong.zip</path>
+		<name>Donkey Kong</name>
+		<desc>Donkey Kong is an arcade game released by Nintendo in 1981. It is an early example of the platform game genre, as the gameplay focuses on maneuvering the main character across a series of platforms while dodging and jumping over obstacles. In the game, Jumpman (since renamed Mario) must rescue a damsel in distress, Lady (now named Pauline) from a giant ape named Donkey Kong. The hero and ape later became two of Nintendo's most popular characters. The game was the latest in a series of efforts by Nintendo to break into the North American market. Hiroshi Yamauchi, Nintendo's president at the time, assigned the project to a first-time game designer named Shigeru Miyamoto. Drawing from a wide range of inspirations, including Popeye, Beauty and the Beast and King Kong, Miyamoto developed the scenario and designed the game alongside Nintendo's chief engineer, Gunpei Yokoi. The two men broke new ground by using graphics as a means of characterization, including cut scenes to advance the game's plot, and integrating multiple stages into the gameplay. Despite initial misgivings on the part of Nintendo's American staff, Donkey Kong proved a success in North America and Japan. Nintendo licensed the game to Coleco, who developed home console versions for numerous platforms. Other companies cloned Nintendo's hit and avoided royalties altogether. Miyamoto's characters appeared on cereal boxes, television cartoons, and dozens of other places. A lawsuit brought on by Universal City Studios, alleging Donkey Kong violated their trademark of King Kong, ultimately failed. The success of Donkey Kong and Nintendo's win in the courtroom helped position the company to dominate the video game market from its release in 1981, until the mid 1990s.</desc>
+		<image>./media/screenshots/dkong.png</image>
+		<video>./media/videos/dkong.mp4</video>
+		<marquee>./media/marquees/dkong.png</marquee>
+		<rating />
+		<releasedate>19810731T000000</releasedate>
+		<developer>Ikegami Tsushinki</developer>
+		<publisher>Nintendo of America, Inc.</publisher>
+		<genre>Platform</genre>
+		<players>2</players>
+		<favorite>true</favorite>
+		<kidgame>true</kidgame>
+		<playcount>41</playcount>
+		<lastplayed>20250222T091448</lastplayed>
+	</game>
+	<game>
+		<path>./dkongjr.zip</path>
+		<name>Donkey Kong Junior</name>
+		<desc>Donkey Kong Junior must save his father from Mario by putting the key or keys in the stage into all of the locks. Mario attempts to stop Donkey Kong Junior by releasing the many animals he controls to knock Donkey Kong Junior off the vines and platforms. Donkey Kong Junior defeats Mario if the player completes the fourth stage by putting all six keys in their locks, making the floor disappear. Donkey Kong Junior catches Donkey Kong while Mario falls onto the ground.</desc>
+		<image>./media/screenshots/dkongjr.png</image>
+		<video>./media/videos/dkongjr.mp4</video>
+		<marquee>./media/marquees/dkongjr.png</marquee>
+		<rating>0.9</rating>
+		<releasedate>19820101T000000</releasedate>
+		<developer>Nintendo R&amp;D1</developer>
+		<publisher>Nintendo of America, Inc.</publisher>
+		<genre>Platform, Platform / Run Jump</genre>
+		<players>2</players>
+		<favorite>true</favorite>
+		<kidgame>true</kidgame>
+		<playcount>11</playcount>
+		<lastplayed>20250222T091433</lastplayed>
+	</game>
+	<game>
+		<path>./frogger.zip</path>
+		<name>Frogger</name>
+		<desc>Frogger is an arcade game introduced in 1981. It was developed by Konami, and licensed for worldwide distribution by Sega/Gremlin. The object of the game is to direct frogs to their homes one by one. To do this, each frog must avoid cars while crossing a busy road and navigate a river full of hazards. Skillful players may obtain some bonuses along the way. The game is regarded as a classic from the golden age of video arcade games and was noted for its novel gameplay and theme. It was also an early example of a game using more than one CPU, as it used two Z80 processors.</desc>
+		<image>./media/screenshots/frogger.png</image>
+		<video>./media/videos/frogger.mp4</video>
+		<marquee>./media/marquees/frogger.png</marquee>
+		<rating>0.9</rating>
+		<releasedate>19810101T000000</releasedate>
+		<developer>Konami</developer>
+		<publisher>Sega</publisher>
+		<genre>Action / Labyrinth, Action</genre>
+		<players>2</players>
+		<favorite>true</favorite>
+		<kidgame>true</kidgame>
+		<playcount>6</playcount>
+		<lastplayed>20250223T101226</lastplayed>
+	</game>
+	<game>
+		<path>./gravitar.zip</path>
+		<name>Gravitar</name>
+		<desc>Gravitar is a 1- or 2-player game with a color X-Y video display. This new display, with its three color guns and higher voltage, has the same technology that was used in previous Atari black-and-white X-Y displays. However, the screen now displays dazzling colors and unique visual effects. 
+
+The player controls a space ship in three different solar systems. Each solar system consists of a home base, a death star, a red alien planet and four regular planets. Each planet has its own unique terrain. 
+
+The red alien planet is the home of shooting alien ships. Some of the regular planets may have flying alien rammers to be avoided or shot down. The four planets all have fuel cells to be retrieved with a tractor beam and alien bunkers that fire shells. Successfully destroying all of the bunkers results in a 'MISSION COMPLETE' message at the top of the screen. Achieving 'MISSION COMPLETE' allows the player to collect bonus if he can evade the rammers when leaving the planet. If successful, he will be placed back in the solar system. 
+
+A player has two ways to advance to the next solar system. The first is to successfully complete a mission on all four regular planets. The second way is to complete a mission on the red alien planet, which establishes a link into the next solar system. 
+
+</desc>
+		<image>./media/screenshots/gravitar.png</image>
+		<video>./media/videos/gravitar.mp4</video>
+		<marquee>./media/marquees/gravitar.png</marquee>
+		<rating>0.5</rating>
+		<releasedate>19820101T000000</releasedate>
+		<developer>Atari</developer>
+		<publisher>Atari</publisher>
+		<genre>Shoot'em Up, Fight, Shooter</genre>
+		<players>2</players>
+		<favorite>true</favorite>
+		<playcount>3</playcount>
+		<lastplayed>20250223T102211</lastplayed>
+	</game>
+	<game>
+		<path>./llander.zip</path>
+		<name>Lunar Lander</name>
+		<desc>Lunar Lander is a 1-player coin-op electronic game that simulates landing a manned spaceship on the moon. Various video-display phrases indicate score, time elapsed during this landing mission, fuel units consumed, altitude above the moon, and horizontal and vertical speed. The fuel consumption and both speed readings are important for the player to determine how to land the craft. Realistic engine rumble and crash sounds accompany game play. A high beep warns of an almost-depleted fuel supply, whereupon players can add coins to automatically extend the game and 'fill up' their fuel tanks. Depending on the quality of the landing or the crash, various messages are displayed on the screen.
+
+Game play begins with engine rumble and the lander drifting towards the bottom
+right corner of the screen. Horizontal and vertical speeds are constantly displayed, including two arrows to show horizontal and vertical directions of travel. Altitude is measured in distance above the surface of the mountain - not above 'sea level'. The screen also shows time in actual seconds, representing time elapsed in the current mission.
+
+The operator can select from four different settings for fuel units - 450, 600, 750 or 900 fuel units per coin (free play is also available). As the lander module flies over the landscape, it approaches the mountains and a landing site. At a certain point near the mountains, the game 'zooms in' for a close-up view of everything on the screen.
+
+If the player realizes the speed is too fast and the landing looks hopeless, he or she can press the ABORT button on the control panel. This will give the lander extra thrust and make it fly upwards at top speed. The abort feature does consume 120 to 180 fuel units, though, as a disincentive to overusing it. If the ABORT button is pressed too late, however, a crash cannot be avoided.
+
+The four levels of mission difficulty are determined by the player and can be changed at any time during the game or the ready-to-play mode. The differences between the four are printed on the mission select panels and are self explanatory, except perhaps rotational momentum. This feature causes the lander to tumble around when either ROTATE button is pushed. The longer either button is held down, the faster the lander module will spin in that direction. The player gains control of the lander by pressing the other ROTATE button for the same amount of time.</desc>
+		<image>./media/screenshots/llander.png</image>
+		<video>./media/videos/llander.mp4</video>
+		<marquee>./media/marquees/llander.png</marquee>
+		<rating>0.9</rating>
+		<releasedate>19790101T000000</releasedate>
+		<developer>Atari</developer>
+		<publisher>Atari</publisher>
+		<genre>N/A, Simulation, Various</genre>
+		<favorite>true</favorite>
+		<playcount>4</playcount>
+		<lastplayed>20250223T102236</lastplayed>
+	</game>
+	<game>
+		<path>./mhavoc.zip</path>
+		<name>Major Havoc</name>
+		<desc>Major Havoc is a vector-based shoot-em-up and platform game in which the evil Vaxxian Empire overran the galaxy many years ago. Most of humanity was enslaved and abducted to the Vaxxian home world, although a few human scientists managed to escape. The Vaxxian Empire has long since collapsed but numerous Vaxxian space stations, all blindly controlled and defended by robots, still remain in the galaxy, mindlessly following their original, pre-programmed orders.
+
+The small band of scientists who initially escaped have cloned the great human hero, 'Major Havoc' and tasked him with flying his 'Catastrofighter' through a wormhole in space so that he may lead a clone army against the dreaded Vaxxian robots and to liberate the remnants of humanity by destroying the enemy reactors. The player controls Major Rex Havoc, the leader of this band of clones.
+
+The game is broken down into two distinct gameplay genres. The first is a shoot-'em-up in which the player controls Major Havoc's spaceship against the numerous robot ships that defend the enemy reactors. The ships are encased in a force-field shield which must first be shot and depleted before the ship itself can be destroyed. 
+
+The second section is a platform/maze game in which the player - after first landing on the space-station by centering their ship between a moving white line - enters the station. The object here is to reach the core of the station and sabotage its reactor by setting an explosive charge. Once the charge has been set, the player must quickly escape back to their ship and and reach a minimum safe distance before the space-station explodes. 
+
+The Space-station has reduced gravity, making Major Havoc react slowly to players' input. Each station has a maze-like layout and red arrows guide the player towards the station's core. Once the charge has been placed, more arrows guide the player to the station's exit. The mazes of successive space-stations become more complex and harder to navigate as the player progresses. Players also have a limited amount of oxygen in a station but more can be collected by running over the 'O2' symbols scattered throughout the maze.
+
+Major Havoc features a warp system that allows players to skip levels and gain bonus points or extra lives. The warps are activated by a utilizing a Breakout-style mini-game at the bottom-right corner of the screen. 
+
+The mini-game is available at the start of each wave and the way it works is this: a two or three-digit number is displa</desc>
+		<image>./media/screenshots/mhavoc.png</image>
+		<video>./media/videos/mhavoc.mp4</video>
+		<marquee>./media/marquees/mhavoc.png</marquee>
+		<rating>0.9</rating>
+		<releasedate>19830101T000000</releasedate>
+		<developer>Atari</developer>
+		<publisher>Atari</publisher>
+		<genre>Shoot'em Up, N/A, Various, Shooter</genre>
+		<players>2</players>
+		<favorite>true</favorite>
+		<playcount>3</playcount>
+		<lastplayed>20250223T102426</lastplayed>
+	</game>
+	<game>
+		<path>./qix.zip</path>
+		<name>Qix</name>
+		<desc>Draw boxes to claim as much screen as possible without getting in the path of the "Qix" and "Sparx". Draw slower for more points and hope that you have enough coins. Simple but very addicting!</desc>
+		<image>./media/screenshots/qix.png</image>
+		<video>./media/videos/qix.mp4</video>
+		<rating />
+		<releasedate>19811018T000000</releasedate>
+		<developer>Taito America Corporation</developer>
+		<publisher>Taito America Corporation</publisher>
+		<genre>Puzzle</genre>
+		<players>2</players>
+		<favorite>true</favorite>
+		<kidgame>true</kidgame>
+		<playcount>5</playcount>
+		<lastplayed>20250223T101454</lastplayed>
+	</game>
+	<game>
+		<path>./tempest.zip</path>
+		<name>Tempest</name>
+		<desc>The objective of Tempest is to survive as long as possible and score as many points as possible by clearing the screen of enemies that have landed on the playing field. The player's ship can rapid-fire shots down the tube, destroying any enemies within the same segment, and is also equipped with a Superzapper, which destroys all enemies currently on the playfield once per level. (A second use of the Superzapper in a level destroys one random enemy.)</desc>
+		<image>./media/screenshots/tempest.png</image>
+		<video>./media/videos/tempest.mp4</video>
+		<marquee>./media/marquees/tempest.png</marquee>
+		<rating>0.9</rating>
+		<releasedate>19800101T000000</releasedate>
+		<developer>Atari</developer>
+		<publisher>Atari</publisher>
+		<genre>Shoot'em Up, N/A, Shooter, Shooter / Space Invaders Like</genre>
+		<players>2</players>
+		<favorite>true</favorite>
+		<playcount>13</playcount>
+		<lastplayed>20250223T101609</lastplayed>
+	</game>
+	<game>
+		<path>./atetris.zip</path>
+		<name>Tetris</name>
+		<desc>Tetris (In Russian: Тетрис) is a puzzle video game originally designed and programmed by Alexey Pajitnov in the Soviet Union. It was released on June 6, 1984, while he was working for the Dorodnicyn Computing Centre of the Academy of Science of the USSR in Moscow, Russian Soviet Federative Socialist Republic. He derived its name from the Greek numerical prefix tetra- (all of the game's pieces contain four segments) and tennis, Pajitnov's favorite sport.</desc>
+		<image>./media/screenshots/tetris.png</image>
+		<marquee>./media/marquees/tetris.png</marquee>
+		<rating />
+		<releasedate>19881201T000000</releasedate>
+		<developer>Atari Games</developer>
+		<publisher>Atari Games</publisher>
+		<genre>Puzzle-Game / Fall, Puzzle-Game</genre>
+		<players>2</players>
+		<favorite>true</favorite>
+		<playcount>11</playcount>
+		<lastplayed>20250223T101704</lastplayed>
+	</game>
+	<game>
+		<path>./tron.zip</path>
+		<name>Tron</name>
+		<desc>Tron is a coin-operated arcade video game manufactured and distributed by Bally Midway in 1982. It is based on the Walt Disney Productions motion picture Tron released in the same year. The game consists of four subgames inspired by the events of the science fiction film. It features some characters and equipment seen in the film, e.g. the Light Cycles, battle tanks, the Input/Output Tower.</desc>
+		<image>./media/screenshots/tron.png</image>
+		<marquee>./media/marquees/tron.png</marquee>
+		<rating>0.9</rating>
+		<releasedate>19820101T000000</releasedate>
+		<developer>Midway</developer>
+		<publisher>Midway Games</publisher>
+		<genre>Compilation</genre>
+		<players>2</players>
+		<favorite>true</favorite>
+		<playcount>3</playcount>
+		<lastplayed>20250223T101743</lastplayed>
+	</game>
+	<game>
+		<path>./zaxxon.zip</path>
+		<name>Zaxxon</name>
+		<desc>Zaxxon is a 1982 arcade game developed and released by Sega. Some sources claim that Japanese electronics company Ikegami Tsushinki also worked on the development of Zaxxon. The game gives the player the experience of flying a fighter craft through a fortress while shooting at enemy entities (missiles, enemy gunfire, etc.) The object of the game is to hit as many targets as possible without being shot down or running out of fuel—which can be replenished, paradoxically, by blowing up fuel drums.</desc>
+		<image>./media/screenshots/zaxxon.png</image>
+		<marquee>./media/marquees/zaxxon.png</marquee>
+		<rating>0.9</rating>
+		<releasedate>19820101T000000</releasedate>
+		<developer>Ikegami Tsushinki</developer>
+		<publisher>Sega</publisher>
+		<genre>Shoot'em up / Diagonal, Shoot'em Up</genre>
+		<players>2</players>
+		<favorite>true</favorite>
+		<kidgame>true</kidgame>
+		<playcount>9</playcount>
+		<lastplayed>20250223T101814</lastplayed>
+	</game>
+	<game>
+		<path>./berzerk.zip</path>
+		<name>Berzerk</name>
+		<desc>The player controls a green stick man. Using a joystick and a firing button that activates a laser-like weapon, the player navigates a simple maze filled with many robots, who fire lasers back at the player character. A player can be killed by being shot, by running into a robot or an exploding robot, coming into contact with the electrified walls of the maze itself, or by being touched by the player's nemesis, Evil Otto.</desc>
+		<image>./media/screenshots/berzerk.png</image>
+		<marquee>./media/marquees/berzerk.png</marquee>
+		<rating>0.2</rating>
+		<releasedate>19800101T000000</releasedate>
+		<developer>Stern Electronics</developer>
+		<publisher>Stern Electronics, Inc.</publisher>
+		<genre>Action / Labyrinth, Shooter Small, Action</genre>
+		<players>2</players>
+		<favorite>true</favorite>
+		<kidgame>true</kidgame>
+		<playcount>4</playcount>
+		<lastplayed>20250314T114415</lastplayed>
+	</game>
+	<game>
+		<path>./punchout.zip</path>
+		<name>Punch-out!!</name>
+		<desc>Isn't it time you got in on the action?
+
+Once again, Nintendo has created a smash hit —Punch-Out— a fast action dual-monitor video boxing game. Its been knocking out the competition week-after-week in earnings and player appeal across the nation.
+
+With Punch-Out in your corner, you gain the added muscle of the
+Champ!</desc>
+		<image>./media/screenshots/punchout.png</image>
+		<video>./media/videos/punchout.mp4</video>
+		<marquee>./media/marquees/punchout.png</marquee>
+		<rating>0.6</rating>
+		<releasedate>19840101T000000</releasedate>
+		<developer>Nintendo</developer>
+		<publisher>Nintendo</publisher>
+		<genre>Sports, Sports / Boxing</genre>
+		<favorite>true</favorite>
+		<playcount>24</playcount>
+		<lastplayed>20250321T154417</lastplayed>
+	</game>
+	<game>
+		<path>./indytemp.zip</path>
+		<name>Indiana Jones And The Temple Of Doom</name>
+		<desc>Indiana Jones and The Temple of Doom is a 1985 action arcade game developed and published by Atari Games, based on the 1984 film of the same name, the second film in the Indiana Jones franchise. It is also the first Atari System I arcade game to include digitized speech, including voice clips of Harrison Ford as Indiana Jones and Amrish Puri as Mola Ram, as well as John Williams' music from the film.</desc>
+		<image>./media/screenshots/indytemp.png</image>
+		<video>./media/videos/indytemp.mp4</video>
+		<marquee>./media/marquees/indytemp.png</marquee>
+		<rating>0.7</rating>
+		<releasedate>19850101T000000</releasedate>
+		<developer>Atari Games</developer>
+		<publisher>Atari Games</publisher>
+		<genre>Action / Labyrinth, Fight, Action</genre>
+		<players>2</players>
+		<favorite>true</favorite>
+		<kidgame>true</kidgame>
+		<playcount>34</playcount>
+		<lastplayed>20250331T222211</lastplayed>
+	</game>
+	<game>
+		<path>./qbert.zip</path>
+		<name>Q-bert</name>
+		<desc>Q*bert is an arcade game developed and published by Gottlieb in 1982. The objective is to change the color of every cube in a pyramid by making the on-screen character hop on top of the cube while avoiding obstacles and enemies.
+
+The game was conceived by Warren Davis and Jeff Lee. Lee designed the title character and original concept, which was then further developed and implemented by Davis. Q*bert was developed under the project name Cubes.
+
+Q*bert was well received in arcades and among critics. The game was Gottlieb's most successful video game and among the most recognized brands from the golden age of arcade video games. It has been ported to numerous platforms. The success resulted in sequels and the use of the character's likeness in merchandising, such as appearances on lunch boxes, toys, and an animated television show. The character Q*bert became known for his "swearing", an incoherent phrase of synthesized speech generated by the sound chip and a speech balloon of nonsensical characters that appear when he collides with an enemy.</desc>
+		<image>./media/screenshots/qbert.png</image>
+		<video>./media/videos/qbert.mp4</video>
+		<marquee>./media/marquees/qbert.png</marquee>
+		<rating>0.9</rating>
+		<releasedate>19820101T000000</releasedate>
+		<developer>Gottlieb</developer>
+		<publisher>Gottlieb</publisher>
+		<genre>Platform, Platform / Run Jump, Puzzle-Game</genre>
+		<players>2</players>
+		<favorite>true</favorite>
+		<kidgame>true</kidgame>
+		<playcount>37</playcount>
+		<lastplayed>20250420T222612</lastplayed>
+	</game>
+</gameList>

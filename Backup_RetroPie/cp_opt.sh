@@ -1,4 +1,7 @@
 #!/bin/bash
+# cp_opt.sh - Copy configs and MAME installation from ExtremeSSD backup
+# Run this from: /media/danc/ExtremeSSD/Backup_RetroPie/
+# This copies the full MAME installation (binaries, tools, configs) from ExtremeSSD
 
 if [[ $EUID -ne 0 ]]; then
     echo "ERROR: This script must be run with sudo or as root." >&2
@@ -13,14 +16,21 @@ log() {
 
 set -x
 
+# Copy MAME installation and configs from ExtremeSSD backup
 cp -vrf ./opt/retropie/ /opt/
 cp -vrf ./home/danc/ /home/
 
+# Create MAME home directory symlink
 ln -s /opt/retropie/emulators/mame/ /home/danc/.mame
 
+# Set ownership
 chown -R danc /opt/retropie
 chown -R danc /home/danc
+
+# Make scripts executable
 chmod +x /home/danc/scripts/*
+
+# Protect default config from MAME writes
 chmod 444 /opt/retropie/emulators/mame/cfg_sa/default.cfg
 
 log "get rid of lr-mame's ini and plugins and replace with symlink to canonical copies"

@@ -18,22 +18,6 @@ analyze_games:
 	@echo "Building analyze_games..."
 	@$(MAKE) -C analyze_games
 
-# Define installation lists
-SCRIPTS_TO_INSTALL = \
-	swap_banner_art.sh \
-	xinmo-swap.py \
-	xinmo-swapcheck.py \
-	leds_off.py \
-	set_leds.py
-
-ALL_CONFIGS = \
-	autostart.sh \
-	emulators.cfg \
-	retroarch-core-options.cfg \
-	retroarch.cfg \
-	runcommand-onend.sh \
-	runcommand-onlaunch.sh
-
 # Install both executables and resources
 install: all
 	@echo "Installing IvarArcade components..."
@@ -70,69 +54,15 @@ install: all
 		fi; \
 	fi
 	
-	@# Install plugins to MAME
-	@if [ -f plugins/leds/init.lua ]; then \
-		mkdir -p /opt/retropie/emulators/mame/plugins/leds; \
-		if [ ! -f /opt/retropie/emulators/mame/plugins/leds/init.lua ] || [ plugins/leds/init.lua -nt /opt/retropie/emulators/mame/plugins/leds/init.lua ]; then \
-			cp plugins/leds/init.lua /opt/retropie/emulators/mame/plugins/leds/ && echo "Updated: /opt/retropie/emulators/mame/plugins/leds/init.lua"; \
-		else \
-			echo "Skipped: /opt/retropie/emulators/mame/plugins/leds/init.lua (up to date)"; \
-		fi; \
-		if [ ! -f /opt/retropie/emulators/mame/plugins/leds/plugin.json ] || [ plugins/leds/plugin.json -nt /opt/retropie/emulators/mame/plugins/leds/plugin.json ]; then \
-			cp plugins/leds/plugin.json /opt/retropie/emulators/mame/plugins/leds/ && echo "Updated: /opt/retropie/emulators/mame/plugins/leds/plugin.json"; \
-		else \
-			echo "Skipped: /opt/retropie/emulators/mame/plugins/leds/plugin.json (up to date)"; \
-		fi; \
-	fi
-	
-	@if [ -f plugins/marquee/init.lua ]; then \
-		mkdir -p /opt/retropie/emulators/mame/plugins/marquee; \
-		if [ ! -f /opt/retropie/emulators/mame/plugins/marquee/init.lua ] || [ plugins/marquee/init.lua -nt /opt/retropie/emulators/mame/plugins/marquee/init.lua ]; then \
-			cp plugins/marquee/init.lua /opt/retropie/emulators/mame/plugins/marquee/ && echo "Updated: /opt/retropie/emulators/mame/plugins/marquee/init.lua"; \
-		else \
-			echo "Skipped: /opt/retropie/emulators/mame/plugins/marquee/init.lua (up to date)"; \
-		fi; \
-		if [ ! -f /opt/retropie/emulators/mame/plugins/marquee/plugin.json ] || [ plugins/marquee/plugin.json -nt /opt/retropie/emulators/mame/plugins/marquee/plugin.json ]; then \
-			cp plugins/marquee/plugin.json /opt/retropie/emulators/mame/plugins/marquee/ && echo "Updated: /opt/retropie/emulators/mame/plugins/marquee/plugin.json"; \
-		else \
-			echo "Skipped: /opt/retropie/emulators/mame/plugins/marquee/plugin.json (up to date)"; \
-		fi; \
-	fi
-	
-	@# Install scripts using list
-	@mkdir -p /home/danc/scripts
-	@for script in $(SCRIPTS_TO_INSTALL); do \
-		src="Backup_RetroPie/home/danc/scripts/$$script"; \
-		dest="/home/danc/scripts/$$script"; \
-		if [ -f "$$src" ]; then \
-			if [ ! -f "$$dest" ] || [ "$$src" -nt "$$dest" ]; then \
-				cp "$$src" "$$dest" && echo "Updated: $$dest"; \
-			else \
-				echo "Skipped: $$dest (up to date)"; \
-			fi; \
-		fi; \
-	done
-	
-	@# Install all config files using list
-	@mkdir -p /opt/retropie/configs/all
-	@for config in $(ALL_CONFIGS); do \
-		src="Backup_RetroPie/opt/retropie/configs/all/$$config"; \
-		dest="/opt/retropie/configs/all/$$config"; \
-		if [ -f "$$src" ]; then \
-			if [ ! -f "$$dest" ] || [ "$$src" -nt "$$dest" ]; then \
-				cp "$$src" "$$dest" && echo "Updated: $$dest"; \
-			else \
-				echo "Skipped: $$dest (up to date)"; \
-			fi; \
-		fi; \
-	done
-	
-	@# Sync Backup_RetroPie contents back to system (only newer files)
+	@# Sync Backup_RetroPie contents to system (only newer files)
+	@# This handles plugins, scripts, configs, and all other system files
 	@if [ ! -d Backup_RetroPie ]; then \
 		echo "Error: Backup_RetroPie source directory missing"; \
 	else \
-		rsync -av --update --no-perms --no-owner --no-group --omit-dir-times --info=NAME,STATS Backup_RetroPie/opt/ /opt/; \
-		rsync -av --update --no-perms --no-owner --no-group --omit-dir-times --info=NAME,STATS Backup_RetroPie/home/ /home/; \
+		echo "Syncing /opt directory (newer files only)..."; \
+		rsync -a --update --no-perms --no-owner --no-group --omit-dir-times --info=NAME,STATS Backup_RetroPie/opt/ /opt/; \
+		echo "Syncing /home directory (newer files only)..."; \
+		rsync -a --update --no-perms --no-owner --no-group --omit-dir-times --info=NAME,STATS Backup_RetroPie/home/ /home/; \
 	fi
 	
 	@echo "Installation complete!"
