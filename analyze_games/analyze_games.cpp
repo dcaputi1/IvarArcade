@@ -141,23 +141,31 @@ void writeShaderFile(const GameInfo& info)
 }
 
 // Write .ini file for joystick mapping if needed
+// ref. @ retrogamedeconstructionzone.com/2019/11/joystick-mapping-in-mame.html
 void writeJoystickIni(const GameInfo& info)
 {
     // Special case: qbert's joystick is physically rotated 45°,
     // so we treat it as an 8-way joystick even though it's defined as 4-way.
-    if (info.shortName == "qbert")
-    {
-        return;
-    }
+    bool qbert = (info.shortName == "qbert");
 
-    if (info.ways == 8 || info.ways == -1)
+    if ((info.ways == 8 || info.ways == -1) && !qbert)
     {
         // 8-way joystick or no joystick: no .ini file needed
         return;
     }
 
     string filePath = INI_OUTPUT_DIR + info.shortName + ".ini";
-    string mapLine = "joystick_map s8.4s8.44s8.4445";
+    string mapLine = "joystick_map s8.4s8.44s8.4445";  // 4-way with sticky diags
+    string qbertLn = "joystick_map "    // no symetry: all positions spec'd
+                        "4444s8888."    // 4 = left, s = sticky, 8 = up
+                        "4444s8888."
+                        "444458888."    // 5 = nuetral
+                        "444555888."
+                        "ss55555ss."
+                        "222555666."    // 2 = down, 6 = right
+                        "222256666."
+                        "2222s6666."
+                        "2222s6666";
 
     // Check if file exists and if it already contains the joystick_map line
     if (fs::exists(filePath))
@@ -185,7 +193,7 @@ void writeJoystickIni(const GameInfo& info)
             cerr << "Failed to append to INI file: " << filePath << endl;
             return;
         }
-        out << mapLine << endl;
+        out << (qbert ? qbertLn : mapLine) << endl;
         out.close();
     }
     else
