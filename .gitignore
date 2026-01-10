@@ -6,6 +6,8 @@ compile_commands.json
 # Executables
 dmarquees/dmarquees
 analyze_games/analyze_games
+analyze_games/analyze_controls
+analyze_games/list_controls
 
 # Backup files
 Makefile.old
