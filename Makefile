@@ -131,8 +131,10 @@ install: all
 	@if [ ! -d Backup_RetroPie ]; then \
 		echo "Error: Backup_RetroPie source directory missing"; \
 	else \
-		rsync -av --update --no-perms --no-owner --no-group --omit-dir-times --info=NAME,STATS Backup_RetroPie/opt/ /opt/; \
-		rsync -av --update --no-perms --no-owner --no-group --omit-dir-times --info=NAME,STATS Backup_RetroPie/home/ /home/; \
+		echo "Syncing /opt directory (newer files only)..."; \
+		rsync -a --update --no-perms --no-owner --no-group --omit-dir-times --info=NAME,STATS Backup_RetroPie/opt/ /opt/; \
+		echo "Syncing /home directory (newer files only)..."; \
+		rsync -a --update --no-perms --no-owner --no-group --omit-dir-times --info=NAME,STATS Backup_RetroPie/home/ /home/; \
 	fi
 	
 	@echo "Installation complete!"

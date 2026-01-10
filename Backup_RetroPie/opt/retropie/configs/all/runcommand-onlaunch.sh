@@ -20,7 +20,7 @@ if [[ -n "$ROM" ]]; then
     if [[ "$command" == "qbert" ]]; then
         echo "Q*bert detected - using diagonal joystick config" >> /tmp/rc.out
         # Configure UltraStik for Q*bert's 45° rotated control
-        sudo usultrastikcmd -c 1 -u "/home/danc/IvarArcade/tools/UltraStikMaps/4-WayQBert.um" >> /tmp/rc.out 2>&1
+        sudo ultrastikcmd -c 1 -u "/home/danc/IvarArcade/tools/UltraStikMaps/4-WayQBert.um" >> /tmp/rc.out 2>&1
     else
         # Check if game needs 4-way joystick configuration
         INI_FILE="/opt/retropie/emulators/mame/ini/${command}.ini"
