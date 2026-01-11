@@ -167,7 +167,7 @@ void writeJoystickIni(const GameInfo& info)
                         "2222s6666."
                         "2222s6666";
 
-    // Check if file exists and if it already contains the joystick_map line
+    // Check if file exists and if it already contains a joystick map
     if (fs::exists(filePath))
     {
         ifstream in(filePath);
@@ -176,7 +176,8 @@ void writeJoystickIni(const GameInfo& info)
             string line;
             while (getline(in, line))
             {
-                if (line.find(mapLine) != string::npos)
+                if ((line.find("joystick_map") != string::npos) ||
+                    (line.find("joymap") != string::npos))
                 {
                     // Line already exists, no need to append
                     in.close();

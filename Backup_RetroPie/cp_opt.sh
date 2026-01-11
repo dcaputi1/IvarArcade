@@ -17,8 +17,8 @@ log() {
 set -x
 
 # Copy MAME installation and configs from ExtremeSSD backup
-cp -vrf ./opt/retropie/ /opt/
-cp -vrf ./home/danc/ /home/
+cp -vrf /media/danc/ExtremeSSD/Backup_RetroPie/opt/retropie/ /opt/
+cp -vrf /media/danc/ExtremeSSD/Backup_RetroPie/home/danc/ /home/
 
 # Create MAME home directory symlink
 ln -s /opt/retropie/emulators/mame/ /home/danc/.mame
