@@ -70,4 +70,8 @@ problem log:
              input_playerN_joypad_index (2,3,4,0,1)
         cfg_ra/sa coins
         qbert.ini joymap NFG
-        git and AI got stupid (what a POS)
+        git and AI got stupid: I wound up logged into GIT as dcaputi1-dev
+        from then on, using the GUI or AI for source control was impossible.
+        No clue how it happened or how to avoid it in the future.
+        Re-baseline the SD card and pay more attention when launching VS Code!
+        
