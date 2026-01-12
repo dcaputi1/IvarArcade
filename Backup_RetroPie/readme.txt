@@ -70,3 +70,4 @@ problem log:
              input_playerN_joypad_index (2,3,4,0,1)
         cfg_ra/sa coins
         qbert.ini joymap NFG
+        git and AI got stupid (again!) 
