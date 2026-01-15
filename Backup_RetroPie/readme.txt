@@ -41,7 +41,7 @@ steps:
    cd ~/IvarArcade
    make all
    1/13/2026 - touch ~/IvarArcade/Backup_RetroPie/opt/retropie/configs/all/autostart.sh (TBD - fix)
-   make install # deploys binaries, scripts, plugins, etc...
+   make install-force # deploys binaries, scripts, plugins, etc...
    1/11/2026 - TBD: combine those 2 steps and fix rsync not telling me wtf it did!
 9. reboot (for path to take effect)
 10. run ~/marquees/bin/analyze_games (not sudo!)

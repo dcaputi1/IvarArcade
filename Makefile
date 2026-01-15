@@ -1,7 +1,7 @@
 # IvarArcade Parent Makefile
 # Builds both dmarquees and analyze_games executables
 
-.PHONY: all dmarquees analyze_games install clean help
+.PHONY: all dmarquees analyze_games install install-force clean help
 
 # Install directory
 INSTALL_DIR ?= $(HOME)/marquees
@@ -67,6 +67,37 @@ install: all
 	
 	@echo "Installation complete!"
 
+# Install with forced overwrite of all files
+install-force: all
+	@echo "Installing IvarArcade components (forcing overwrites)..."
+	@mkdir -p $(INSTALL_DIR)/bin
+	
+	@# Force install executables
+	@cp -fp dmarquees/dmarquees $(INSTALL_DIR)/bin/ && echo "Installed: $(INSTALL_DIR)/bin/dmarquees"
+	@cp -fp analyze_games/analyze_games $(INSTALL_DIR)/bin/ && echo "Installed: $(INSTALL_DIR)/bin/analyze_games"
+	
+	@# Force install runtime resources (images directory)
+	@if [ -d images ]; then \
+		cp -af images $(INSTALL_DIR)/ && echo "Installed: $(INSTALL_DIR)/images"; \
+	fi
+	
+	@# Force install plugins
+	@if [ -d plugins ]; then \
+		cp -af plugins $(INSTALL_DIR)/ && echo "Installed: $(INSTALL_DIR)/plugins"; \
+	fi
+	
+	@# Force sync Backup_RetroPie contents to system (overwrite all files)
+	@if [ ! -d Backup_RetroPie ]; then \
+		echo "Error: Backup_RetroPie source directory missing"; \
+	else \
+		echo "Syncing /opt directory (forcing overwrites)..."; \
+		rsync -a --no-perms --no-owner --no-group --omit-dir-times --info=NAME,STATS Backup_RetroPie/opt/ /opt/; \
+		echo "Syncing /home directory (forcing overwrites)..."; \
+		rsync -a --no-perms --no-owner --no-group --omit-dir-times --info=NAME,STATS Backup_RetroPie/home/ /home/; \
+	fi
+	
+	@echo "Force installation complete!"
+
 # Clean all build artifacts
 clean:
 	@echo "Cleaning all build artifacts..."
@@ -94,7 +125,8 @@ help:
 	@echo "  all           - Build both dmarquees and analyze_games (default)"
 	@echo "  dmarquees     - Build only dmarquees executable"
 	@echo "  analyze_games - Build only analyze_games executable"
-	@echo "  install       - Build and install all components to $(INSTALL_DIR)"
+	@echo "  install       - Build and install all components (skip existing)"
+	@echo "  install-force - Build and install all components (overwrite all)"
 	@echo "  clean         - Remove all build artifacts"
 	@echo "  uninstall     - Remove installed files"
 	@echo "  help          - Show this help message"
