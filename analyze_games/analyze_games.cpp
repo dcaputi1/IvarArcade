@@ -206,7 +206,7 @@ void writeJoystickIni(const GameInfo& info)
             cerr << "Failed to write INI file: " << filePath << endl;
             return;
         }
-        out << mapLine << endl;
+        out << (qbert ? qbertLn : mapLine) << endl;
         out.close();
     }
 }

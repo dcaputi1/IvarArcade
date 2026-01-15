@@ -1,4 +1,6 @@
 steps to create an SD image baseline
+------------------------------------
+note: if this file is out of date, skip to step 1 and open from github
 
 preliminary:
 a. use pi imager tool to create an SD pi5 64-bit full OS image with:
@@ -15,17 +17,19 @@ f. reboot and run:
 g. install all core packs
    12/30/2025 - RetroArch must be installed from source! (compatable with lr-mame)
 h. install experimental lr-mame (~2 hours from source)
-   1/11/2026 - installed from binary (TBD - test)
+   1/11/2026 - installed from binary
    1/11/2026 - install mame experimental package (TBD -reduce copy from Ex.SSD)
 i. enable autostart emulationstation
 j. edit autostart.sh and replace 'emulationstation' with 'wayfire-pi' (for remote gui)
 
 steps:
 1. clone IvarArcade project:
-   git clone https://github.com/dcaputi1/IvarArcade.git ~/
+   cd ~
+   git clone https://github.com/dcaputi1/IvarArcade.git
    cd ~/IvarArcade/Backup_RetroPie
 2. run ./cp_roms.sh (~1 hours)
 3. run ./cp_opt.sh (sudo)
+   1/13/2026 - not much to 'copy' from opt (TBD - omit and rename the script)
 4. create empty roms breakout.zip and pong.zip:
    touch ~/RetroPie/roms/arcade/breakout.zip
    touch ~/RetroPie/roms/arcade/pong.zip
@@ -36,12 +40,11 @@ steps:
 8. build and install IvarArcade project components:
    cd ~/IvarArcade
    make all
+   1/13/2026 - touch ~/IvarArcade/Backup_RetroPie/opt/retropie/configs/all/autostart.sh (TBD - fix)
    make install # deploys binaries, scripts, plugins, etc...
-   NOTE: verify qbert.ini does not exist (before step 10 below - TBD omit)
    1/11/2026 - TBD: combine those 2 steps and fix rsync not telling me wtf it did!
 9. reboot (for path to take effect)
 10. run ~/marquees/bin/analyze_games (not sudo!)
-   NOTE: make sure qbert.ini has correct map (TBD - omit)
 11. clone, build, install ultrastikcmd tool for per-game joystick mapping:
   mkdir -p ~/IvarArcade/tools/linux
   cd ~/IvarArcade/tools/linux
@@ -74,4 +77,5 @@ problem log:
         from then on, using the GUI or AI for source control was impossible.
         No clue how it happened or how to avoid it in the future.
         Re-baseline the SD card and pay more attention when launching VS Code!
+1/14/26 Missing ES controler setup (goes straight to Gamepad setup)
         
