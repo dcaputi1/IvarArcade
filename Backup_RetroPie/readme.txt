@@ -78,4 +78,10 @@ problem log:
         No clue how it happened or how to avoid it in the future.
         Re-baseline the SD card and pay more attention when launching VS Code!
 1/14/26 Missing ES controler setup (goes straight to Gamepad setup)
-        
+        [x] added install-force target
+1/15/26 can't run ES game
+        [ ] missing /opt/retropie/reroarch/retroarch.cfg
+        [ ] link to mame in /opt/retropie/configs/mame/mame (maybe should be parent)
+        [ ] mame installed in /opt/retropie/retroarch/mame
+        [ ] missing /opt/retropie/emulators/retroarch/bin/retroarch
+   
