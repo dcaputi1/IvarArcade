@@ -4,10 +4,14 @@ import sys
 import glob
 import xml.etree.ElementTree as ET
 
+# Soft-coded joystick code positions
+XIN1_CODE = "JOYCODE_2_"
+XIN2_CODE = "JOYCODE_3_"
+
 def check_default_cfg(cfg_path):
     """
-    Check if default.cfg has JOYCODE_5_* for P2_BUTTON1.
-    Returns True if config is in normal order (P2_BUTTON1 is JOYCODE_5_*), False if swapped.
+    Check if default.cfg has XIN2_CODE for P2_BUTTON1.
+    Returns True if config is in normal order (P2_BUTTON1 is XIN2_CODE), False if swapped.
     """
     try:
         tree = ET.parse(cfg_path)
@@ -16,7 +20,7 @@ def check_default_cfg(cfg_path):
         # Look for P2_BUTTON1 port
         for port in root.findall(".//port[@type='P2_BUTTON1']"):
             for newseq in port.findall("newseq[@type='standard']"):
-                if "JOYCODE_5_" in (newseq.text or ""):
+                if XIN2_CODE in (newseq.text or ""):
                     return True  # Normal order
         return False  # Swapped order
     except ET.ParseError as e:
@@ -29,26 +33,26 @@ def check_default_cfg(cfg_path):
 
 def swap_joysticks_in_file(file_path):
     """
-    Swap all JOYCODE_4_* with JOYCODE_5_* in a single file safely,
+    Swap all XIN1_CODE with XIN2_CODE in a single file safely,
     returning the number of swaps made.
     """
     try:
         with open(file_path, "r", encoding="utf-8") as f:
             content = f.read()
 
-        # Count how many total JOYCODE_4_ and JOYCODE_5_ occurrences exist
-        count_4 = content.count("JOYCODE_4_")
-        count_5 = content.count("JOYCODE_5_")
-        total_swaps = count_4 + count_5
+        # Count how many total XIN1_CODE and XIN2_CODE occurrences exist
+        count_1 = content.count(XIN1_CODE)
+        count_2 = content.count(XIN2_CODE)
+        total_swaps = count_1 + count_2
 
         if total_swaps == 0:
             print(f"Swapped 0 joystick codes in: {file_path}")
             return 0
 
         # Use a temporary placeholder to avoid conflict during replacement
-        content = content.replace("JOYCODE_4_", "TEMPJOY4_")
-        content = content.replace("JOYCODE_5_", "JOYCODE_4_")
-        content = content.replace("TEMPJOY4_", "JOYCODE_5_")
+        content = content.replace(XIN1_CODE, "TEMPXIN1_")
+        content = content.replace(XIN2_CODE, XIN1_CODE)
+        content = content.replace("TEMPXIN1_", XIN2_CODE)
 
         with open(file_path, "w", encoding="utf-8") as f:
             f.write(content)

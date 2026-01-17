@@ -42,4 +42,5 @@ log "cfg and ini files should all be rw 666"
 find /opt/retropie/emulators/mame/ -type f \( -name "*.cfg" -o -name "*.ini" \) -exec chmod 666 {} \;
 
 # Protect default config from MAME writes (TBD - omit?)
-chmod 444 /opt/retropie/emulators/mame/cfg_sa/default.cfg
+## chmod 444 /opt/retropie/emulators/mame/cfg_sa/default.cfg
+## 1/17/2026 - must allow writes for xinmo controller swapping

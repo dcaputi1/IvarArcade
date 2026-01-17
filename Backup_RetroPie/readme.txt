@@ -83,4 +83,6 @@ problem log:
         we create a link 'mame' in /opt/retropie/configs/mame to /opt/retropie/emulators/mame
         [x] cp_opt.sh - no scripts in ~/scripts (get rid of step for now) where are all my scripts?
         [x] move cp_opt.sh to last step (make install-final must run first)
-        [x] fixed default.cfg R/O (was getting stepped on) - TBD omit?
+        [x] xinmo swap failed (never updated after moved from joycode 4-5 to 2-3)
+        [x] moved default.cfg R/O to EOF (but no can do - see next comment)
+        [x] xinmo swap unable to write default.cfg (keep it 666)
