@@ -136,7 +136,7 @@ def main():
             finally:
                 termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
 
-    print("WARNING - XinMo controllers swapped! (press any key.)")
+    print("WARNING - XinMo controllers swapped! (press any key)")
     wait_key()
 
     print("Performing joystick swap on all .cfg files...")
