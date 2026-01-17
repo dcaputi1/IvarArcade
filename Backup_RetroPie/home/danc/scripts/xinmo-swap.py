@@ -108,9 +108,36 @@ def main():
     config_swapped = not default_is_normal
     need_swap = hardware_swapped ^ config_swapped  # XOR logic
 
+
     if not need_swap:
         print("No swap needed. Configuration matches hardware state.")
         sys.exit(0)
+
+    # Output warning and wait for key or timeout
+    import threading
+    import time
+    import sys
+
+    def wait_key():
+        try:
+            # Windows
+            import msvcrt
+            msvcrt.getch()
+        except ImportError:
+            # Unix
+            import sys, termios, tty, select
+            fd = sys.stdin.fileno()
+            old_settings = termios.tcgetattr(fd)
+            try:
+                tty.setraw(fd)
+                rlist, _, _ = select.select([fd], [], [], 30)
+                if rlist:
+                    sys.stdin.read(1)
+            finally:
+                termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+
+    print("WARNING - XinMo controllers swapped! (press any key.)")
+    wait_key()
 
     print("Performing joystick swap on all .cfg files...")
     total_swaps = process_directory(cfg_directory)
