@@ -1,6 +1,5 @@
 steps to create an SD image baseline
 ------------------------------------
-note: if this file is out of date, skip to step 1 and open from github
 
 preliminary:
 a. use pi imager tool to create an SD pi5 64-bit full OS image with:
@@ -11,51 +10,44 @@ d. install updates
 e. preferences, pi config, localization US UTF-8 for all
 f. reboot and run:
 > locale (confirm all US UTF-8)
+> git clone https://github.com/dcaputi1/IvarArcade.git
+  then reload this readme.txt from ~/IvarArcade/Backup_RetroPie, make sure nothing above changed
 > git clone --depth=1 https://github.com/RetroPie/RetroPie-Setup.git
 > cd RetroPie-Setup
 > sudo ./retropie_setup.sh
 g. install all core packs
    12/30/2025 - RetroArch must be installed from source! (compatable with lr-mame)
-h. install experimental lr-mame (~2 hours from source)
+h. install experimantal mame package (~2 hours from source)
+   1/15/2026 - installed from binary
+i. install experimental lr-mame (~2 hours from source)
    1/11/2026 - installed from binary
-   1/11/2026 - install mame experimental package (TBD -reduce copy from Ex.SSD)
-i. enable autostart emulationstation
-j. edit autostart.sh and replace 'emulationstation' with 'wayfire-pi' (for remote gui)
+j. enable autostart emulationstation
+k. edit autostart.sh and replace 'emulationstation' with 'wayfire-pi' (for remote gui)
 
 steps:
-1. clone IvarArcade project:
-   cd ~
-   git clone https://github.com/dcaputi1/IvarArcade.git
-   cd ~/IvarArcade/Backup_RetroPie
-2. run ./cp_roms.sh (~1 hours)
-3. run ./cp_opt.sh (sudo)
-   1/13/2026 - not much to 'copy' from opt (TBD - omit and rename the script)
-4. create empty roms breakout.zip and pong.zip:
+1. ~/IvarArcade/Backup_RetroPie/cp_roms.sh (~1 hours)
+2. create empty roms breakout.zip and pong.zip:
    touch ~/RetroPie/roms/arcade/breakout.zip
    touch ~/RetroPie/roms/arcade/pong.zip
-5. add paths for mame and (optional) retroarch, frontends to /etc/profile (user long path)
+3. add paths for mame and (optional) retroarch, frontends to /etc/profile (user long path)
    :/opt/retropie/emulators/mame:/opt/retropie/emulators/retroarch/bin
-6. run sudo ./analyze_games.sh to install tinyxml2 and python3-hid packages
-7. mkdir -p /opt/retropie/configs/all/retroarch/config/MAME
-8. build and install IvarArcade project components:
+4. sudo ~/IvarArcade/Backup_RetroPie/analyze_games.sh (installs tinyxml2 and python3-hid packages)
+5. mkdir -p /opt/retropie/configs/all/retroarch/config/MAME
+6. build and install IvarArcade project components:
    cd ~/IvarArcade
    make all
-   1/13/2026 - touch ~/IvarArcade/Backup_RetroPie/opt/retropie/configs/all/autostart.sh (TBD - fix)
    make install-force # deploys binaries, scripts, plugins, etc...
-   1/11/2026 - TBD: combine those 2 steps and fix rsync not telling me wtf it did!
-9. reboot (for path to take effect)
-10. run ~/marquees/bin/analyze_games (not sudo!)
-11. clone, build, install ultrastikcmd tool for per-game joystick mapping:
-  mkdir -p ~/IvarArcade/tools/linux
-  cd ~/IvarArcade/tools/linux
-  git clone https://github.com/dcaputi1/UltrastikCmd.git
-  cd ~/IvarArcade/tools/linux/UltrastikCmd
-  cd libusb-1.0.19 && ./configure --prefix=/usr/local && make && sudo make install && cd ..
-  cd libusb-compat-0.1.5 && ./configure --prefix=/usr/local && make && sudo make install && cd ..
-  cd libhid-0.2.16 && ./configure --prefix=/usr/local && make && sudo make install && cd ..
-  cd ultrastikcmd-0.2 && ./configure --prefix=/usr/local && make && sudo make install && cd ..
-  sudo ldconfig
-  verify: sudo ldconfig -v | grep libhid - should show libhid.so.0 -> libhid.so.0.0.0
+   1/11/2026 - TBD: combine those 2 steps?
+7. reboot (for path to take effect)
+8. run ~/marquees/bin/analyze_games (not sudo!)
+9. clone, build, install ultrastikcmd tool for per-game joystick mapping:
+   mkdir -p ~/IvarArcade/tools/linux
+   cd ~/IvarArcade/tools/linux
+   git clone https://github.com/dcaputi1/UltrastikCmd.git
+   ./build.sh
+   sudo ldconfig -v (TBD look for something AI wanted me to verify?)
+10.sudo ~/IvarArcade/Backup_RetroPie/cp_opt.sh
+   1/13/2026 - not much to 'copy' from opt (TBD - omit and rename the script)
 
 optional:
 A. sudo apt install meld
@@ -67,21 +59,28 @@ E. sudo apt install fuse-zip (mounts zip file w/ PNGs)
    sudo nano /etc/fuse.conf and uncomment #user_allow_other
 
 problem log:
-1/11/26 ES launch in-game tab menu, return/backspace swapped
-        file missed: /opt/retropie/configs/all/retroarch/retroarch.cfg (NA?)
-        file diffs: /opt/retropie/configs/arcade/retroarch.cfg
-             input_playerN_joypad_index (2,3,4,0,1)
-        cfg_ra/sa coins
-        qbert.ini joymap NFG
-        git and AI got stupid: I wound up logged into GIT as dcaputi1-dev
+1/11/26 [x] ES launch in-game tab menu, return/backspace swapped
+        [ ] file missed: /opt/retropie/configs/all/retroarch/retroarch.cfg (NA?)
+        [x] file diffs: /opt/retropie/configs/arcade/retroarch.cfg
+            input_playerN_joypad_index (2,3,4,0,1)
+            cfg_ra/sa coins
+        [x] qbert.ini joymap NFG
+        [x] git and AI got stupid: I wound up logged into GIT as dcaputi1-dev
         from then on, using the GUI or AI for source control was impossible.
         No clue how it happened or how to avoid it in the future.
         Re-baseline the SD card and pay more attention when launching VS Code!
-1/14/26 Missing ES controler setup (goes straight to Gamepad setup)
-        [x] added install-force target
+1/14/26 [x] Missing ES controler setup (goes straight to Gamepad setup)
+        added install-force target
 1/15/26 can't run ES game
         [ ] missing /opt/retropie/reroarch/retroarch.cfg
-        [ ] link to mame in /opt/retropie/configs/mame/mame (maybe should be parent)
-        [ ] mame installed in /opt/retropie/retroarch/mame
+        [x] link to mame in /opt/retropie/configs/mame/mame (maybe should be parent)
+        [ ] mame installed in /opt/retropie/retroarch/mame (does it work SA?)
         [ ] missing /opt/retropie/emulators/retroarch/bin/retroarch
-   
+1/16/26 [x] redo SD baseline because too many diffs yesterday (BTW, other comments lost to bad CM)
+1/17/26 [x] tracking link to mame in mame/mame from 1/15 - weird...
+        apparently retroarch mame package install creates a ~/.mame symlink to /opt/retropie/configs/mame so that when my cp_opt.sh does this:
+        ln -s /opt/retropie/emulators/mame/ /home/danc/.mame
+        we create a link 'mame' in /opt/retropie/configs/mame to /opt/retropie/emulators/mame
+        [x] cp_opt.sh - no scripts in ~/scripts (get rid of step for now) where are all my scripts?
+        [x] move cp_opt.sh to last step (make install-final must run first)
+        [x] fixed default.cfg R/O (was getting stepped on) - TBD omit?
