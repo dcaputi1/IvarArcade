@@ -139,3 +139,22 @@ help:
 	@echo "  make install"
 	@echo "  make install INSTALL_DIR=/usr/local/ivararcade"
 	@echo "  make clean"
+
+# Sync-back: Copy updated files from system location back to project
+sync-back:
+	@echo "Syncing back updated files from system to project..."
+	@# Sync MAME cfg_ra from system to project
+	@if [ -d /opt/retropie/emulators/mame/cfg_ra ]; then \
+		mkdir -p /home/danc/IvarArcade/Backup_RetroPie/opt/retropie/emulators/mame/cfg_ra; \
+		rsync -av --update --no-perms --no-owner --no-group --omit-dir-times /opt/retropie/emulators/mame/cfg_ra/ /home/danc/IvarArcade/Backup_RetroPie/opt/retropie/emulators/mame/cfg_ra/ && echo "Back-synced: cfg_ra/"; \
+	else \
+		echo "Skipped: cfg_ra/ (not found in system location)"; \
+	fi
+	@# Sync MAME cfg_sa from system to project
+	@if [ -d /opt/retropie/emulators/mame/cfg_sa ]; then \
+		mkdir -p /home/danc/IvarArcade/Backup_RetroPie/opt/retropie/emulators/mame/cfg_sa; \
+		rsync -av --update --no-perms --no-owner --no-group --omit-dir-times /opt/retropie/emulators/mame/cfg_sa/ /home/danc/IvarArcade/Backup_RetroPie/opt/retropie/emulators/mame/cfg_sa/ && echo "Back-synced: cfg_sa/"; \
+	else \
+		echo "Skipped: cfg_sa/ (not found in system location)"; \
+	fi
+	@echo "Sync-back complete!"
