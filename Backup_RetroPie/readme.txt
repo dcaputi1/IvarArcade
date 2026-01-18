@@ -45,9 +45,11 @@ steps:
    cd ~/IvarArcade/tools/linux
    git clone https://github.com/dcaputi1/UltrastikCmd.git
    ./build.sh
-   sudo ldconfig -v (TBD look for something AI wanted me to verify?)
+   sudo ldconfig -v | grep libhid
+   (verify ldconfig shows libhid.so.0 -> libhid.so.0.0.0)
 10.sudo ~/IvarArcade/Backup_RetroPie/cp_opt.sh
    1/13/2026 - not much to 'copy' from opt (TBD - omit and rename the script)
+11.sudo ~/set_asound.sh
 
 optional:
 A. sudo apt install meld
