@@ -49,7 +49,7 @@ steps:
 9. sudo ~/IvarArcade/Backup_RetroPie/cp_opt.sh
    1/13/2026 - not much to 'copy' from opt (TBD - omit and rename the script)
 10.run ~/marquees/bin/analyze_games (not sudo!)
-11.sudo ~/set_asound.sh (for Trixie sound problem - not needed for Bookworm Debian base OS)
+11.sudo ~/IvarArcade/Backup_RetroPie/set_asound.sh (for Trixie sound problem - not needed for Bookworm Debian base OS)
 
 optional:
 A. sudo apt install meld
