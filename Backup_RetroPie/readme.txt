@@ -88,3 +88,4 @@ problem log:
         [x] xinmo swap failed (never updated after moved from joycode 4-5 to 2-3)
         [x] moved default.cfg R/O to EOF (but no can do - see next comment)
         [x] xinmo swap unable to write default.cfg (keep it 666)
+1/20/26 [x] redo again - games don't load (make install-force wasn't run?)
