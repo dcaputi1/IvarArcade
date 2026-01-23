@@ -1,4 +1,4 @@
-local VERSION = "1.3.0"
+local VERSION = "1.3.1"
 
 local exports = {
     name = "leds",
@@ -32,6 +32,7 @@ local attract_on = true    -- coin1 lit in attract mode (currently only on game 
 local coins1 = nil
 local start1 = nil
 local start2 = nil
+local player_buttons = {}  -- Table to hold player button references
 local credits = 0
 
 local last_coins1 = 0
@@ -43,6 +44,12 @@ local SIMULTANEOUS_WINDOW = 0.15  -- 150ms window to detect simultaneous press
 local start1_press_time = 0
 local start2_press_time = 0
 local swap_triggered = false
+
+-- Attract mode and LED flashing
+local ATTRACT_MODE_TIMEOUT = 30.0  -- Return to attract mode after 30 seconds of inactivity
+local COIN_FLASH_INTERVAL = 0.5    -- Flash coin LED every 0.5 seconds
+local last_button_press_time = 0
+local starts_found = false
 
 -----------------------------------------------------------
 -- Helper Functions
@@ -81,11 +88,23 @@ local function initialize_ports()
                 print("start 2 found")
                 start2 = { port = port, field = field }
             end
+            -- Collect player button fields (P1_BUTTON1, P1_BUTTON2, etc.)
+            if field_name:lower():find("p1_button") or field_name:lower():find("button") then
+                table.insert(player_buttons, { port = port, field = field, name = field_name })
+            end
         end
     end
 
     if not (coins1 and start1 and start2) then
         print("LEDS Plugin: Failed to find all required input ports.")
+        print("LEDS Plugin: Available input ports:")
+        local ioports = manager.machine.ioport.ports
+        for tag, port in pairs(ioports) do
+            for field_name, field in pairs(port.fields) do
+                print("  - " .. field_name)
+            end
+        end
+        starts_found = false
         return false
     end
 
@@ -93,6 +112,7 @@ local function initialize_ports()
     last_start1 = start1.port:read()
     last_start2 = start2.port:read()
 
+    starts_found = true
     return true
 end
 
@@ -143,6 +163,27 @@ local function on_frame()
     
     local s1_currently_pressed = is_pressed(s1_now, start1.field)
     local s2_currently_pressed = is_pressed(s2_now, start2.field)
+    
+    -- Track player button activity for attract mode
+    local any_player_button_pressed = false
+    for _, button_ref in ipairs(player_buttons) do
+        local button_now = button_ref.port:read()
+        if is_pressed(button_now, button_ref.field) then
+            any_player_button_pressed = true
+            break
+        end
+    end
+    
+    -- Update last button press time only when player buttons are active
+    if any_player_button_pressed then
+        last_button_press_time = current_time
+        attract_on = false
+    end
+    
+    -- Return to attract mode after player inactivity timeout
+    if (current_time - last_button_press_time) > ATTRACT_MODE_TIMEOUT then
+        attract_on = true
+    end
     
     -- Detect rising edge on Start 1
     local s1_edge = s1_currently_pressed and s1_now ~= last_start1
@@ -203,10 +244,17 @@ local function on_frame()
     -- Update LED mask based on credits
     local mask_now = 0
     if attract_on then
-        mask_now = 1      -- + Coin
+        -- Flash coin LED every 0.5 seconds in attract mode
+        local flash_phase = (current_time % COIN_FLASH_INTERVAL) < (COIN_FLASH_INTERVAL / 2)
+        if flash_phase then
+            mask_now = 1      -- + Coin
+        end
     end
 
-    if credits >= 2 then
+    -- If we couldn't find standard start buttons, light both start LEDs
+    if not starts_found then
+        mask_now = mask_now + 6     -- + P1 + P2
+    elseif credits >= 2 then
         mask_now = mask_now + 6     -- + P1 + P2
     elseif credits == 1 then
         mask_now = mask_now + 2     -- + P1
@@ -220,6 +268,7 @@ local function on_game_start()
     coins1 = nil
     start1 = nil
     start2 = nil
+    player_buttons = {}
     last_coins1 = 0
     last_start1 = 0
     last_start2 = 0
@@ -227,6 +276,8 @@ local function on_game_start()
     start1_press_time = 0
     start2_press_time = 0
     swap_triggered = false
+    last_button_press_time = 0
+    starts_found = false
     
     local gamename = emu.romname()
     if gamename == "___empty" then return end
