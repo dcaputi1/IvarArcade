@@ -81,11 +81,6 @@ install-force: all
 		cp -af images $(INSTALL_DIR)/ && echo "Installed: $(INSTALL_DIR)/images"; \
 	fi
 	
-	@# Force install plugins
-	@if [ -d plugins ]; then \
-		cp -af plugins $(INSTALL_DIR)/ && echo "Installed: $(INSTALL_DIR)/plugins"; \
-	fi
-	
 	@# Force sync Backup_RetroPie contents to system (overwrite all files)
 	@if [ ! -d Backup_RetroPie ]; then \
 		echo "Error: Backup_RetroPie source directory missing"; \

@@ -49,7 +49,7 @@ steps:
 9. sudo ~/IvarArcade/Backup_RetroPie/cp_opt.sh
    1/13/2026 - not much to 'copy' from opt (TBD - omit and rename the script)
 10.run ~/marquees/bin/analyze_games (not sudo!)
-11.sudo ~/IvarArcade/Backup_RetroPie/set_asound.sh (for Trixie sound problem - not needed for Bookworm Debian base OS)
+11.sudo ~/scripts/set_asound.sh (for Trixie sound problem - not needed for Bookworm Debian base OS)
 
 optional:
 A. sudo apt install meld
@@ -89,3 +89,4 @@ problem log:
         [x] moved default.cfg R/O to EOF (but no can do - see next comment)
         [x] xinmo swap unable to write default.cfg (keep it 666)
 1/20/26 [x] redo again - games don't load (make install-force wasn't run?)
+1/24/26 [ ] leds don't work unless start buttons are defined (some games use player buttons)
