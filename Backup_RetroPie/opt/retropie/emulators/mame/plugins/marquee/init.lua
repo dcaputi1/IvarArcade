@@ -3,7 +3,7 @@
 --  - Sends marquee display commands to dmarquees daemon
 -----------------------------------------------------------
 
-local VERSION = "1.3.0"
+local VERSION = "1.3.1"
 
 local exports = {
     name = "marquee",
@@ -14,12 +14,15 @@ local exports = {
 }
 
 local marquee = exports
+local input = nil
 
 -----------------------------------------------------------
 -- Constants
 -----------------------------------------------------------
 
 local MARQUEE_FIFO = "/tmp/dmarquees_cmd"
+local HOTKEY_CODE = "KEYCODE_SCRLOCK"
+local SWAP_BANNER_SCRIPT = "/home/danc/scripts/swap_banner_art.sh"
 
 -----------------------------------------------------------
 -- Internal State
@@ -27,6 +30,9 @@ local MARQUEE_FIFO = "/tmp/dmarquees_cmd"
 
 local reset_subscriber
 local stop_subscriber
+local frame_subscriber
+
+local game_running = false
 
 -----------------------------------------------------------
 -- Helper Functions
@@ -46,7 +52,8 @@ end
 local function cleanup_notifiers()
     if reset_subscriber then emu.remove_notifier(reset_subscriber) end
     if stop_subscriber then emu.remove_notifier(stop_subscriber) end
-    reset_subscriber, stop_subscriber = nil, nil
+    if frame_subscriber then emu.remove_notifier(frame_subscriber) end
+    reset_subscriber, stop_subscriber, frame_subscriber = nil, nil, nil
 end
 
 -----------------------------------------------------------
@@ -59,11 +66,24 @@ local function on_game_start()
 
     print("[Marquee plugin] " .. gamename .. " started")
     send_marquee_command(gamename)  -- show corresponding marquee
+
+    game_running = true
 end
 
 local function on_game_stop()
     print("[Marquee plugin] Game stopped, reset marquee")
     send_marquee_command("CLEAR")
+
+    game_running = false
+end
+
+local function on_frame()
+	if not game_running then return end
+	if not input then input = manager.machine.input end
+
+	if input:code_pressed_once(HOTKEY_CODE) then
+		os.execute(SWAP_BANNER_SCRIPT)
+	end
 end
 
 -----------------------------------------------------------
@@ -76,6 +96,7 @@ function marquee.startplugin()
     cleanup_notifiers()
     reset_subscriber = emu.add_machine_reset_notifier(on_game_start)
     stop_subscriber = emu.add_machine_stop_notifier(on_game_stop)
+    frame_subscriber = emu.add_machine_frame_notifier(on_frame)
 end
 
 return exports
