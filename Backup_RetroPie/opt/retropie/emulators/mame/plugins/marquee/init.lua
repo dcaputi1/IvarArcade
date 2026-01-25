@@ -21,8 +21,7 @@ local input = nil
 -----------------------------------------------------------
 
 local MARQUEE_FIFO = "/tmp/dmarquees_cmd"
-local HOTKEY_CODE = "KEYCODE_SCRLOCK"
-local SWAP_BANNER_SCRIPT = "/home/danc/scripts/swap_banner_art.sh"
+local SWAP_SCRIPT  = "/home/danc/scripts/swap_banner_art.sh"
 
 -----------------------------------------------------------
 -- Internal State
@@ -30,9 +29,6 @@ local SWAP_BANNER_SCRIPT = "/home/danc/scripts/swap_banner_art.sh"
 
 local reset_subscriber
 local stop_subscriber
-local frame_subscriber
-
-local game_running = false
 
 -----------------------------------------------------------
 -- Helper Functions
@@ -43,17 +39,16 @@ local function send_marquee_command(text)
     if f then
         f:write(text .. "\n")
         f:close()
-        print(string.format("[Marquee plugin] Sent marquee command: '%s'", text))
+        print(string.format("Marquee plugin: Sent marquee command: '%s'", text))
     else
-        print(string.format("[Marquee plugin] Failed to open FIFO %s", MARQUEE_FIFO))
+        print(string.format("Marquee plugin: Failed to open FIFO %s", MARQUEE_FIFO))
     end
 end
 
 local function cleanup_notifiers()
     if reset_subscriber then emu.remove_notifier(reset_subscriber) end
     if stop_subscriber then emu.remove_notifier(stop_subscriber) end
-    if frame_subscriber then emu.remove_notifier(frame_subscriber) end
-    reset_subscriber, stop_subscriber, frame_subscriber = nil, nil, nil
+    reset_subscriber, stop_subscriber = nil, nil
 end
 
 -----------------------------------------------------------
@@ -64,26 +59,22 @@ local function on_game_start()
     local gamename = emu.romname()
     if gamename == "___empty" then return end
 
-    print("[Marquee plugin] " .. gamename .. " started")
+    print("Marquee plugin: " .. gamename .. " started")
     send_marquee_command(gamename)  -- show corresponding marquee
-
-    game_running = true
 end
 
 local function on_game_stop()
-    print("[Marquee plugin] Game stopped, reset marquee")
+    print("Marquee plugin: Game stopped, reset marquee")
     send_marquee_command("CLEAR")
-
-    game_running = false
 end
 
-local function on_frame()
-	if not game_running then return end
-	if not input then input = manager.machine.input end
+local function menu_populate()
+    return { "Control Panel / Marquee Swap", "", "" }
+end
 
-	if input:code_pressed_once(HOTKEY_CODE) then
-		os.execute(SWAP_BANNER_SCRIPT)
-	end
+local function menu_callback(index, event)
+    os.execute(SWAP_SCRIPT)
+    return false
 end
 
 -----------------------------------------------------------
@@ -96,7 +87,8 @@ function marquee.startplugin()
     cleanup_notifiers()
     reset_subscriber = emu.add_machine_reset_notifier(on_game_start)
     stop_subscriber = emu.add_machine_stop_notifier(on_game_stop)
-    frame_subscriber = emu.add_machine_frame_notifier(on_frame)
+	emu.register_menu(menu_callback, menu_populate, "Marquee")
+
 end
 
 return exports
