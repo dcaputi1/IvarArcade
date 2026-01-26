@@ -1,4 +1,4 @@
-local VERSION = "1.3.1"
+local VERSION = "1.3.2"
 
 local exports = {
     name = "leds",
@@ -16,7 +16,6 @@ local leds = exports
 
 local SCRIPT_PATH = "/home/danc/scripts/"
 local SCRIPT_FILE = "set_leds.py"
-local SWAP_BANNER_SCRIPT = "/home/danc/scripts/swap_banner_art.sh"
 
 -----------------------------------------------------------
 -- Internal State
@@ -27,7 +26,7 @@ local reset_subscriber
 local stop_subscriber
 local frame_subscriber
 local machine_ok = true
-local attract_on = true    -- coin1 lit in attract mode (currently only on game launch)
+local attract_on = true    -- coin1 flashes in attract mode
 
 local coins1 = nil
 local start1 = nil
@@ -39,17 +38,10 @@ local last_coins1 = 0
 local last_start1 = 0
 local last_start2 = 0
 
--- Simultaneous button press detection
-local SIMULTANEOUS_WINDOW = 0.15  -- 150ms window to detect simultaneous press
-local start1_press_time = 0
-local start2_press_time = 0
-local swap_triggered = false
-
 -- Attract mode and LED flashing
 local ATTRACT_MODE_TIMEOUT = 30.0  -- Return to attract mode after 30 seconds of inactivity
 local COIN_FLASH_INTERVAL = 0.5    -- Flash coin LED every 0.5 seconds
 local last_button_press_time = 0
-local starts_found = false
 
 -----------------------------------------------------------
 -- Helper Functions
@@ -104,43 +96,22 @@ local function initialize_ports()
                 print("  - " .. field_name)
             end
         end
-        starts_found = false
-        return false
     end
 
-    last_coins1 = coins1.port:read()
-    last_start1 = start1.port:read()
-    last_start2 = start2.port:read()
-
-    starts_found = true
-    return true
+    if coins1 then last_coins1 = coins1.port:read() end
+    if start1 then last_start1 = start1.port:read() end
+    if start2 then last_start2 = start2.port:read() end
 end
 
 local function is_pressed(current, field)
     return ((current & field.mask) ~ field.defvalue) ~= 0
 end
 
-local function trigger_swap_banner_art()
-    print("LEDS Plugin: Simultaneous start button press detected! Swapping banner art...")
-    local result = os.execute(SWAP_BANNER_SCRIPT)
-    if result then
-        print("LEDS Plugin: Banner art swap completed successfully.")
-    else
-        print("LEDS Plugin: Banner art swap failed.")
-    end
-end
-
 local function cleanup_notifiers()
-    if reset_subscriber then
-        emu.remove_notifier(reset_subscriber)
-    end
-    if stop_subscriber then
-        emu.remove_notifier(stop_subscriber)
-    end
-    if frame_subscriber then
-        emu.remove_notifier(frame_subscriber)
-    end
-    
+    if reset_subscriber then emu.remove_notifier(reset_subscriber) end
+    if stop_subscriber then emu.remove_notifier(stop_subscriber) end
+    if frame_subscriber then emu.remove_notifier(frame_subscriber) end
+
     reset_subscriber = nil
     stop_subscriber = nil
     frame_subscriber = nil
@@ -151,19 +122,37 @@ end
 -----------------------------------------------------------
 
 local function on_frame()
-    if not machine_ok then
-        return
+
+    if not machine_ok then return end
+
+    local c1_now, s1_now, s2_now
+    local c1_down, s1_down, s2_down
+    local c1_edge, s1_edge, s2_edge
+
+    if coins1 then
+        c1_now = coins1.port:read()
+        c1_down = is_pressed(c1_now, coins1.field)
+        c1_edge = c1_down and c1_now ~= last_coins1
+        if c1_edge then
+            credits = credits + 1
+            print("LEDS Plugin: Coin inserted. Credits: " .. credits)
+        end 
     end
 
-    local coin_now = coins1.port:read()
-    local s1_now = start1.port:read()
-    local s2_now = start2.port:read()
-    
+    if start1 then
+        s1_now = start1.port:read()
+        s1_down = is_pressed(s1_now, start1.field)
+        s1_edge = s1_down and s1_now ~= last_start1
+    end
+
+    if start2 then
+        s2_now = start2.port:read()
+        s2_down = is_pressed(s2_now, start2.field)
+        s2_edge = s2_down and s2_now ~= last_start2
+    end
+
     local current_time = os.clock()
-    
-    local s1_currently_pressed = is_pressed(s1_now, start1.field)
-    local s2_currently_pressed = is_pressed(s2_now, start2.field)
-    
+        
     -- Track player button activity for attract mode
     local any_player_button_pressed = false
     for _, button_ref in ipairs(player_buttons) do
@@ -177,64 +166,26 @@ local function on_frame()
     -- Update last button press time only when player buttons are active
     if any_player_button_pressed then
         last_button_press_time = current_time
-        attract_on = false
+--      attract_on = false
     end
     
     -- Return to attract mode after player inactivity timeout
     if (current_time - last_button_press_time) > ATTRACT_MODE_TIMEOUT then
-        attract_on = true
-    end
-    
-    -- Detect rising edge on Start 1
-    local s1_edge = s1_currently_pressed and s1_now ~= last_start1
-    -- Detect rising edge on Start 2
-    local s2_edge = s2_currently_pressed and s2_now ~= last_start2
-
-    -- Update press times on rising edges
-    if s1_edge then
-        start1_press_time = current_time
-    end
-    if s2_edge then
-        start2_press_time = current_time
-    end
-    
-    -- Check for simultaneous press (both buttons pressed within time window)
-    local is_simultaneous = false
-    if s1_currently_pressed and s2_currently_pressed then
-        local time_diff = math.abs(start1_press_time - start2_press_time)
-        if time_diff <= SIMULTANEOUS_WINDOW then
-            is_simultaneous = true
-            if not swap_triggered then
-                swap_triggered = true
-                trigger_swap_banner_art()
-            end
-        end
-    end
-    
-    -- Reset swap trigger when both buttons are released
-    if not s1_currently_pressed and not s2_currently_pressed then
-        swap_triggered = false
+--      attract_on = true
     end
 
-    -- Detect rising edge on Coin 1
-    if is_pressed(coin_now, coins1.field) and coin_now ~= last_coins1 then
-        credits = credits + 1
+    -- Start 1 now
+    if s1_edge and credits >= 1 then
+        credits = credits - 1
+        attract_on = false
+        print("LEDS Plugin: 1 Player start. Credits: " .. credits)
     end
 
-    -- Normal Start 1 behavior (only if not a simultaneous press)
-    if s1_edge and not is_simultaneous then
-        if credits >= 1 then
-            credits = credits - 1
-            attract_on = false
-        end
-    end
-
-    -- Normal Start 2 behavior (only if not a simultaneous press)
-    if s2_edge and not is_simultaneous then
-        if credits >= 2 then
-            credits = credits - 2
-            attract_on = false
-        end
+    -- Start 2 now
+    if s2_edge and credits >= 2 then
+        credits = credits - 2
+        print("LEDS Plugin: 2 Player start. Credits: " .. credits)
+        attract_on = false
     end
 
     last_coins1 = coin_now
@@ -242,19 +193,18 @@ local function on_frame()
     last_start2 = s2_now
 
     -- Update LED mask based on credits
-    local mask_now = 0
+    local mask_now = 0  -- Default to all LEDs off
+
     if attract_on then
         -- Flash coin LED every 0.5 seconds in attract mode
-        local flash_phase = (current_time % COIN_FLASH_INTERVAL) < (COIN_FLASH_INTERVAL / 2)
-        if flash_phase then
+--      local flash_phase = (current_time % COIN_FLASH_INTERVAL) < (COIN_FLASH_INTERVAL / 2)
+--      if flash_phase then
             mask_now = 1      -- + Coin
-        end
+--      end
     end
 
-    -- If we couldn't find standard start buttons, light both start LEDs
-    if not starts_found then
-        mask_now = mask_now + 6     -- + P1 + P2
-    elseif credits >= 2 then
+    -- Update Player Start LEDs based on credits
+    if credits >= 2 then
         mask_now = mask_now + 6     -- + P1 + P2
     elseif credits == 1 then
         mask_now = mask_now + 2     -- + P1
@@ -273,18 +223,14 @@ local function on_game_start()
     last_start1 = 0
     last_start2 = 0
     credits = 0
-    start1_press_time = 0
-    start2_press_time = 0
-    swap_triggered = false
     last_button_press_time = 0
-    starts_found = false
     
     local gamename = emu.romname()
     if gamename == "___empty" then return end
 
     print("LEDS Plugin: " .. gamename .. " started")
 
-    if not initialize_ports() then return end
+    initialize_ports()
 
     machine_ok = true
     attract_on = true

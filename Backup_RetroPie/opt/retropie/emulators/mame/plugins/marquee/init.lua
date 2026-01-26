@@ -1,9 +1,8 @@
 -----------------------------------------------------------
--- Marquee Plugin v1.3.0
---  - Sends marquee display commands to dmarquees daemon
+-- Marquee Plugin - Sends FIFO commands to dmarquees daemon
 -----------------------------------------------------------
 
-local VERSION = "1.3.1"
+local VERSION = "1.3.2"
 
 local exports = {
     name = "marquee",
@@ -69,11 +68,14 @@ local function on_game_stop()
 end
 
 local function menu_populate()
-    return { "Control Panel / Marquee Swap", "", "" }
+    return {{ "Control Panel / Marquee", "SWAP", "" }}
 end
 
 local function menu_callback(index, event)
-    os.execute(SWAP_SCRIPT)
+    if index == 1 and event == "select" then
+        os.execute(SWAP_SCRIPT)
+        print("Marquee plugin: SWAP index " .. tostring(index) .. " event " .. tostring(event)  )
+    end
     return false
 end
 

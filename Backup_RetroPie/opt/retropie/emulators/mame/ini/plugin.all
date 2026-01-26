@@ -6,7 +6,7 @@ autofire                  0
 inputmacro                0
 console                   0
 timer                     0
-dummy                     0
+dummy                     1
 layout                    1
 timecode                  0
 nvdiff                    0
