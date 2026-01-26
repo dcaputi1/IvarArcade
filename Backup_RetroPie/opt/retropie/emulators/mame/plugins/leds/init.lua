@@ -188,7 +188,7 @@ local function on_frame()
         attract_on = false
     end
 
-    last_coins1 = coin_now
+    last_coins1 = c1_now
     last_start1 = s1_now
     last_start2 = s2_now
 
@@ -197,10 +197,10 @@ local function on_frame()
 
     if attract_on then
         -- Flash coin LED every 0.5 seconds in attract mode
---      local flash_phase = (current_time % COIN_FLASH_INTERVAL) < (COIN_FLASH_INTERVAL / 2)
---      if flash_phase then
+        local flash_phase = (current_time % COIN_FLASH_INTERVAL) < (COIN_FLASH_INTERVAL / 2)
+        if flash_phase then
             mask_now = 1      -- + Coin
---      end
+        end
     end
 
     -- Update Player Start LEDs based on credits
