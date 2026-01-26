@@ -51,7 +51,7 @@ local function set_led_mask(mask)
     if mask == last_mask then return end
     last_mask = mask
 
-    local cmd = string.format("python3 %s%s %02x", SCRIPT_PATH, SCRIPT_FILE, mask)
+    local cmd = string.format("python3 %s%s %02x &", SCRIPT_PATH, SCRIPT_FILE, mask)
     local result = os.execute(cmd)
     if result then
         print(string.format("LED mask 0x%02x sent successfully.", mask))
