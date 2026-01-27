@@ -41,9 +41,11 @@ if [[ -n "$ROM" ]]; then
             sudo ultrastikcmd -c 1 -u "/home/danc/IvarArcade/tools/UltraStikMaps/8-WayEasyDiagonals.um" >> /tmp/rc.out 2>&1
         fi
     fi
-    # Write the ROM short name to the marquee command file - do this last (TBD - race condition?)
+    # Write the ROM short name to the marquee command file
+    # NOTE: do this last! (race condition)
+    # ALSO: we ignore all rom commands from RA unless sent from here with "RC:" prepended
 	echo "input $romzip : sending command $command to marquee daemon" >> /tmp/rc.out
-    echo "$command" > /tmp/dmarquees_cmd
+    echo "RC:$command" > /tmp/dmarquees_cmd
 fi
 
 echo "runcommand-onlauch exit $date" >> /tmp/rc.out

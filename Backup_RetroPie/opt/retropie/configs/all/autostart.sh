@@ -260,7 +260,6 @@ echo "DEF_KEY=\"$CHOICE\"" > $HOME/.def_key
 # Launch the selected frontend with the appropriate parameters...
 case $CHOICE in
 E)
-   cp -f $INI_PATH/plugin.nomarquee $INI_PATH/plugin.ini
    mv $CFG_RA_PATH $CFG_PATH
    echo "ROL_FLAG=\"-norol\"" > $HOME/.rol_flag
    echo "RA" > /tmp/dmarquees_cmd
@@ -269,7 +268,6 @@ E)
    continue
    ;;
 V)
-   cp -f $INI_PATH/plugin.nomarquee $INI_PATH/plugin.ini
    mv $CFG_RA_PATH $CFG_PATH
    echo "ROL_FLAG=\"-rol\"" > $HOME/.rol_flag
    echo "RA" > /tmp/dmarquees_cmd
@@ -278,7 +276,6 @@ V)
    continue
    ;;
 M)
-   cp -f $INI_PATH/plugin.all $INI_PATH/plugin.ini
    echo "SA" > /tmp/dmarquees_cmd
    mv $CFG_SA_PATH $CFG_PATH
    mame -norol -inipath "/opt/retropie/emulators/mame/ini" -cfg_directory $CFG_PATH -joystickprovider sdljoy
@@ -286,7 +283,6 @@ M)
    continue
    ;;
 P)
-   cp -f $INI_PATH/plugin.all $INI_PATH/plugin.ini
    echo "SA" > /tmp/dmarquees_cmd
    mv $CFG_SA_PATH $CFG_PATH
    mame -rol -inipath "/opt/retropie/emulators/mame/ini;/opt/retropie/emulators/mame/ini_horz_ror" -cfg_directory $CFG_PATH -joystickprovider sdljoy

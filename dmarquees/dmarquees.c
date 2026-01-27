@@ -574,6 +574,15 @@ int main(int argc, char **argv)
             break;
 
         case CMD_ROM:
+            // ignore RA plugin commands unless sent from runcommand
+            if (g_frontend_mode == eRA)
+            {
+                if (!strncmp(cmd_str, "RC:", 3))    // "RC:" run command
+                    cmd_str += 3;
+                else
+                    break;
+            } 
+
             // If we reach here, it's either eROM or an unknown command - treat as ROM shortname
             if (game_has_multiple_screens(cmd_str))
             {
