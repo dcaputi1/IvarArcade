@@ -541,6 +541,11 @@ Galaga introduces a number of new features over its predecessor, Galaxian. Among
 		<lastplayed>20250219T215837</lastplayed>
 	</game>
 	<game>
+		<path>./gauntlet.zip</path>
+		<name>Gauntlet</name>
+		<favorite>true</favorite>
+	</game>
+	<game>
 		<path>./gtg2.zip</path>
 		<name>Golden Tee Golf II</name>
 		<desc>Golden Tee Golf is a golf arcade game series by Incredible Technologies.</desc>
@@ -615,6 +620,11 @@ Player control consists of a Midi Trak-Ball control and a FIRE button. The Arche
 		<kidgame>true</kidgame>
 		<playcount>3</playcount>
 		<lastplayed>20250219T220135</lastplayed>
+	</game>
+	<game>
+		<path>./popeye.zip</path>
+		<name>Popeye</name>
+		<favorite>true</favorite>
 	</game>
 	<game>
 		<path>./invaders.zip</path>
