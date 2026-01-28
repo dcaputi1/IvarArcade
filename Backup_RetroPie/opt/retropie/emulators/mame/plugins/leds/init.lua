@@ -39,7 +39,7 @@ local last_start1 = 0
 local last_start2 = 0
 
 -- Attract mode and LED flashing
-local ATTRACT_MODE_TIMEOUT = 30.0  -- Return to attract mode after 30 seconds of inactivity
+local ATTRACT_MODE_TIMEOUT = 60.0  -- Return to attract mode after 1 minute of inactivity
 local COIN_FLASH_INTERVAL = 0.5    -- Flash coin LED every 0.5 seconds
 local last_button_press_time = 0
 
@@ -166,12 +166,12 @@ local function on_frame()
     -- Update last button press time only when player buttons are active
     if any_player_button_pressed then
         last_button_press_time = current_time
---      attract_on = false
+        attract_on = false
     end
     
     -- Return to attract mode after player inactivity timeout
     if (current_time - last_button_press_time) > ATTRACT_MODE_TIMEOUT then
---      attract_on = true
+        attract_on = true
     end
 
     -- Start 1 now
