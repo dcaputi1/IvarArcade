@@ -233,6 +233,7 @@ i. Configure direct wired link static IPs (NetworkManager):
 7/25/26 [X] after Trixie update, autostart menu exit to desktop wanted password
             Edit /etc/lightdm/lightdm.conf uncomment/edit autologin-user... 2x lines
         [X] run retropie-setup.sh add Atari console emus
-8/03/26 [ ] update IvarArcade with Atari console config
-        [ ] update ExtremeSSD with Atari console assets
+8/03/26 [X] update IvarArcade with Atari console config
+        [X] update ExtremeSSD with Atari console assets
         [ ] test rebase with new Atari console emus
+9/08/26 [X] Caverns of Mars NFG - bad OS-B rom had no PIA
