@@ -13,7 +13,6 @@ local exports = {
 }
 
 local marquee = exports
-local input = nil
 
 -----------------------------------------------------------
 -- Constants
@@ -23,11 +22,20 @@ local MARQUEE_FIFO = "/tmp/dmarquees_cmd"
 local SENDER_SCRIPT = "/home/danc/scripts/dmarquees-send.sh"
 local SWAP_SCRIPT  = "/home/danc/scripts/swap_banner_art.sh"
 local PANEL_FILE   = "/home/danc/.panel"
+local CTRLR_FILE   = "/home/danc/.ctrlr"
 
 local PANEL_NA = "NA"
 local PANEL_DC = "DC"
 local PANEL_MC = "MC"
 local PANEL_MK = "MK"
+
+-- Map panel modes to expected controller config file names
+local PANEL_TO_CTRLR = {
+    [PANEL_DC] = "dcpanel1",
+    [PANEL_MC] = "atarifs",
+    [PANEL_MK] = "mkwheel",
+    [PANEL_NA] = nil,  -- no specific controller required
+}
 
 -----------------------------------------------------------
 -- Internal State
@@ -125,6 +133,57 @@ local function panel_mode_file_code(mode)
     return "NA"
 end
 
+local function read_ctrlr_file()
+    local f = io.open(CTRLR_FILE, "r")
+    if not f then
+        return nil
+    end
+    local value = f:read("*l") or ""
+    f:close()
+    return value ~= "" and value or nil
+end
+
+local function ctrlr_mode_label(ctrlr_name)
+    if not ctrlr_name or ctrlr_name == "" then
+        return "None/Default"
+    end
+    local lower = tostring(ctrlr_name):lower()
+    if lower:find("dcpanel") then
+        return "DC Panel 1"
+    elseif lower:find("atarifs") then
+        return "Atari FS"
+    elseif lower:find("mkwheel") then
+        return "MK Wheel"
+    end
+    return ctrlr_name
+end
+
+local function panel_ctrlr_mismatch(target_panel)
+    local expected_ctrlr = PANEL_TO_CTRLR[target_panel]
+    if not expected_ctrlr then
+        return nil  -- no specific controller required
+    end
+
+    local current_ctrlr = read_ctrlr_file()
+    if not current_ctrlr then
+        current_ctrlr = "allctrlrs.cfg"  -- default
+    end
+
+    local expected_lower = tostring(expected_ctrlr):lower()
+    local current_lower = tostring(current_ctrlr):lower()
+
+    if not current_lower:find(expected_lower, 1, true) then
+        return {
+            expected = expected_ctrlr,
+            expected_label = ctrlr_mode_label(expected_ctrlr),
+            current = current_ctrlr,
+            current_label = ctrlr_mode_label(current_ctrlr),
+        }
+    end
+
+    return nil  -- no mismatch
+end
+
 local function load_panel_mode()
     local file = io.open(PANEL_FILE, "r")
     if not file then
@@ -161,7 +220,19 @@ local function apply_panel_mode(mode)
     panel_mode = mode
     persist_panel_mode(panel_mode)
     sync_rom_for_panel()
-    print("Marquee plugin: Panel mode set to " .. panel_mode_label(panel_mode))
+    
+    -- Check for controller/panel mismatch
+    local mismatch = panel_ctrlr_mismatch(mode)
+    if mismatch then
+        local msg = string.format(
+            "Panel %s needs %s\n(current: %s)\nRestart MAME required",
+            panel_mode_label(mode), mismatch.expected_label, mismatch.current_label)
+        manager.machine:popmessage(msg)
+        print(string.format("Marquee plugin: Panel/Controller mismatch - panel=%s expected_ctrlr=%s current_ctrlr=%s",
+            panel_mode_label(mode), mismatch.expected, mismatch.current))
+    else
+        print("Marquee plugin: Panel mode set to " .. panel_mode_label(panel_mode))
+    end
 end
 
 -----------------------------------------------------------

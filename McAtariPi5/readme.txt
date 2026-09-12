@@ -10,6 +10,7 @@ RA = RetroArch / LibRetro front end for RP
 ES = EmulationStation front end for RA
 SA = StanAlone MAME font end (runs from shell or RA RunCommand customized emu)
 NA = Not Applicable / Non-Assigned front end (i.e show RP marquee)
+FS = Fight Stick (as in Atari FS panel)
 
 ====================================
   Creating an SD image baseline Pi5
@@ -237,3 +238,9 @@ i. Configure direct wired link static IPs (NetworkManager):
         [X] update ExtremeSSD with Atari console assets
         [ ] test rebase with new Atari console emus
 9/08/26 [X] Caverns of Mars NFG - bad OS-B rom had no PIA
+9/11/26 [X] started organized testing: A for asteriods, FS was ok but switching the marquee to DC then test, NFG.
+            discovered the MAME .ctrlr file can be out of sync with the marquee .panel file, so...
+9/12/26 [X] leds on dcpanel should stay off if .ctrlr = FS
+        [ ] refactor? selecting dcpanel in marquee plugin should prompt
+            "Controller map currently AtariFS. Switch to DCpanel1? Y/N (MAME restart required)"
+            Also, selecting AtariFS in pic frontend menu should update .panel = FS

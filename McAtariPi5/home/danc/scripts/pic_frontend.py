@@ -388,6 +388,7 @@ def panel_menu():
                     idx = hit
                     panel = options[idx][1]
                     save_state(PANEL_FILE, panel)
+                    _sync_ctrlr_from_panel(panel)
                     running = False
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
@@ -397,6 +398,7 @@ def panel_menu():
                 elif event.key in (pygame.K_RETURN, pygame.K_SPACE):
                     panel = options[idx][1]
                     save_state(PANEL_FILE, panel)
+                    _sync_ctrlr_from_panel(panel)
                     running = False
                 elif event.key == pygame.K_ESCAPE:
                     running = False
@@ -429,6 +431,29 @@ def _sync_panel_from_ctrlr(selected_cfg):
     if target_panel and panel != target_panel:
         panel = target_panel
         save_state(PANEL_FILE, panel)
+
+def _sync_ctrlr_from_panel(selected_panel):
+    """Auto-sync controller config from selected panel for known mappings."""
+    global ctrlr_cfg
+
+    ctrlr_for_panel = {
+        "MC": "atarifs.cfg",        # Atari/FightStick panel -> atarifs controller
+        "DC": "dcpanel1.cfg",       # UltraStick/Spinners panel -> dcpanel1 controller
+        # "MK": "mkwheel.cfg",      # MarioKart panel -> mkwheel controller (if it exists)
+    }
+    target_ctrlr = ctrlr_for_panel.get(selected_panel)
+    if target_ctrlr:
+        # Extract base name to match against available configs
+        target_base = os.path.splitext(target_ctrlr)[0].lower().strip()
+        # Check if this config is available
+        available_cfgs = _list_ctrlr_cfg_files()
+        for cfg in available_cfgs:
+            if os.path.splitext(cfg)[0].lower().strip() == target_base:
+                if ctrlr_cfg != cfg:
+                    ctrlr_cfg = cfg
+                    save_state(CTRLR_FILE, ctrlr_cfg)
+                    print(f"[pic_frontend] Auto-synced controller: {cfg} (panel={selected_panel})", file=sys.stderr)
+                break
 
 def ctrlr_menu():
     global ctrlr_cfg, screen_horizontal

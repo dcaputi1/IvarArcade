@@ -135,38 +135,6 @@ local function _write_xinmo_stats(stats)
     return true
 end
 
-local function _record_xinmo_swap_if_needed(remap, live_devices)
-    if not XINMO_STATS_FILE then
-        return false
-    end
-
-    local remapped_actual = {}
-    for _, actual in pairs(remap) do
-        remapped_actual[actual] = true
-    end
-
-    local xinmo_swap = false
-    for _, dev in ipairs(live_devices) do
-        local actual_prefix = string.format("JOYCODE_%d_", dev.joycode_num)
-        if remapped_actual[actual_prefix] and dev.name:lower():find("xin") then
-            xinmo_swap = true
-            break
-        end
-    end
-
-    if not xinmo_swap then
-        return false
-    end
-
-    local stats = _read_xinmo_stats()
-    stats.swaps = (tonumber(stats.swaps) or 0) + 1
-    stats.last_swap = os.date("!%Y-%m-%dT%H:%M:%SZ")
-    if _write_xinmo_stats(stats) then
-        print(string.format("[UsbMap] XinMo stats updated: swaps=%d last_swap=%s", stats.swaps, stats.last_swap))
-    end
-    return true
-end
-
 local function _has_entries(remap)
     for _ in pairs(remap) do
         return true
@@ -182,9 +150,6 @@ local function _copy_array(values)
     return out
 end
 
-local function _prefix_to_joycode_num(prefix)
-    return tonumber((prefix or ""):match("^JOYCODE_(%d+)_$"))
-end
 
 local function _count_entries(remap)
     local count = 0
