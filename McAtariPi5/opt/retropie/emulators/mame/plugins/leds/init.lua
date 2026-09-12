@@ -49,6 +49,11 @@ local COIN_FLASH_INTERVAL = 0.5    -- Flash coin LED every 0.5 seconds
 -- Helper Functions
 -----------------------------------------------------------
 
+local function using_atarifs_ctrlr()
+    local entry = manager.machine.options.entries.ctrlr
+    return entry and entry:value():find("atarifs") ~= nil
+end
+
 local function set_led_mask(mask)
     if mask == last_mask then return end
     last_mask = mask
@@ -269,6 +274,12 @@ end
 
 function leds.startplugin()
     print("LEDS Plugin: Starting v" .. VERSION)
+
+    if using_atarifs_ctrlr() then
+        print("LEDS Plugin: Disabled for atarifs.cfg")
+        return
+    end
+
     set_led_mask(0x00)
 
     cleanup_notifiers()
