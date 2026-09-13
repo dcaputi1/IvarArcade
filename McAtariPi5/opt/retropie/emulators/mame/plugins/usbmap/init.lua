@@ -1,8 +1,9 @@
 ﻿-----------------------------------------------------------
 -- USB Mapper Plugin (usbmap)
--- Reads the desired JOYCODE ordering from allctrlrs.cfg and
--- remaps live ioport fields in memory to match the actual USB
--- device enumeration order at runtime.
+-- Reads the desired JOYCODE ordering from the currently active
+-- ctrlr .cfg (per $HOME/.ctrlr) and remaps live ioport fields in
+-- memory to match the actual USB device enumeration order at
+-- runtime.
 --
 -- For XinMo controllers (two devices, same GUID) the
 -- correct player is identified by button count.
@@ -10,7 +11,7 @@
 -- unit is treated as P1.
 -----------------------------------------------------------
 
-local VERSION = "1.4.3"
+local VERSION = "1.4.4"
 
 local exports = {
     name        = "usbmap",
@@ -33,8 +34,13 @@ local XINMO_P2_BTNS = 13
 
 local MAME_BASE = "/opt/retropie/emulators/mame"
 
-local ALLCTRLRS = MAME_BASE .. "/ctrlr/allctrlrs.cfg"
+local CTRLR_DIR = MAME_BASE .. "/ctrlr"
+local DEFAULT_CTRLR_CFG = "allctrlrs.cfg"
 local HOME = os.getenv("HOME") or ""
+-- Same file the frontend/run_mame.sh use to pick "-ctrlr <name>"; must match
+-- at runtime or the desired JOYCODE assignments below won't reflect the
+-- profile MAME actually loaded.
+local CTRLR_SELECTION_FILE = HOME ~= "" and (HOME .. "/.ctrlr") or nil
 local XINMO_STATS_DIR = HOME ~= "" and (HOME .. "/IvarArcade/json") or nil
 local XINMO_STATS_FILE = HOME ~= "" and (HOME .. "/IvarArcade/json/xinmo_mame_stats.json") or nil
 
@@ -361,18 +367,40 @@ local function _cycle_xinmo_player1_assignment()
 end
 
 -----------------------------------------------------------
--- allctrlrs.cfg parsing
+-- ctrlr .cfg parsing
 -----------------------------------------------------------
 
+-- Returns the currently selected ctrlr .cfg filename (e.g. "dcpanel1.cfg"),
+-- read from the same "$HOME/.ctrlr" file that the frontend and run_mame.sh
+-- use to build MAME's "-ctrlr <name>" argument. Falls back to
+-- allctrlrs.cfg if the file is missing/unreadable/empty.
+local function resolve_active_ctrlr_path()
+    if CTRLR_SELECTION_FILE then
+        local f = io.open(CTRLR_SELECTION_FILE, "r")
+        if f then
+            local name = (f:read("*a") or ""):gsub("%s+$", ""):gsub("^%s+", "")
+            f:close()
+            if name ~= "" then
+                if not name:match("%.cfg$") then
+                    name = name .. ".cfg"
+                end
+                return CTRLR_DIR .. "/" .. name
+            end
+        end
+    end
+    return CTRLR_DIR .. "/" .. DEFAULT_CTRLR_CFG
+end
+
 -- Returns an ordered list of the desired JOYCODE assignments
--- as specified in allctrlrs.cfg:
+-- as specified in the active ctrlr .cfg file:
 --   { { guid = "...", joycode_num = N }, ... }
 -- Entries appear in document order, so duplicate GUIDs are
 -- listed in the order MAME would assign them (first, second…).
 local function parse_allctrlrs()
-    local f = io.open(ALLCTRLRS, "r")
+    local path = resolve_active_ctrlr_path()
+    local f = io.open(path, "r")
     if not f then
-        print("[UsbMap] ERROR: Cannot open " .. ALLCTRLRS)
+        print("[UsbMap] ERROR: Cannot open " .. path)
         return nil
     end
     local content = f:read("*a")
@@ -386,11 +414,11 @@ local function parse_allctrlrs()
     end
 
     if #assignments == 0 then
-        print("[UsbMap] ERROR: No <mapdevice> entries found in " .. ALLCTRLRS)
+        print("[UsbMap] ERROR: No <mapdevice> entries found in " .. path)
         return nil
     end
 
-    print(string.format("[UsbMap] Parsed %d desired assignments from allctrlrs.cfg", #assignments))
+    print(string.format("[UsbMap] Parsed %d desired assignments from %s", #assignments, path))
     return assignments
 end
 
@@ -442,7 +470,7 @@ end
 -- Build the remap table
 -----------------------------------------------------------
 
--- Compares the desired assignments (from allctrlrs.cfg) against
+-- Compares the desired assignments (from the active ctrlr .cfg) against
 -- the live device order and returns a map:
 --   { [desired_prefix] = actual_prefix }
 -- Only entries that differ are included.
