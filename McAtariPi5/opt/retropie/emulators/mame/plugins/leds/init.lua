@@ -16,6 +16,7 @@ local leds = exports
 
 local SCRIPT_PATH = "/home/danc/scripts/"
 local SCRIPT_FILE = "set_leds.py"
+local CTRLR_FILE = "/home/danc/.ctrlr"
 
 -----------------------------------------------------------
 -- Internal State
@@ -50,8 +51,12 @@ local COIN_FLASH_INTERVAL = 0.5    -- Flash coin LED every 0.5 seconds
 -----------------------------------------------------------
 
 local function using_atarifs_ctrlr()
-    local entry = manager.machine.options.entries.ctrlr
-    return entry and entry:value():find("atarifs") ~= nil
+    local file = io.open(CTRLR_FILE, "r")
+    if not file then return false end
+
+    local ctrlr_name = file:read("*l") or ""
+    file:close()
+    return ctrlr_name:lower():find("atarifs", 1, true) ~= nil
 end
 
 local function set_led_mask(mask)
