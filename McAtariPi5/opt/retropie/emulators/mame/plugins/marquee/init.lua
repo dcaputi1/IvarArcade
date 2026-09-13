@@ -45,6 +45,7 @@ local reset_subscriber
 local stop_subscriber
 local panel_mode = PANEL_NA
 local in_panel_submenu = false
+local pending_ctrlr_mismatch = nil
 
 -----------------------------------------------------------
 -- Helper Functions
@@ -143,6 +144,18 @@ local function read_ctrlr_file()
     return value ~= "" and value or nil
 end
 
+local function persist_ctrlr_file(ctrlr_name)
+    local file = io.open(CTRLR_FILE, "w")
+    if not file then
+        print(string.format("Marquee plugin: Failed to persist controller config to %s", CTRLR_FILE))
+        return false
+    end
+
+    file:write(ctrlr_name .. "\n")
+    file:close()
+    return true
+end
+
 local function ctrlr_mode_label(ctrlr_name)
     if not ctrlr_name or ctrlr_name == "" then
         return "None/Default"
@@ -220,16 +233,11 @@ local function apply_panel_mode(mode)
     panel_mode = mode
     persist_panel_mode(panel_mode)
     sync_rom_for_panel()
-    
-    -- Check for controller/panel mismatch
-    local mismatch = panel_ctrlr_mismatch(mode)
-    if mismatch then
-        local msg = string.format(
-            "Panel %s needs %s\n(current: %s)\nRestart MAME required",
-            panel_mode_label(mode), mismatch.expected_label, mismatch.current_label)
-        manager.machine:popmessage(msg)
+
+    pending_ctrlr_mismatch = panel_ctrlr_mismatch(mode)
+    if pending_ctrlr_mismatch then
         print(string.format("Marquee plugin: Panel/Controller mismatch - panel=%s expected_ctrlr=%s current_ctrlr=%s",
-            panel_mode_label(mode), mismatch.expected, mismatch.current))
+            panel_mode_label(mode), pending_ctrlr_mismatch.expected, pending_ctrlr_mismatch.current))
     else
         print("Marquee plugin: Panel mode set to " .. panel_mode_label(panel_mode))
     end
@@ -253,6 +261,15 @@ local function on_game_stop()
 end
 
 local function menu_populate()
+    if pending_ctrlr_mismatch then
+        return {
+            { "MAME ctrlr not set for this panel! Choose:", "", "off" },
+            { "Explicit Map (unmap possible conflicts)", "", "" },
+            { "All Ctrlrs (default)", "", "" },
+            { "Ignore and Continue", "", "" }
+        }
+    end
+
     if in_panel_submenu then
         return {
             { "UltraStick / Spinners", panel_mode == PANEL_DC and "ON" or "--", "" },
@@ -270,6 +287,31 @@ end
 
 local function menu_callback(index, event)
     if event ~= "select" then
+        return false
+    end
+
+    if pending_ctrlr_mismatch then
+        if index == 2 then
+            local ctrlr_name = pending_ctrlr_mismatch.expected .. ".cfg"
+            if not persist_ctrlr_file(ctrlr_name) then
+                return true, index
+            end
+            print("Marquee plugin: Controller config set to " .. ctrlr_name .. "; restart MAME to apply")
+            pending_ctrlr_mismatch = nil
+            return true, 2
+        elseif index == 3 then
+            if not persist_ctrlr_file("allctrlrs.cfg") then
+                return true, index
+            end
+            print("Marquee plugin: Controller config set to allctrlrs.cfg; restart MAME to apply")
+            pending_ctrlr_mismatch = nil
+            return true, 2
+        elseif index == 4 then
+            print("Marquee plugin: Controller mismatch ignored; continuing with " ..
+                tostring(pending_ctrlr_mismatch.current))
+            pending_ctrlr_mismatch = nil
+            return true, 2
+        end
         return false
     end
 
