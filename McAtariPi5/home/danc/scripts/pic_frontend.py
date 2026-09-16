@@ -197,8 +197,8 @@ try:
 except Exception:
     xinmo_auto_swap = True
 
-# MAME cfg reset count (incremented each run; cleared on advanced_menu entry)
-mame_cfg_reset_count = 0
+# MAME cfg reset result (cleared on advanced_menu entry)
+mame_cfg_reset_count = None
 
 # --- NEW: Window/fullscreen mode and dynamic sizing ---
 WINDOWED = True
@@ -600,7 +600,7 @@ def select_ctrlr_cfg_menu(title_text, current_cfg):
 
 def advanced_menu():
     global dual_display, pi3_present, screen_horizontal, xinmo_auto_swap, mame_cfg_reset_count, ctrlr_cfg
-    mame_cfg_reset_count = 0  # reset count each time the advanced menu is entered
+    mame_cfg_reset_count = None  # reset result each time the advanced menu is entered
     selected = 0
     running = True
     xinmo_label, xinmo_color = _check_xinmo()
@@ -613,9 +613,9 @@ def advanced_menu():
 
     def _do_delete_mame_cfg():
         global mame_cfg_reset_count
-        success, _ = delete_mame_cfg()
+        success, removed = delete_mame_cfg()
         if success:
-            mame_cfg_reset_count += 1
+            mame_cfg_reset_count = removed
 
     def _do_toggle_xinmo_auto_swap():
         toggle_xinmo_auto_swap()
@@ -718,7 +718,7 @@ def advanced_menu():
         {
             "label": "Delete MAME CFG FIles",
             "action": _do_delete_mame_cfg,
-            "suffix": lambda: f"done ({mame_cfg_reset_count})" if mame_cfg_reset_count > 0 else "",
+            "suffix": lambda: f"done ({mame_cfg_reset_count})" if mame_cfg_reset_count is not None else "",
         },
         {
             "label": "Return to Main Menu",
