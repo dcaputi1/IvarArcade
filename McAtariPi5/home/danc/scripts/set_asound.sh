@@ -2,11 +2,30 @@
 set -euo pipefail
 
 # Target ALSA device
-CARD_NUM="2"
-DEV_NUM="0"
+# Prefer the USB audio device by name instead of assuming card 2.
+CARD_NUM="${CARD_NUM:-2}"
+DEV_NUM="${DEV_NUM:-0}"
 
 ASOUND_CONF="/etc/asound.conf"
 TMP_FILE="$(mktemp)"
+
+detect_usb_audio_card() {
+  local line card
+
+  while IFS= read -r line; do
+    if [[ "$line" =~ ^card[[:space:]]+([0-9]+):[[:space:]].*(USB.*Audio|Audio\s*\[USB Audio\]).*$ ]]; then
+      echo "${BASH_REMATCH[1]}"
+      return 0
+    fi
+  done < <(aplay -l 2>/dev/null || true)
+
+  return 1
+}
+
+if detected_card="$(detect_usb_audio_card)"; then
+  CARD_NUM="$detected_card"
+  echo "[INFO] Detected USB audio card: ${CARD_NUM}"
+fi
 
 cleanup() {
   rm -f "$TMP_FILE"
