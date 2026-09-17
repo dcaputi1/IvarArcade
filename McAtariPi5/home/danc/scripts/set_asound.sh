@@ -2,8 +2,8 @@
 set -euo pipefail
 
 # Target ALSA device
-# Prefer the USB audio device by name instead of assuming card 2.
-CARD_NUM="${CARD_NUM:-2}"
+# Prefer the USB audio device by name instead of assuming a card number.
+CARD_NUM="${CARD_NUM:-}"
 DEV_NUM="${DEV_NUM:-0}"
 
 ASOUND_CONF="/etc/asound.conf"
@@ -25,6 +25,9 @@ detect_usb_audio_card() {
 if detected_card="$(detect_usb_audio_card)"; then
   CARD_NUM="$detected_card"
   echo "[INFO] Detected USB audio card: ${CARD_NUM}"
+elif [[ -z "$CARD_NUM" ]]; then
+  echo "[ERROR] USB audio device was not detected; refusing to configure a guessed ALSA card." >&2
+  exit 1
 fi
 
 cleanup() {

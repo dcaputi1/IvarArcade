@@ -73,14 +73,15 @@ steps:
    (verify ldconfig shows libhid.so.0 -> libhid.so.0.0.0)
 9. run ~/IvarArcade/McAtariPi5/ra_final.sh (formerly cp_opt.sh)
 10.run ~/IvarArcade/analyze_games/analyze_games (not sudo!)
-11.sudo ~/scripts/set_asound.sh (for Trixie sound problem - not needed for Bookworm Debian base OS)
-12.if using Pi3 as remote marquee node:
+11.sudo ~/scripts/disable_hdmi_audio.sh, then reboot (HDMI audio is never used)
+12.sudo ~/scripts/set_asound.sh (for Trixie sound problem - detects USB audio after HDMI is disabled)
+13.if using Pi3 as remote marquee node:
    sudo nmcli con add type ethernet ifname eth0 con-name eth0-static ip4 10.77.77.5/24
    sudo nmcli con up eth0-static
-13.sudo apt install fuse-zip (mounts zip file w/ PNGs)
-14.sudo sed -i 's/^#user_allow_other/user_allow_other/' /etc/fuse.conf
+14.sudo apt install fuse-zip (mounts zip file w/ PNGs)
+15.sudo sed -i 's/^#user_allow_other/user_allow_other/' /etc/fuse.conf
    # edits /etc/fuse.conf and uncomments #user_allow_other
-14.sudo apt install librsvg2-bin
+16.sudo apt install librsvg2-bin
 
 optional:
 A. sudo apt install meld
