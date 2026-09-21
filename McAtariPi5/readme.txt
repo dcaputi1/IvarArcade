@@ -36,7 +36,7 @@ f. reboot and run:
   use IVAR_MAME_PROFILE=full right now to build full MAME with upstream arcade.flt and the mame binary
 g. install all core packs
    5/27/2026: install emulationstation-dev
-h. install experimantal mame package (~2 hours from source)
+h. install experimental mame package (~2 hours from source)
    NOTE: for arcade-only build use sudo env IVAR_MAME_PROFILE=arcade ./retropie_setup.sh
    5/27/2026 - 5/31/2026: several revs needed to fix full mame build, may've broke bookworm
 i. 5/27/2026: SKIP [install experimental lr-mame]
@@ -242,6 +242,6 @@ i. Configure direct wired link static IPs (NetworkManager):
 9/11/26 [X] started organized testing: A for asteriods, FS was ok but switching the marquee to DC then test, NFG.
             discovered the MAME .ctrlr file can be out of sync with the marquee .panel file, so...
 9/12/26 [X] leds on dcpanel should stay off if .ctrlr = FS
-        [ ] refactor? selecting dcpanel in marquee plugin should prompt
+        [X] refactor? selecting dcpanel in marquee plugin should prompt
             "Controller map currently AtariFS. Switch to DCpanel1? Y/N (MAME restart required)"
             Also, selecting AtariFS in pic frontend menu should update .panel = FS

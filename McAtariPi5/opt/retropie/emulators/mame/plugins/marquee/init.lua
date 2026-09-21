@@ -297,6 +297,7 @@ local function menu_callback(index, event)
                 return true, index
             end
             print("Marquee plugin: Controller config set to " .. ctrlr_name .. "; restart MAME to apply")
+            manager.machine:popmessage("Controller config set to " .. ctrlr_name .. " - RESTART GAME to apply")
             pending_ctrlr_mismatch = nil
             return true, 2
         elseif index == 3 then
@@ -304,6 +305,7 @@ local function menu_callback(index, event)
                 return true, index
             end
             print("Marquee plugin: Controller config set to allctrlrs.cfg; restart MAME to apply")
+            manager.machine:popmessage("Controller config set to allctrlrs.cfg - RESTART GAME to apply")
             pending_ctrlr_mismatch = nil
             return true, 2
         elseif index == 4 then
