@@ -931,27 +931,49 @@ def toggle_xinmo_auto_swap():
     except Exception:
         pass
 
-def delete_mame_cfg():
-    """Delete the deployed MAME cfg directory contents.
-    Returns (success: bool, count: int) tuple."""
+def _clear_dir_contents(target_dir):
+    """Remove everything inside target_dir. Returns number of items removed."""
     import shutil
+    removed = 0
+    for name in os.listdir(target_dir):
+        path = os.path.join(target_dir, name)
+        try:
+            if os.path.isdir(path):
+                shutil.rmtree(path)
+            else:
+                os.unlink(path)
+            removed += 1
+        except FileNotFoundError:
+            pass
+    return removed
+
+def _rsync_repo_cfg_to_mame():
+    """Copy the repo cfg folder into the deployed MAME cfg dir. Returns items copied."""
+    import shutil
+    if not os.path.isdir(PROJECT_CFG):
+        print(f"[WARN] {PROJECT_CFG} does not exist; nothing to restore", file=sys.stderr)
+        return 0
+    shutil.copytree(PROJECT_CFG, MAME_CFG, dirs_exist_ok=True)
+    return len(os.listdir(MAME_CFG))
+
+def delete_mame_cfg():
+    """Clear the deployed MAME cfg dir, then rsync the repo cfg folder back into it.
+    Returns (success: bool, count: int) tuple."""
     try:
         removed = 0
         if os.path.isdir(MAME_CFG):
-            for name in os.listdir(MAME_CFG):
-                path = os.path.join(MAME_CFG, name)
-                try:
-                    if os.path.isdir(path):
-                        shutil.rmtree(path)
-                    else:
-                        os.unlink(path)
-                    removed += 1
-                except FileNotFoundError:
-                    pass
+            removed = _clear_dir_contents(MAME_CFG)
             print(f"[INFO] delete_mame_cfg: removed {removed} item(s) from {MAME_CFG}", file=sys.stderr)
-            return (True, removed)
-        print(f"[INFO] delete_mame_cfg: {MAME_CFG} does not exist; nothing to delete", file=sys.stderr)
-        return (True, 0)
+        else:
+            print(f"[INFO] delete_mame_cfg: {MAME_CFG} does not exist; nothing to delete", file=sys.stderr)
+
+        try:
+            restored = _rsync_repo_cfg_to_mame()
+            print(f"[INFO] delete_mame_cfg: restored {restored} item(s) from {PROJECT_CFG}", file=sys.stderr)
+        except Exception as e:
+            print(f"[WARN] delete_mame_cfg: copy from {PROJECT_CFG} failed: {e}", file=sys.stderr)
+
+        return (True, removed)
     except Exception as e:
         print(f"[ERROR] delete_mame_cfg: {e}", file=sys.stderr)
         return (False, 0)
