@@ -10,5 +10,6 @@ cp -vf /media/danc/ExtremeSSD/Mame/roms_fav/pacman.zip /home/danc/RetroPie/roms/
 
 # Copy Atari console binaries from MC Atari FightStick RetroPie console backup
 cp -vrf /media/danc/ExtremeSSD/Atari/MicroCenter/RetroPie/* /home/danc/RetroPie/
+rm -rf /home/danc/RetroPie/roms/arcade
 # Overwrite XFormers modified Atari OS-B rom with the original (works with Caverns of Mars)
 cp -vf /home/danc/IvarArcade/McAtariPi5/home/danc/RetroPie/BIOS/ATARIOSB.ROM /home/danc/RetroPie/BIOS/
