@@ -257,3 +257,5 @@ i. Configure direct wired link static IPs (NetworkManager):
 9/27/26 [ ] rebaseline w/ full Trixie after backing up bookworm 256 Gb to ExtremeSSD/Atari/MicroCenter
             emulationstation autostart is premature
             (hangs on reboot 7. and rebooting to command prompt mounts ExtremeSSD as root - NFG)
+        [X] no favorites in EmulationStation - delete arcade folder from newly added console bin copy
+            (the bin copy put a higher priority gamelist.xml from old Atari FS roms folder)
