@@ -34,11 +34,14 @@ f. reboot and run:
 > cd RetroPie-Setup
 > sudo env IVAR_MAME_PROFILE=full ./retropie_setup.sh
   use IVAR_MAME_PROFILE=full right now to build full MAME with upstream arcade.flt and the mame binary
-g. install all core packs
+  9/26/2026: Could not successfully _update_hook... [frotz, joy2code, kodi, lincity-ng, openttd, supertux, uqm]
+g. install all core packs - notes:
    5/27/2026: install emulationstation-dev
+   9/26/2026: skip joy2code (bad _update_hook above and N/N)
 h. install experimental mame package (~2 hours from source)
    NOTE: for arcade-only build use sudo env IVAR_MAME_PROFILE=arcade ./retropie_setup.sh
    5/27/2026 - 5/31/2026: several revs needed to fix full mame build, may've broke bookworm
+   9/26/2026 - needed to Hit ENTER *after* invoking the menu to start building!
 i. 5/27/2026: SKIP [install experimental lr-mame]
 j. enable autostart emulationstation
 k. [optional] install Skyscraper
@@ -56,13 +59,19 @@ steps:
    make install-force
    5/30/2026: custom autostart.sh on Trixie requires sodoers...
    sudo visudo -f /etc/sudoers.d/autostart-nopass
-   INSERT THESE:
+   INSERT THESE: (note - visudo uses a tmp file and renames it later)
       danc ALL=(ALL) NOPASSWD: /usr/bin/tee
       danc ALL=(ALL) NOPASSWD: /bin/pkill
       danc ALL=(ALL) NOPASSWD: /usr/bin/stdbuf
       danc ALL=(ALL) NOPASSWD: /bin/systemctl
       danc ALL=(ALL) NOPASSWD: /usr/local/bin/ultrastikcmd
 7. reboot (for path to take effect)
+   9/27/2026: NOT SO FAST!
+   vi /opt/retropie/configs/all/autostart.sh
+   (navigate above "AUTOSTART.SH MAIN PROCESS" and insert:
+   launch_desktop
+   exit
+   (now REBOOT)
 8. clone, build, install ultrastikcmd tool for per-game joystick mapping:
    mkdir -p ~/IvarArcade/tools/linux
    cd ~/IvarArcade/tools/linux
@@ -245,3 +254,6 @@ i. Configure direct wired link static IPs (NetworkManager):
         [X] refactor? selecting dcpanel in marquee plugin should prompt
             "Controller map currently AtariFS. Switch to DCpanel1? Y/N (MAME restart required)"
             Also, selecting AtariFS in pic frontend menu should update .panel = FS
+9/27/26 [ ] rebaseline w/ full Trixie after backing up bookworm 256 Gb to ExtremeSSD/Atari/MicroCenter
+            emulationstation autostart is premature
+            (hangs on reboot 7. and rebooting to command prompt mounts ExtremeSSD as root - NFG)
