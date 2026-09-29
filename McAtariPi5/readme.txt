@@ -66,12 +66,7 @@ steps:
       danc ALL=(ALL) NOPASSWD: /bin/systemctl
       danc ALL=(ALL) NOPASSWD: /usr/local/bin/ultrastikcmd
 7. reboot (for path to take effect)
-   9/27/2026: NOT SO FAST!
-   vi /opt/retropie/configs/all/autostart.sh
-   (navigate above "AUTOSTART.SH MAIN PROCESS" and insert:
-   launch_desktop
-   exit
-   (now REBOOT)
+   9/27/2026: HOLD SHIFT KEY on reboot to skip pic_frontend
 8. clone, build, install ultrastikcmd tool for per-game joystick mapping:
    mkdir -p ~/IvarArcade/tools/linux
    cd ~/IvarArcade/tools/linux
@@ -89,7 +84,7 @@ steps:
    sudo nmcli con up eth0-static
 14.sudo apt install fuse-zip (mounts zip file w/ PNGs)
 15.sudo sed -i 's/^#user_allow_other/user_allow_other/' /etc/fuse.conf
-   # edits /etc/fuse.conf and uncomments #user_allow_other
+   (edits /etc/fuse.conf and uncomments #user_allow_other)
 16.sudo apt install librsvg2-bin
 
 optional:
