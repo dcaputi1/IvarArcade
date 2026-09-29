@@ -15,13 +15,38 @@ exports.author = { name = 'Aaron Paden' }
 local reset_subscription = nil
 local stop_subscription = nil
 local frame_subscription = nil
-local control_enabled = true
+local control_enabled = false
 
 local defenderlr = exports
 
 function defenderlr.startplugin()
 
 	print("DefenderLR Plugin: Starting v" .. exports.version)
+	local settings_path = manager.machine.options.entries.homepath:value():match("([^;]+)") .. "/defenderlr.cfg"
+
+	local function load_control_enabled()
+		local file = io.open(settings_path, "r")
+		if file == nil then
+			return false
+		end
+
+		local value = file:read("*l")
+		file:close()
+		return value == "1"
+	end
+
+	local function save_control_enabled()
+		local file = io.open(settings_path, "w")
+		if file == nil then
+			print("DefenderLR Plugin: Failed to save control setting to " .. settings_path)
+			return
+		end
+
+		file:write(control_enabled and "1\n" or "0\n")
+		file:close()
+	end
+
+	control_enabled = load_control_enabled()
 
 	-- ioport_type enum ordinals can change between MAME versions...
 	-- Resolve types dynamically from ioport token strings:
@@ -140,6 +165,7 @@ function defenderlr.startplugin()
 
 		if index == 1 then
 			control_enabled = not control_enabled
+			save_control_enabled()
 			print(string.format("DefenderLR Plugin: Control %s", control_enabled and "enabled" or "disabled"))
 			return true, 1
 		end
