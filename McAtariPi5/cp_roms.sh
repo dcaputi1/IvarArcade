@@ -12,3 +12,5 @@ cp -vf /media/danc/ExtremeSSD/Mame/roms_fav/pacman.zip /home/danc/RetroPie/roms/
 rsync -av --exclude='/roms/arcade/' /media/danc/ExtremeSSD/Atari/MicroCenter/RetroPie/ /home/danc/RetroPie/
 # Overwrite XFormers modified Atari OS-B rom with the original (works with Caverns of Mars)
 cp -vf /home/danc/IvarArcade/McAtariPi5/home/danc/RetroPie/BIOS/ATARIOSB.ROM /home/danc/RetroPie/BIOS/
+# Copy my Atari 800 Disks (renamed for RespeQt) to the roms folder
+cp -vrf /media/danc/ExtremeSSD/RetroPie/roms/atari800/ /home/danc/RetroPie/roms/
