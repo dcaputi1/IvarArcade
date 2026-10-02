@@ -91,6 +91,9 @@ optional:
 A. sudo apt install meld
 B. sudo apt install jstest-gtk
 C. sudo apt install code
+   note: VS code's AI and GitHub credentials will need initialization - good luck with that!
+   (open browser first and log in github user dcaputi1)
+   ...ask AI to set git user to 'Dan Caputi' and email 'dcaputi1@users.noreply.github.com'
 
 ===========================================
   Pi3 baseline setup
