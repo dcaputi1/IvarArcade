@@ -22,17 +22,23 @@ local defenderlr = exports
 function defenderlr.startplugin()
 
 	print("DefenderLR Plugin: Starting v" .. exports.version)
-	local settings_path = manager.machine.options.entries.homepath:value():match("([^;]+)") .. "/defenderlr.cfg"
+	local home_path = os.getenv("HOME") or "/home/danc"
+	local settings_path = home_path .. "/.defenderlr"
 
 	local function load_control_enabled()
 		local file = io.open(settings_path, "r")
 		if file == nil then
+			file = io.open(settings_path, "w")
+			if file ~= nil then
+				file:write("false\n")
+				file:close()
+			end
 			return false
 		end
 
-		local value = file:read("*l")
+		local value = (file:read("*l") or ""):lower()
 		file:close()
-		return value == "1"
+		return value == "true" or value == "1" or value == "on"
 	end
 
 	local function save_control_enabled()
@@ -42,7 +48,7 @@ function defenderlr.startplugin()
 			return
 		end
 
-		file:write(control_enabled and "1\n" or "0\n")
+		file:write(control_enabled and "true\n" or "false\n")
 		file:close()
 	end
 
