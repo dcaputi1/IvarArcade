@@ -28,7 +28,9 @@ f. reboot and run:
 > locale (confirm all US UTF-8)
 > git clone https://github.com/dcaputi1/IvarArcade.git
   then reload this readme.txt from ~/IvarArcade/McAtariPi5, make sure nothing above changed
-> git clone --depth=1 https://github.com/RetroPie/RetroPie-Setup.git
+> cd ~/IvarArcade; git switch feature/pi5-setup-scripts
+  10/3/2026: use above to switch to this feature branch
+> git clone --depth=1 https://github.com/dcaputi1/RetroPie-Setup.git
   2/28/2026: use dcaputi1/Retropie-Setup.git for *Trixie* (*using 5/27...)
   5/27/2026: attempt to fix mapdevice feature for duplicate device IDs
 > cd RetroPie-Setup
@@ -72,13 +74,9 @@ The Pi Imager, desktop localization, RetroPie core-pack selection, experimental
 MAME build, autostart selection, and Atari emulator installation remain manual
 prerequisites. The full MAME source build still takes hours.
 
-install these now (non-optional):
-A. sudo apt install meld
-B. sudo apt install jstest-gtk
-C. sudo apt install code
-   note: VS code's AI and GitHub credentials will need initialization - good luck with that!
-   (open browser first and log in github user dcaputi1)
-   ...ask AI to set git user to 'Dan Caputi' and email 'dcaputi1@users.noreply.github.com'
+note: VS code's AI and GitHub credentials will need initialization - good luck with that!
+(open browser first and log in github user dcaputi1)
+...ask AI to set git user to 'Dan Caputi' and email 'dcaputi1@users.noreply.github.com'
 
 ===========================================
   Pi3 baseline setup
