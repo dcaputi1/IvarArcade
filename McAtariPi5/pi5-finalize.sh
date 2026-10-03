@@ -13,11 +13,11 @@ if [[ "$(id -un)" != "danc" ]]; then
 fi
 
 if [[ ! -f "$AUDIO_SCRIPT" ]]; then
-  echo "Error: $AUDIO_SCRIPT is missing; run setup_pi5_phase2.sh first." >&2
+  echo "Error: $AUDIO_SCRIPT is missing; run pi5-setup.sh first." >&2
   exit 1
 fi
 
 bash "$AUDIO_SCRIPT"
 
 echo
-echo "Phase 3 complete. Pi 5 setup is finished."
+echo "Pi 5 setup finalized."

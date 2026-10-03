@@ -8,11 +8,25 @@ printf '\n[%s] Starting %s\n' "$(date '+%Y-%m-%d %H:%M:%S %z')" "${0##*/}"
 readonly SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 readonly REPO_ROOT="$(cd -- "$SCRIPT_DIR/.." && pwd)"
 readonly SSD_MOUNT="/media/danc/ExtremeSSD"
+readonly ULTRASTIK_DIR="$HOME/IvarArcade/tools/linux/UltrastikCmd"
 
 fail() {
   echo "Error: $*" >&2
   exit 1
 }
+
+usage() {
+  echo "Usage: $0 [--with-pi3]" >&2
+  exit 2
+}
+
+configure_pi3_network=false
+if [[ $# -gt 1 ]]; then
+  usage
+elif [[ $# -eq 1 ]]; then
+  [[ "$1" == "--with-pi3" ]] || usage
+  configure_pi3_network=true
+fi
 
 [[ "$(id -un)" == "danc" ]] || fail "Run this script as danc, not as root or with sudo."
 command -v sudo >/dev/null || fail "sudo is required."
@@ -76,6 +90,46 @@ fi
 echo "Building and installing IvarArcade components..."
 make -C "$REPO_ROOT" install-force
 
+echo "Building UltrastikCmd..."
+mkdir -p "$HOME/IvarArcade/tools/linux"
+if [[ ! -d "$ULTRASTIK_DIR" ]]; then
+  git clone https://github.com/dcaputi1/UltrastikCmd.git "$ULTRASTIK_DIR"
+fi
+[[ -f "$ULTRASTIK_DIR/build.sh" ]] || fail "UltrastikCmd checkout is missing build.sh: $ULTRASTIK_DIR"
+(cd "$ULTRASTIK_DIR" && bash ./build.sh)
+sudo ldconfig
+ldconfig -p | grep 'libhid\.so\.0' >/dev/null || fail "libhid.so.0 is not registered with ldconfig."
+[[ -x /usr/local/bin/ultrastikcmd ]] || fail "Expected /usr/local/bin/ultrastikcmd after building UltrastikCmd."
+
+echo "Restoring RetroArch and EmulationStation assets..."
+bash "$SCRIPT_DIR/ra_final.sh"
+
+echo "Generating game analysis files..."
+export PATH="$PATH:/opt/retropie/emulators/mame:/opt/retropie/emulators/retroarch/bin"
+"$REPO_ROOT/analyze_games/analyze_games"
+
+echo "Disabling HDMI audio..."
+bash "$HOME/scripts/disable_hdmi_audio.sh"
+
+if [[ "$configure_pi3_network" == true ]]; then
+  echo "Configuring the Pi 5 wired link for the Pi 3 marquee node..."
+  if nmcli -t -f NAME connection show | grep -Fx eth0-static >/dev/null; then
+    sudo nmcli connection modify eth0-static \
+      connection.interface-name eth0 \
+      ipv4.method manual \
+      ipv4.addresses 10.77.77.5/24
+  else
+    sudo nmcli connection add type ethernet ifname eth0 con-name eth0-static \
+      ipv4.method manual ipv4.addresses 10.77.77.5/24
+  fi
+  sudo nmcli connection up eth0-static
+fi
+
 echo
-echo "Phase 1 complete. Reboot the Pi 5, then run:"
-echo "  bash ~/IvarArcade/McAtariPi5/setup_pi5_phase2.sh"
+echo "Pi 5 setup complete. Reboot to apply the HDMI audio setting, then run:"
+echo "  bash ~/IvarArcade/McAtariPi5/pi5-finalize.sh"
+if [[ "$configure_pi3_network" == true ]]; then
+  echo "Configure the Pi 3 wired connection as 10.77.77.3/24, then verify with:"
+  echo "  ping -c2 10.77.77.3"
+  echo "Run ssh-copy-id danc@10.77.77.3 if this is a fresh Pi 3 baseline."
+fi

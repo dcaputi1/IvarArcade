@@ -55,25 +55,21 @@ sudo systemctl start lightdm
 Automated post-RetroPie setup (run these scripts as user danc, not with sudo):
 Each phase appends its terminal output and errors to ~/setup_pi5.log.
 1. Connect and mount ExtremeSSD at /media/danc/ExtremeSSD, then run:
-   bash ~/IvarArcade/McAtariPi5/setup_pi5_phase1.sh
-   This takes ownership of /opt/retropie, copies ROMs, installs the local tools,
-   marquee dependencies, game-analyzer dependencies and USB rule, configures the
-   autostart sudo rules and FUSE `user_allow_other` setting, sets the PATH, and
-   runs make install-force.
+   bash ~/IvarArcade/McAtariPi5/pi5-setup.sh --with-pi3
+   This installs the local tools and marquee dependencies, copies ROMs and
+   assets, configures the autostart sudo rules and FUSE `user_allow_other`
+   setting, installs IvarArcade, builds UltrastikCmd, restores the MAME and
+   frontend assets, generates game-analysis files, disables HDMI audio, and
+   optionally configures the Pi 5 wired LAN connection to the Pi 3 marquee
+   server. Omit --with-pi3 to skip the wired LAN configuration.
    It prompts for the sudo password near the start and refreshes authorization
    during long steps, so it should not prompt again near the end.
    Copy output is line-buffered; each ROM filename is printed when its copy
    completes, not as a progress indicator while that file is being copied.
-2. Reboot (the PATH change must take effect). HOLD SHIFT during reboot to skip
-   pic_frontend, if needed. Then run:
-   bash ~/IvarArcade/McAtariPi5/setup_pi5_phase2.sh --with-pi3
-   This builds UltrastikCmd, installs its sudoers rules, restores the MAME and
-   frontend assets, generates game-analysis files, installs marquee dependencies,
-   and disables HDMI audio. Omit --with-pi3 to skip wired LAN connection to marquee server
-3. Reboot to apply the HDMI audio change, then run:
-   bash ~/IvarArcade/McAtariPi5/setup_pi5_phase3.sh
-   This configures ALSA to use the connected USB audio device. Connect the USB
-   audio device before running this phase.
+2. Reboot to apply the HDMI audio change. HOLD SHIFT during reboot to skip
+   pic_frontend, if needed. Connect the USB audio device, then run:
+   bash ~/IvarArcade/McAtariPi5/pi5-finalize.sh
+   This configures ALSA to use the connected USB audio device.
 
 If using a Pi3 as a remote marquee node, configure the Pi3 connection as 10.77.77.3/24 and verify from the Pi5 with:
    ping -c2 10.77.77.3
