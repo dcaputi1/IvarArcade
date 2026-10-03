@@ -41,7 +41,7 @@ if [[ ! -d "$ULTRASTIK_DIR" ]]; then
   git clone https://github.com/dcaputi1/UltrastikCmd.git "$ULTRASTIK_DIR"
 fi
 [[ -f "$ULTRASTIK_DIR/build.sh" ]] || fail "UltrastikCmd checkout is missing build.sh: $ULTRASTIK_DIR"
-bash "$ULTRASTIK_DIR/build.sh"
+(cd "$ULTRASTIK_DIR" && bash ./build.sh)
 sudo ldconfig
 ldconfig -p | grep 'libhid\.so\.0' >/dev/null || fail "libhid.so.0 is not registered with ldconfig."
 [[ -x /usr/local/bin/ultrastikcmd ]] || fail "Expected /usr/local/bin/ultrastikcmd after building UltrastikCmd."
