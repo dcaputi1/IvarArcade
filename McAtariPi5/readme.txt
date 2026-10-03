@@ -57,7 +57,12 @@ Each phase appends its terminal output and errors to ~/setup_pi5.log.
 1. Connect and mount ExtremeSSD at /media/danc/ExtremeSSD, then run:
    bash ~/IvarArcade/McAtariPi5/setup_pi5_phase1.sh
    This takes ownership of /opt/retropie, copies ROMs, installs the game-analyzer
-   dependencies and USB rule, sets the PATH, and runs make install-force.
+   dependencies and USB rule, configures the autostart sudo rules and FUSE
+   `user_allow_other` setting, sets the PATH, and runs make install-force.
+   It prompts for the sudo password near the start and refreshes authorization
+   during long steps, so it should not prompt again near the end.
+   Copy output is line-buffered; each ROM filename is printed when its copy
+   completes, not as a progress indicator while that file is being copied.
 2. Reboot (the PATH change must take effect). HOLD SHIFT during reboot to skip
    pic_frontend, if needed. Then run:
    bash ~/IvarArcade/McAtariPi5/setup_pi5_phase2.sh --with-pi3

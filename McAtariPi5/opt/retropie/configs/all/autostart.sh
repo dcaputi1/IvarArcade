@@ -385,7 +385,7 @@ exec > >(tee "$AUTOSTART_LOG") 2>&1
 load_persisted_options
 
 if [ "$THIS_IS_PI5" != true ] || [ "$PI5_DUAL_DISPLAY" = true ]; then
-    echo "[autostart] calling setup_dmatquees..."
+    echo "[autostart] calling setup_dmarquees..."
     debug_wait
     setup_dmarquees
 fi

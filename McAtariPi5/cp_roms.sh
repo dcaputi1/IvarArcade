@@ -7,19 +7,23 @@ if ! mountpoint -q "$SSD_MOUNT"; then
     exit 1
 fi
 
+line_buffered() {
+    stdbuf -oL -eL "$@"
+}
+
 # Copy the entire 0.256 internet archive backup
-cp -vf /media/danc/ExtremeSSD/Mame/mame-merged/mame-merged/*.zip /home/danc/RetroPie/roms/arcade/
-cp -vrf /media/danc/ExtremeSSD/Mame/MAME_0.256_EXTRAs/ /home/danc/
+line_buffered cp -vf /media/danc/ExtremeSSD/Mame/mame-merged/mame-merged/*.zip /home/danc/RetroPie/roms/arcade/
+line_buffered cp -vrf /media/danc/ExtremeSSD/Mame/MAME_0.256_EXTRAs/ /home/danc/
 
 # Copy the MAME (bios-devices) archive from old MAME stuff - just in case? (shouldn't this be in BIOS/roms?)
-cp -vf /media/danc/ExtremeSSD/Mame/mame-merged/BIOS/roms/*.zip /home/danc/RetroPie/BIOS/mame/
+line_buffered cp -vf /media/danc/ExtremeSSD/Mame/mame-merged/BIOS/roms/*.zip /home/danc/RetroPie/BIOS/mame/
 
 # OMG! why is this not in the internet archive 0.256 rom set?
-cp -vf /media/danc/ExtremeSSD/Mame/roms_fav/pacman.zip /home/danc/RetroPie/roms/arcade/
+line_buffered cp -vf /media/danc/ExtremeSSD/Mame/roms_fav/pacman.zip /home/danc/RetroPie/roms/arcade/
 
 # Copy Atari console binaries from MC Atari FightStick RetroPie console backup
-rsync -av --exclude='/roms/arcade/' /media/danc/ExtremeSSD/Atari/MicroCenter/RetroPie/ /home/danc/RetroPie/
+rsync --outbuf=L -av --exclude='/roms/arcade/' /media/danc/ExtremeSSD/Atari/MicroCenter/RetroPie/ /home/danc/RetroPie/
 # Overwrite XFormers modified Atari OS-B rom with the original (works with Caverns of Mars)
-cp -vf /home/danc/IvarArcade/McAtariPi5/home/danc/RetroPie/BIOS/ATARIOSB.ROM /home/danc/RetroPie/BIOS/
+line_buffered cp -vf /home/danc/IvarArcade/McAtariPi5/home/danc/RetroPie/BIOS/ATARIOSB.ROM /home/danc/RetroPie/BIOS/
 # Copy my Atari 800 Disks (renamed for RespeQt) to the roms folder
-cp -vrf /media/danc/ExtremeSSD/Atari/RetroPie/roms/atari800/ /home/danc/RetroPie/roms/
+line_buffered cp -vrf /media/danc/ExtremeSSD/Atari/RetroPie/roms/atari800/ /home/danc/RetroPie/roms/

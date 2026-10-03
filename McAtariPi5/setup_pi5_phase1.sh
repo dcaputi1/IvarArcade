@@ -22,18 +22,45 @@ mountpoint -q "$SSD_MOUNT" || fail "Mount the backup drive at $SSD_MOUNT before 
 
 sudo -v
 
+echo "Configuring the IvarArcade autostart sudo rules..."
+sudoers_tmp="$(mktemp)"
+cat > "$sudoers_tmp" <<'SUDOERS'
+danc ALL=(ALL) NOPASSWD: /usr/bin/tee
+danc ALL=(ALL) NOPASSWD: /bin/pkill
+danc ALL=(ALL) NOPASSWD: /usr/bin/stdbuf
+danc ALL=(ALL) NOPASSWD: /bin/systemctl
+danc ALL=(ALL) NOPASSWD: /usr/local/bin/ultrastikcmd
+SUDOERS
+sudo visudo -cf "$sudoers_tmp"
+sudo install -o root -g root -m 0440 "$sudoers_tmp" /etc/sudoers.d/autostart-nopass
+rm -f "$sudoers_tmp"
+sudo sed -i 's/^[[:space:]]*#user_allow_other/user_allow_other/' /etc/fuse.conf
+
+(
+  while sleep 60; do
+    sudo -n -v || exit
+  done
+) &
+readonly SUDO_KEEPALIVE_PID=$!
+
+cleanup_sudo_keepalive() {
+  kill "$SUDO_KEEPALIVE_PID" 2>/dev/null || true
+  wait "$SUDO_KEEPALIVE_PID" 2>/dev/null || true
+}
+trap cleanup_sudo_keepalive EXIT
+
 echo "Installing local developer and controller-debugging tools..."
-sudo apt-get update
-sudo apt-get install -y meld jstest-gtk code
+sudo -n apt-get update
+sudo -n apt-get install -y meld jstest-gtk code
 
 echo "Taking ownership of the RetroPie installation..."
-sudo chown -R danc /opt/retropie
+sudo -n chown -R danc /opt/retropie
 
 echo "Copying ROMs and assets from ExtremeSSD..."
 bash "$SCRIPT_DIR/cp_roms.sh"
 
 echo "Installing game-analyzer dependencies and USB controller rule..."
-sudo bash "$SCRIPT_DIR/analyze_games.sh"
+sudo -n bash "$SCRIPT_DIR/analyze_games.sh"
 
 echo "Preparing RetroArch MAME config directory..."
 mkdir -p /opt/retropie/configs/all/retroarch/config/MAME
@@ -43,7 +70,7 @@ if ! grep -Fq '# IvarArcade Pi 5 PATH' /etc/profile; then
   printf '%s\n' \
     '# IvarArcade Pi 5 PATH' \
     'export PATH="$PATH:/opt/retropie/emulators/mame:/opt/retropie/emulators/retroarch/bin"' \
-    | sudo tee -a /etc/profile >/dev/null
+    | sudo -n tee -a /etc/profile >/dev/null
 fi
 
 echo "Building and installing IvarArcade components..."

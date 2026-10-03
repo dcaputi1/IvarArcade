@@ -46,21 +46,6 @@ sudo ldconfig
 ldconfig -p | grep 'libhid\.so\.0' >/dev/null || fail "libhid.so.0 is not registered with ldconfig."
 [[ -x /usr/local/bin/ultrastikcmd ]] || fail "Expected /usr/local/bin/ultrastikcmd after building UltrastikCmd."
 
-echo "Configuring the IvarArcade autostart sudo rules..."
-sudoers_tmp="$(mktemp)"
-trap 'rm -f "$sudoers_tmp"' EXIT
-cat > "$sudoers_tmp" <<'SUDOERS'
-danc ALL=(ALL) NOPASSWD: /usr/bin/tee
-danc ALL=(ALL) NOPASSWD: /bin/pkill
-danc ALL=(ALL) NOPASSWD: /usr/bin/stdbuf
-danc ALL=(ALL) NOPASSWD: /bin/systemctl
-danc ALL=(ALL) NOPASSWD: /usr/local/bin/ultrastikcmd
-SUDOERS
-sudo visudo -cf "$sudoers_tmp"
-sudo install -o root -g root -m 0440 "$sudoers_tmp" /etc/sudoers.d/autostart-nopass
-rm -f "$sudoers_tmp"
-trap - EXIT
-
 echo "Restoring RetroArch and EmulationStation assets..."
 bash "$SCRIPT_DIR/ra_final.sh"
 
@@ -69,7 +54,6 @@ echo "Generating game analysis files..."
 
 echo "Installing marquee archive and SVG dependencies..."
 sudo apt-get install -y fuse-zip librsvg2-bin
-sudo sed -i 's/^[[:space:]]*#user_allow_other/user_allow_other/' /etc/fuse.conf
 
 echo "Disabling HDMI audio..."
 bash "$HOME/scripts/disable_hdmi_audio.sh"
