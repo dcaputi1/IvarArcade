@@ -1,3 +1,12 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+SSD_MOUNT="/media/danc/ExtremeSSD"
+if ! mountpoint -q "$SSD_MOUNT"; then
+    echo "Error: backup drive is not mounted at $SSD_MOUNT." >&2
+    exit 1
+fi
+
 # Copy the entire 0.256 internet archive backup
 cp -vf /media/danc/ExtremeSSD/Mame/mame-merged/mame-merged/*.zip /home/danc/RetroPie/roms/arcade/
 cp -vrf /media/danc/ExtremeSSD/Mame/MAME_0.256_EXTRAs/ /home/danc/

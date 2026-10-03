@@ -47,45 +47,33 @@ j. enable autostart emulationstation
 k. [optional] install Skyscraper
 l. install Atari consoles: lr-atari800, lr-stella2014 and lr-prosystem
 
-steps:
-1. sudo chown -R danc /opt/retropie
-2. ~/IvarArcade/McAtariPi5/cp_roms.sh (~1 hours)
-3. add paths for mame and (optional) retroarch, frontends to /etc/profile (user long path)
-   :/opt/retropie/emulators/mame:/opt/retropie/emulators/retroarch/bin
-4. sudo ~/IvarArcade/McAtariPi5/analyze_games.sh (installs tinyxml2 and python3-hid packages)
-5. mkdir -p /opt/retropie/configs/all/retroarch/config/MAME
-6. build and install IvarArcade project components:
-   cd ~/IvarArcade
-   make install-force
-   5/30/2026: custom autostart.sh on Trixie requires sodoers...
-   sudo visudo -f /etc/sudoers.d/autostart-nopass
-   INSERT THESE: (note - visudo uses a tmp file and renames it later)
-      danc ALL=(ALL) NOPASSWD: /usr/bin/tee
-      danc ALL=(ALL) NOPASSWD: /bin/pkill
-      danc ALL=(ALL) NOPASSWD: /usr/bin/stdbuf
-      danc ALL=(ALL) NOPASSWD: /bin/systemctl
-      danc ALL=(ALL) NOPASSWD: /usr/local/bin/ultrastikcmd
-7. reboot (for path to take effect)
-   9/27/2026: HOLD SHIFT KEY on reboot to skip pic_frontend
-8. clone, build, install ultrastikcmd tool for per-game joystick mapping:
-   mkdir -p ~/IvarArcade/tools/linux
-   cd ~/IvarArcade/tools/linux
-   git clone https://github.com/dcaputi1/UltrastikCmd.git
-   cd UltrastikCmd
-   ./build.sh
-   sudo ldconfig -v | grep libhid
-   (verify ldconfig shows libhid.so.0 -> libhid.so.0.0.0)
-9. run ~/IvarArcade/McAtariPi5/ra_final.sh (formerly cp_opt.sh)
-10.run ~/IvarArcade/analyze_games/analyze_games (not sudo!)
-11.sudo ~/scripts/disable_hdmi_audio.sh, then reboot (HDMI audio is never used)
-12.sudo ~/scripts/set_asound.sh (for Trixie sound problem - detects USB audio after HDMI is disabled)
-13.if using Pi3 as remote marquee node:
-   sudo nmcli con add type ethernet ifname eth0 con-name eth0-static ip4 10.77.77.5/24
-   sudo nmcli con up eth0-static
-14.sudo apt install fuse-zip (mounts zip file w/ PNGs)
-15.sudo sed -i 's/^#user_allow_other/user_allow_other/' /etc/fuse.conf
-   (edits /etc/fuse.conf and uncomments #user_allow_other)
-16.sudo apt install librsvg2-bin
+Automated post-RetroPie setup (run these scripts as user danc, not with sudo):
+1. Connect and mount ExtremeSSD at /media/danc/ExtremeSSD, then run:
+   bash ~/IvarArcade/McAtariPi5/setup_pi5_phase1.sh
+   This takes ownership of /opt/retropie, copies ROMs, installs the game-analyzer
+   dependencies and USB rule, sets the PATH, and runs make install-force.
+2. Reboot (the PATH change must take effect). HOLD SHIFT during reboot to skip
+   pic_frontend, if needed. Then run:
+   bash ~/IvarArcade/McAtariPi5/setup_pi5_phase2.sh
+   This builds UltrastikCmd, installs its sudoers rules, restores the MAME and
+   frontend assets, generates game-analysis files, installs marquee dependencies,
+   and disables HDMI audio.
+3. Reboot to apply the HDMI audio change, then run:
+   bash ~/IvarArcade/McAtariPi5/setup_pi5_phase3.sh
+   This configures ALSA to use the connected USB audio device. Connect the USB
+   audio device before running this phase.
+
+If using a Pi3 as a remote marquee node, configure the Pi5 wired connection during
+phase 2 by adding `--with-pi3` to the phase 2 command above (use that instead of
+running phase 2 without the option):
+   bash ~/IvarArcade/McAtariPi5/setup_pi5_phase2.sh --with-pi3
+Then configure the Pi3 connection as 10.77.77.3/24 and verify from the Pi5 with:
+   ping -c2 10.77.77.3
+Run ssh-copy-id danc@10.77.77.3 if this is a fresh Pi3 baseline.
+
+The Pi Imager, desktop localization, RetroPie core-pack selection, experimental
+MAME build, autostart selection, and Atari emulator installation remain manual
+prerequisites. The full MAME source build still takes hours.
 
 optional:
 A. sudo apt install meld
