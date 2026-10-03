@@ -54,20 +54,16 @@ Automated post-RetroPie setup (run these scripts as user danc, not with sudo):
    dependencies and USB rule, sets the PATH, and runs make install-force.
 2. Reboot (the PATH change must take effect). HOLD SHIFT during reboot to skip
    pic_frontend, if needed. Then run:
-   bash ~/IvarArcade/McAtariPi5/setup_pi5_phase2.sh
+   bash ~/IvarArcade/McAtariPi5/setup_pi5_phase2.sh --with-pi3
    This builds UltrastikCmd, installs its sudoers rules, restores the MAME and
    frontend assets, generates game-analysis files, installs marquee dependencies,
-   and disables HDMI audio.
+   and disables HDMI audio. Omit --with-pi3 to skip wired LAN connection to marquee server
 3. Reboot to apply the HDMI audio change, then run:
    bash ~/IvarArcade/McAtariPi5/setup_pi5_phase3.sh
    This configures ALSA to use the connected USB audio device. Connect the USB
    audio device before running this phase.
 
-If using a Pi3 as a remote marquee node, configure the Pi5 wired connection during
-phase 2 by adding `--with-pi3` to the phase 2 command above (use that instead of
-running phase 2 without the option):
-   bash ~/IvarArcade/McAtariPi5/setup_pi5_phase2.sh --with-pi3
-Then configure the Pi3 connection as 10.77.77.3/24 and verify from the Pi5 with:
+If using a Pi3 as a remote marquee node, configure the Pi3 connection as 10.77.77.3/24 and verify from the Pi5 with:
    ping -c2 10.77.77.3
 Run ssh-copy-id danc@10.77.77.3 if this is a fresh Pi3 baseline.
 
@@ -75,7 +71,7 @@ The Pi Imager, desktop localization, RetroPie core-pack selection, experimental
 MAME build, autostart selection, and Atari emulator installation remain manual
 prerequisites. The full MAME source build still takes hours.
 
-optional:
+install these now (non-optional):
 A. sudo apt install meld
 B. sudo apt install jstest-gtk
 C. sudo apt install code

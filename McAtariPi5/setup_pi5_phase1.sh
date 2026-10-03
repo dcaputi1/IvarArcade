@@ -18,6 +18,10 @@ mountpoint -q "$SSD_MOUNT" || fail "Mount the backup drive at $SSD_MOUNT before 
 
 sudo -v
 
+echo "Installing local developer and controller-debugging tools..."
+sudo apt-get update
+sudo apt-get install -y meld jstest-gtk code
+
 echo "Taking ownership of the RetroPie installation..."
 sudo chown -R danc /opt/retropie
 
