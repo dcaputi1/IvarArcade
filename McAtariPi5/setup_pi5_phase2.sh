@@ -52,9 +52,6 @@ bash "$SCRIPT_DIR/ra_final.sh"
 echo "Generating game analysis files..."
 "$REPO_ROOT/analyze_games/analyze_games"
 
-echo "Installing marquee archive and SVG dependencies..."
-sudo apt-get install -y fuse-zip librsvg2-bin
-
 echo "Disabling HDMI audio..."
 bash "$HOME/scripts/disable_hdmi_audio.sh"
 

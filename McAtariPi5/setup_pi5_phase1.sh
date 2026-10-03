@@ -51,7 +51,7 @@ trap cleanup_sudo_keepalive EXIT
 
 echo "Installing local developer and controller-debugging tools..."
 sudo -n apt-get update
-sudo -n apt-get install -y meld jstest-gtk code
+sudo -n apt-get install -y meld jstest-gtk code fuse-zip librsvg2-bin
 
 echo "Taking ownership of the RetroPie installation..."
 sudo -n chown -R danc /opt/retropie

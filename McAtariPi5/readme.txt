@@ -56,9 +56,10 @@ Automated post-RetroPie setup (run these scripts as user danc, not with sudo):
 Each phase appends its terminal output and errors to ~/setup_pi5.log.
 1. Connect and mount ExtremeSSD at /media/danc/ExtremeSSD, then run:
    bash ~/IvarArcade/McAtariPi5/setup_pi5_phase1.sh
-   This takes ownership of /opt/retropie, copies ROMs, installs the game-analyzer
-   dependencies and USB rule, configures the autostart sudo rules and FUSE
-   `user_allow_other` setting, sets the PATH, and runs make install-force.
+   This takes ownership of /opt/retropie, copies ROMs, installs the local tools,
+   marquee dependencies, game-analyzer dependencies and USB rule, configures the
+   autostart sudo rules and FUSE `user_allow_other` setting, sets the PATH, and
+   runs make install-force.
    It prompts for the sudo password near the start and refreshes authorization
    during long steps, so it should not prompt again near the end.
    Copy output is line-buffered; each ROM filename is printed when its copy
