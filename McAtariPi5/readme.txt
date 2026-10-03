@@ -48,6 +48,7 @@ k. [optional] install Skyscraper
 l. install Atari consoles: lr-atari800, lr-stella2014 and lr-prosystem
 
 Automated post-RetroPie setup (run these scripts as user danc, not with sudo):
+Each phase appends its terminal output and errors to ~/setup_pi5.log.
 1. Connect and mount ExtremeSSD at /media/danc/ExtremeSSD, then run:
    bash ~/IvarArcade/McAtariPi5/setup_pi5_phase1.sh
    This takes ownership of /opt/retropie, copies ROMs, installs the game-analyzer
