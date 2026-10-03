@@ -49,6 +49,9 @@ j. enable autostart emulationstation
 k. [optional] install Skyscraper
 l. install Atari consoles: lr-atari800, lr-stella2014 and lr-prosystem
 
+Do NOT reboot. If you do, EmulationStation runs - hit f4, then type
+sudo systemctl start lightdm
+
 Automated post-RetroPie setup (run these scripts as user danc, not with sudo):
 Each phase appends its terminal output and errors to ~/setup_pi5.log.
 1. Connect and mount ExtremeSSD at /media/danc/ExtremeSSD, then run:
