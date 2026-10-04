@@ -28,7 +28,6 @@ None of those changes are Trixie-only.
 
 Observed from local notes and recent work:
 
-- Trixie needed at least one explicit sound workaround: `set_asound.sh`.
 - Notes mention Trixie-specific friction around EmulationStation autostart.
 - Notes also mention Pi Connect / screen-share issues after RetroPie setup on the Trixie attempt.
 - Recent MAME build failures on Trixie were caused by newer distro/toolchain behavior, not by the basic IvarArcade layout.
@@ -55,9 +54,8 @@ Keep:
 - the `IVAR_MAME_PROFILE=full` first-build path
 - the rest of the IvarArcade deployment flow
 
-Re-check or skip:
+Re-check:
 
-- `set_asound.sh` unless Bookworm shows the same sound issue
 - any Trixie-specific EmulationStation autostart workaround
 - any Trixie-specific desktop/service quirks
 
