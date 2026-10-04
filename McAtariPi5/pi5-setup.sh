@@ -16,16 +16,12 @@ fail() {
 }
 
 usage() {
-  echo "Usage: $0 [--with-pi3]" >&2
+  echo "Usage: $0" >&2
   exit 2
 }
 
-configure_pi3_network=false
-if [[ $# -gt 1 ]]; then
+if [[ $# -gt 0 ]]; then
   usage
-elif [[ $# -eq 1 ]]; then
-  [[ "$1" == "--with-pi3" ]] || usage
-  configure_pi3_network=true
 fi
 
 [[ "$(id -un)" == "danc" ]] || fail "Run this script as danc, not as root or with sudo."
@@ -111,25 +107,21 @@ export PATH="$PATH:/opt/retropie/emulators/mame:/opt/retropie/emulators/retroarc
 echo "Disabling HDMI audio..."
 bash "$HOME/scripts/disable_hdmi_audio.sh"
 
-if [[ "$configure_pi3_network" == true ]]; then
-  echo "Configuring the Pi 5 wired link for the Pi 3 marquee node..."
-  if nmcli -t -f NAME connection show | grep -Fx eth0-static >/dev/null; then
-    sudo nmcli connection modify eth0-static \
-      connection.interface-name eth0 \
-      ipv4.method manual \
-      ipv4.addresses 10.77.77.5/24
-  else
-    sudo nmcli connection add type ethernet ifname eth0 con-name eth0-static \
-      ipv4.method manual ipv4.addresses 10.77.77.5/24
-  fi
-  sudo nmcli connection up eth0-static
+echo "Configuring the Pi 5 wired link for the Pi 3 marquee node..."
+if nmcli -t -f NAME connection show | grep -Fx eth0-static >/dev/null; then
+  sudo nmcli connection modify eth0-static \
+    connection.interface-name eth0 \
+    ipv4.method manual \
+    ipv4.addresses 10.77.77.5/24
+else
+  sudo nmcli connection add type ethernet ifname eth0 con-name eth0-static \
+    ipv4.method manual ipv4.addresses 10.77.77.5/24
 fi
+sudo nmcli connection up eth0-static
 
 echo
 echo "Pi 5 setup complete. Reboot to apply the HDMI audio setting, then run:"
 echo "  bash ~/IvarArcade/McAtariPi5/pi5-finalize.sh"
-if [[ "$configure_pi3_network" == true ]]; then
-  echo "Configure the Pi 3 wired connection as 10.77.77.3/24, then verify with:"
-  echo "  ping -c2 10.77.77.3"
-  echo "Run ssh-copy-id danc@10.77.77.3 if this is a fresh Pi 3 baseline."
-fi
+echo "Configure the Pi 3 wired connection as 10.77.77.3/24, then verify with:"
+echo "  ping -c2 10.77.77.3"
+echo "Run ssh-copy-id danc@10.77.77.3 if this is a fresh Pi 3 baseline."

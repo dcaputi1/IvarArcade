@@ -40,14 +40,14 @@ f. reboot and run:
 g. install all core packs - notes:
    5/27/2026: install emulationstation-dev
    9/26/2026: skip joy2code (bad _update_hook above and N/N)
-h. install experimental mame package (~2 hours from source)
+h. install experimental mame package (~3 hours from source)
+   HIT ENTER AFTER THE PROMPT
    NOTE: for arcade-only build use sudo env IVAR_MAME_PROFILE=arcade ./retropie_setup.sh
    5/27/2026 - 5/31/2026: several revs needed to fix full mame build, may've broke bookworm
    9/26/2026 - needed to Hit ENTER *after* invoking the menu to start building!
-i. 5/27/2026: SKIP [install experimental lr-mame]
+i. install Atari consoles: lr-atari800, lr-stella2014 and lr-prosystem
 j. enable autostart emulationstation
 k. [optional] install Skyscraper
-l. install Atari consoles: lr-atari800, lr-stella2014 and lr-prosystem
 
 Do NOT reboot. If you do, EmulationStation runs - hit f4, then type
 sudo systemctl start lightdm
@@ -55,13 +55,12 @@ sudo systemctl start lightdm
 Automated post-RetroPie setup (run these scripts as user danc, not with sudo):
 Each phase appends its terminal output and errors to ~/setup_pi5.log.
 1. Connect and mount ExtremeSSD at /media/danc/ExtremeSSD, then run:
-   bash ~/IvarArcade/McAtariPi5/pi5-setup.sh --with-pi3
+   bash ~/IvarArcade/McAtariPi5/pi5-setup.sh
    This installs the local tools and marquee dependencies, copies ROMs and
-   assets, configures the autostart sudo rules and FUSE `user_allow_other`
+   assets, configures the autostart sudo rules and FUSE user_allow_other`
    setting, installs IvarArcade, builds UltrastikCmd, restores the MAME and
    frontend assets, generates game-analysis files, disables HDMI audio, and
-   optionally configures the Pi 5 wired LAN connection to the Pi 3 marquee
-   server. Omit --with-pi3 to skip the wired LAN configuration.
+   configures the Pi 5 wired LAN connection to the Pi 3 marquee server.
    It prompts for the sudo password near the start and refreshes authorization
    during long steps, so it should not prompt again near the end.
    Copy output is line-buffered; each ROM filename is printed when its copy
