@@ -1,6 +1,8 @@
 To test whether disabling HDMI audio alone fixes ES, temporarily move that ALSA override out of the way, then reboot:
 
-sudo mv /etc/asound.conf.disabled /etc/asound.conf
+head -n 4 /etc/asound.conf
+sudo cp -a /etc/asound.conf /etc/asound.conf.pi5-test-backup
+sudo mv /etc/asound.conf /etc/asound.conf.disabled
 sudo reboot
 
 The head output should identify the generated config, including the # /etc/asound.conf header. After reboot, test sound in ES. HDMI audio stays disabled; the reboot applies that boot-config change.
