@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-readonly LOG_FILE="$HOME/setup_pi5.log"
+readonly LOG_FILE="$HOME/pi5_setup.log"
 exec > >(tee -a "$LOG_FILE") 2>&1
 printf '\n[%s] Starting %s\n' "$(date '+%Y-%m-%d %H:%M:%S %z')" "${0##*/}"
 
@@ -124,4 +124,3 @@ echo "Pi 5 setup complete. Reboot to apply the HDMI audio setting, then run:"
 echo "  bash ~/IvarArcade/McAtariPi5/pi5-finalize.sh"
 echo "Configure the Pi 3 wired connection as 10.77.77.3/24, then verify with:"
 echo "  ping -c2 10.77.77.3"
-echo "Run ssh-copy-id danc@10.77.77.3 if this is a fresh Pi 3 baseline."

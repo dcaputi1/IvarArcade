@@ -118,35 +118,6 @@ launch_desktop()
     sudo systemctl start lightdm
 }
 
-shift_is_held()
-{
-    python3 - <<'PY'
-import fcntl
-import glob
-import os
-import sys
-
-key_bytes = 96
-request = (2 << 30) | (key_bytes << 16) | (ord("E") << 8) | 0x18
-shift_keys = (42, 54)
-
-for device in glob.glob("/dev/input/event*"):
-    try:
-        descriptor = os.open(device, os.O_RDONLY | os.O_NONBLOCK)
-        try:
-            state = bytearray(key_bytes)
-            fcntl.ioctl(descriptor, request, state, True)
-            if any(state[key // 8] & (1 << (key % 8)) for key in shift_keys):
-                sys.exit(0)
-        finally:
-            os.close(descriptor)
-    except OSError:
-        continue
-
-sys.exit(1)
-PY
-}
-
 # ==========================================
 #  Marquee setup: mount and daemon launch
 # ==========================================
@@ -290,14 +261,6 @@ main_menu()
     while true; do
         python3 "$HOME/scripts/leds_off.py"
         send_dmarquees_cmd "NA"
-
-        echo "HOLD SHIFT KEY TO BYPASS FRONTEND MENU"
-        sleep 3
-        if shift_is_held; then
-            echo "[autostart] Shift held; launching desktop."
-            launch_desktop
-            exit 0
-        fi
 
         echo "[autostart] calling run_pic_frontend..."
         debug_wait

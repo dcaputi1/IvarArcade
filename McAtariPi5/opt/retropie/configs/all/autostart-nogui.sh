@@ -347,7 +347,7 @@ persist_frontend_choice()
 # Main menu logic as a function
 main_menu()
 {
-    local DEF_KEY="E"
+    local DEF_KEY="X"
     if [[ -f $HOME/.def_key ]]; then
         DEF_KEY=$(<"$HOME/.def_key")
     fi

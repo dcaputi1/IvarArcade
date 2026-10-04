@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-readonly LOG_FILE="$HOME/setup_pi5.log"
+readonly LOG_FILE="$HOME/pi5_setup.log"
 exec > >(tee -a "$LOG_FILE") 2>&1
 printf '\n[%s] Starting %s\n' "$(date '+%Y-%m-%d %H:%M:%S %z')" "${0##*/}"
 

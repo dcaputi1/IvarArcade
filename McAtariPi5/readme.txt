@@ -53,7 +53,7 @@ Do NOT reboot. If you do, EmulationStation runs - hit f4, then type
 sudo systemctl start lightdm
 
 Automated post-RetroPie setup (run these scripts as user danc, not with sudo):
-Each phase appends its terminal output and errors to ~/setup_pi5.log.
+Each phase appends its terminal output and errors to ~/pi5_setup.log.
 1. Connect and mount ExtremeSSD at /media/danc/ExtremeSSD, then run:
    bash ~/IvarArcade/McAtariPi5/pi5-setup.sh
    This installs the local tools and marquee dependencies, copies ROMs and
@@ -65,14 +65,14 @@ Each phase appends its terminal output and errors to ~/setup_pi5.log.
    during long steps, so it should not prompt again near the end.
    Copy output is line-buffered; each ROM filename is printed when its copy
    completes, not as a progress indicator while that file is being copied.
-2. Reboot to apply the HDMI audio change. HOLD SHIFT during reboot to skip
-   pic_frontend, if needed. Connect the USB audio device, then run:
+2. Reboot to apply the HDMI audio change. On first boot, if there is no saved
+   menu choice, the frontend defaults to Exit to Desktop. Connect the USB audio
+   device, then run:
    bash ~/IvarArcade/McAtariPi5/pi5-finalize.sh
    This configures ALSA to use the connected USB audio device.
 
 If using a Pi3 as a remote marquee node, configure the Pi3 connection as 10.77.77.3/24 and verify from the Pi5 with:
    ping -c2 10.77.77.3
-Run ssh-copy-id danc@10.77.77.3 if this is a fresh Pi3 baseline.
 
 The Pi Imager, desktop localization, RetroPie core-pack selection, experimental
 MAME build, autostart selection, and Atari emulator installation remain manual
@@ -132,10 +132,6 @@ i. Configure direct wired link static IPs (NetworkManager):
 
    # Verify from Pi5
    ping -c2 10.77.77.3
-
-   # If this is a fresh Pi3 baseline, run once on the Pi5:
-   ssh-copy-id danc@10.77.77.3
-   04/4/2026 - may not need this
 
 ===========================================
   Problem / troubleshooting log:

@@ -318,12 +318,12 @@ def _hit_index(screen_pos, item_rects, off_x, off_y, rotated=False):
 _DEF_KEY_TO_IDX = {"E": 0, "M": 1, "A": 2, "C": 3, "X": 4}
 
 def _load_def_key_index():
-    """Return the main_menu index corresponding to the persisted .def_key, or 0 if absent/unknown."""
+    """Return the saved main-menu index, defaulting to Exit to Desktop."""
     if os.path.exists(DEF_KEY_FILE):
         with open(DEF_KEY_FILE, "r") as f:
             key = f.read().strip().upper()
-        return _DEF_KEY_TO_IDX.get(key, 0)
-    return 0
+        return _DEF_KEY_TO_IDX.get(key, 4)
+    return 4
 
 def _output_choice(choice):
     """Persist choice to .def_key and exit cleanly; bash reloads all state and reads .def_key to decide what to launch."""
