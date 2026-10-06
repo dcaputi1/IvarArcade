@@ -170,7 +170,7 @@ In this workspace, that file is the single source of truth. It maps to the on-de
 | Function | Change |
 |----------|--------|
 | Module scope | `__keep_sources=1` — prevents RetroPie-Setup from deleting the build directory after install |
-| Module scope | `IVAR_MAME_PROFILE=full|arcade` — selects full MAME (`mame`, upstream `arcade.flt`) or stripped-down MAME (`mamearcade`, custom `arcade.flt`) |
+| Module scope | `IVAR_MAME_PROFILE=full|arcade` — selects full MAME (`mame`, upstream `arcade.flt`) or stripped-down MAME (`mamearcade`, custom `arcade.flt`); the arcade install also creates `/opt/retropie/emulators/mame/mame` as a symlink to `mamearcade` for scripts using the stable path |
 | `sources_mame()` | After `gitPullOrClone`, applies both `sed` patches; prints pass/fail per file; pauses for your verification before the multi-hour build starts |
 | `depends_mame()` | On desktop/X11 builds, installs Qt 6 build dependencies including `qmake6` explicitly (needed on current Debian 13 / trixie packages) |
 | `build_mame()` | Always passes `REGENIE=1` and forces `ARCHOPTS_CXX=-std=c++20` in the wrapper so current MAME releases build cleanly on newer GCC toolchains |
