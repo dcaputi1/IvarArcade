@@ -15,7 +15,8 @@ exports.author = { name = 'Aaron Paden' }
 local reset_subscription = nil
 local stop_subscription = nil
 local frame_subscription = nil
-local control_enabled = false
+local control_mode = "off"
+local auto_control_enabled = false
 
 local defenderlr = exports
 
@@ -24,35 +25,59 @@ function defenderlr.startplugin()
 	print("DefenderLR Plugin: Starting v" .. exports.version)
 	local home_path = os.getenv("HOME") or "/home/danc"
 	local settings_path = home_path .. "/.defenderlr"
+	local ctrlr_path = home_path .. "/.ctrlr"
 
-	local function load_control_enabled()
+	local function load_control_mode()
 		local file = io.open(settings_path, "r")
 		if file == nil then
-			file = io.open(settings_path, "w")
-			if file ~= nil then
-				file:write("false\n")
-				file:close()
-			end
-			return false
+			return "auto"
 		end
 
-		local value = (file:read("*l") or ""):lower()
+		local value = (file:read("*l") or ""):match("^%s*(.-)%s*$"):lower()
 		file:close()
-		return value == "true" or value == "1" or value == "on"
+		if value == "true" or value == "1" then
+			return "on"
+		elseif value == "false" or value == "0" then
+			return "off"
+		elseif value == "on" or value == "off" or value == "auto" then
+			return value
+		end
+
+		print("DefenderLR Plugin: Invalid control setting '" .. value .. "'; using off")
+		return "off"
 	end
 
-	local function save_control_enabled()
+	local function save_control_mode()
 		local file = io.open(settings_path, "w")
 		if file == nil then
 			print("DefenderLR Plugin: Failed to save control setting to " .. settings_path)
 			return
 		end
 
-		file:write(control_enabled and "true\n" or "false\n")
+		file:write(control_mode .. "\n")
 		file:close()
 	end
 
-	control_enabled = load_control_enabled()
+	local function load_auto_control_enabled()
+		local file = io.open(ctrlr_path, "r")
+		if file == nil then
+			return false
+		end
+
+		local value = (file:read("*l") or ""):match("^%s*(.-)%s*$"):lower()
+		file:close()
+		value = value:match("([^/\\]+)$") or value
+		value = value:gsub("%.cfg$", "")
+		return value == "dcpanel1"
+	end
+
+	control_mode = load_control_mode()
+	auto_control_enabled = load_auto_control_enabled()
+	save_control_mode()
+
+	local function is_control_enabled()
+		return control_mode == "on" or (control_mode == "auto" and auto_control_enabled)
+	end
 
 	-- ioport_type enum ordinals can change between MAME versions...
 	-- Resolve types dynamically from ioport token strings:
@@ -134,7 +159,7 @@ function defenderlr.startplugin()
 	end
 
 	local function process_frame()
-		if not control_enabled then
+		if not is_control_enabled() then
 			return
 		end
 
@@ -159,8 +184,12 @@ function defenderlr.startplugin()
 	end
 
 	local function menu_populate()
+		local mode_display = control_mode:upper()
+		if control_mode == "auto" then
+			mode_display = auto_control_enabled and "AUTO (ON)" or "AUTO (OFF)"
+		end
 		return {
-			{ "Defender LR Control", control_enabled and "ON" or "OFF", "" }
+			{ "Defender LR Control", mode_display, "" }
 		}
 	end
 
@@ -170,9 +199,16 @@ function defenderlr.startplugin()
 		end
 
 		if index == 1 then
-			control_enabled = not control_enabled
-			save_control_enabled()
-			print(string.format("DefenderLR Plugin: Control %s", control_enabled and "enabled" or "disabled"))
+			if control_mode == "off" then
+				control_mode = "on"
+			elseif control_mode == "on" then
+				control_mode = "auto"
+			else
+				control_mode = "off"
+			end
+			save_control_mode()
+			print(string.format("DefenderLR Plugin: Control mode %s (%s)",
+				control_mode, is_control_enabled() and "enabled" or "disabled"))
 			return true, 1
 		end
 

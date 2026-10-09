@@ -10,6 +10,13 @@ A note about the implementation. I tried to avoid writing to memory by detecting
 
 Anyway the fact that you can do this with no modifications to mame is pretty cool.
 
+The Defender LR Control option cycles through **OFF**, **ON**, and **AUTO**.
+The selected mode is stored in `~/.defenderlr` as `off`, `on`, or `auto`.
+In AUTO mode, control is enabled only when `~/.ctrlr` selects `dcpanel1`
+(with or without the `.cfg` suffix); otherwise it is disabled. If the setting
+file is missing, the mode defaults to `auto`. Existing `true`/`false` settings
+are migrated to `on`/`off`.
+
 ## Configuring MAME
 
 1. Can you launch Defender and Stargate in MAME? (`mame.exe defender` and `mame.exe stargate`)
