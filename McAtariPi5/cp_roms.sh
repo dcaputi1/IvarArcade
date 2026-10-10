@@ -21,6 +21,9 @@ line_buffered cp -vf /media/danc/ExtremeSSD/Mame/mame-merged/BIOS/roms/*.zip /ho
 # MK4's MAME driver expects this BIOS archive name, while the source archive is tms32032.zip.
 line_buffered cp -vf /home/danc/RetroPie/BIOS/mame/tms32032.zip /home/danc/RetroPie/BIOS/mame/tms320c32.zip
 
+# Cruis'n USA's MAME driver expects this BIOS archive name, while the source archive is tms32031.zip.
+line_buffered cp -vf /home/danc/RetroPie/BIOS/mame/tms32031.zip /home/danc/RetroPie/BIOS/mame/tms320c31.zip
+
 # OMG! why is this not in the internet archive 0.256 rom set?
 line_buffered cp -vf /media/danc/ExtremeSSD/Mame/roms_fav/pacman.zip /home/danc/RetroPie/roms/arcade/
 
