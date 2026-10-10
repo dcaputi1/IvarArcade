@@ -18,6 +18,9 @@ line_buffered cp -vrf /media/danc/ExtremeSSD/Mame/MAME_0.256_EXTRAs/ /home/danc/
 # Copy the MAME (bios-devices) archive from old MAME stuff - just in case? (shouldn't this be in BIOS/roms?)
 line_buffered cp -vf /media/danc/ExtremeSSD/Mame/mame-merged/BIOS/roms/*.zip /home/danc/RetroPie/BIOS/mame/
 
+# MK4's MAME driver expects this BIOS archive name, while the source archive is tms32032.zip.
+line_buffered cp -vf /home/danc/RetroPie/BIOS/mame/tms32032.zip /home/danc/RetroPie/BIOS/mame/tms320c32.zip
+
 # OMG! why is this not in the internet archive 0.256 rom set?
 line_buffered cp -vf /media/danc/ExtremeSSD/Mame/roms_fav/pacman.zip /home/danc/RetroPie/roms/arcade/
 

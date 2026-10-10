@@ -57,7 +57,8 @@ Each phase appends its terminal output and errors to ~/pi5_setup.log.
 1. Connect and mount ExtremeSSD at /media/danc/ExtremeSSD, then run:
    bash ~/IvarArcade/McAtariPi5/pi5-setup.sh
    This installs the local tools and marquee dependencies, copies ROMs and
-   assets, configures the autostart sudo rules and FUSE user_allow_other`
+   assets (including the tms320c32.zip BIOS name required by MK4), configures
+   the autostart sudo rules and FUSE user_allow_other`
    setting, installs IvarArcade, builds UltrastikCmd, restores the MAME and
    frontend assets, generates game-analysis files, disables HDMI audio, and
    configures the Pi 5 wired LAN connection to the Pi 3 marquee server.
