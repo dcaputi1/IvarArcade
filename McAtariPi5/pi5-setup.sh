@@ -123,6 +123,4 @@ fi
 sudo nmcli connection up eth0-static
 
 echo
-echo "Pi 5 setup complete. Reboot to apply the HDMI audio setting."
-echo "Configure the Pi 3 wired connection as 10.77.77.3/24, then verify with:"
-echo "  ping -c2 10.77.77.3"
+echo "Pi 5 setup complete. Reboot to remove HDMI audio..."

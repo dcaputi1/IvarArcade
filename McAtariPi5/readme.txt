@@ -35,19 +35,15 @@ f. reboot and run:
   5/27/2026: attempt to fix mapdevice feature for duplicate device IDs
 > cd RetroPie-Setup
 > sudo env IVAR_MAME_PROFILE=full ./retropie_setup.sh
-  use IVAR_MAME_PROFILE=full right now to build full MAME with upstream arcade.flt and the mame binary
+  NOTE: for arcade-only build use sudo env IVAR_MAME_PROFILE=arcade ./retropie_setup.sh
   9/26/2026: Could not successfully _update_hook... [frotz, joy2code, kodi, lincity-ng, openttd, supertux, uqm]
 g. install all core packs - notes:
    5/27/2026: install emulationstation-dev
    9/26/2026: skip joy2code (bad _update_hook above and N/N)
-h. install experimental mame package (~3 hours from source)
-   HIT ENTER AFTER THE PROMPT
-   NOTE: for arcade-only build use sudo env IVAR_MAME_PROFILE=arcade ./retropie_setup.sh
-   5/27/2026 - 5/31/2026: several revs needed to fix full mame build, may've broke bookworm
-   9/26/2026 - needed to Hit ENTER *after* invoking the menu to start building!
+h. install experimental mame package (~3 hours full, ~1 hr arcade only, from source)
 i. install Atari consoles: lr-atari800, lr-stella2014 and lr-prosystem
-j. enable autostart emulationstation
-k. [optional] install Skyscraper
+j. [optional] install skyscraper
+k. enable autostart emulationstation
 
 Do NOT reboot. If you do, EmulationStation runs - hit f4, then type
 sudo systemctl start lightdm
@@ -55,33 +51,22 @@ sudo systemctl start lightdm
 Automated post-RetroPie setup (run these scripts as user danc, not with sudo):
 Each phase appends its terminal output and errors to ~/pi5_setup.log.
 1. Connect and mount ExtremeSSD at /media/danc/ExtremeSSD, then run:
-   bash ~/IvarArcade/McAtariPi5/pi5-setup.sh
-   This installs the local tools and marquee dependencies, copies ROMs and
-   assets (including the tms320c32.zip BIOS name required by MK4), configures
-   the autostart sudo rules and FUSE user_allow_other`
-   setting, installs IvarArcade, builds UltrastikCmd, restores the MAME and
-   frontend assets, generates game-analysis files, disables HDMI audio, sets
-   the default PipeWire audio output volume to 90% once during setup, and
-   configures the Pi 5 wired LAN connection to the Pi 3 marquee server.
-   It prompts for the sudo password near the start and refreshes authorization
-   during long steps, so it should not prompt again near the end.
-   Copy output is line-buffered; each ROM filename is printed when its copy
-   completes, not as a progress indicator while that file is being copied.
-2. Reboot to apply the HDMI audio change. On first boot, if there is no saved
-   menu choice, the frontend defaults to Exit to Desktop. Verify that USB audio
-   works in EmulationStation. The PipeWire output volume is set to 90% by setup;
-   MAME's mixer volume remains a separate setting.
+   ~/IvarArcade/McAtariPi5/pi5-setup.sh
+   This performs the following:
+   - Installs the local tools and marquee dependencies.
+   - Copies ROMs and assets.
+   - Configures autostart sudo rules and the FUSE user_allow_other setting.
+   - Installs IvarArcade and builds UltrastikCmd.
+   - Generates game-analysis files.
+   - Disables HDMI audio.
+   - Configures the Pi 5 wired LAN connection to the Pi 3 marquee server.
 
 If using a Pi3 as a remote marquee node, configure the Pi3 connection as 10.77.77.3/24 and verify from the Pi5 with:
    ping -c2 10.77.77.3
 
-The Pi Imager, desktop localization, RetroPie core-pack selection, experimental
-MAME build, autostart selection, and Atari emulator installation remain manual
-prerequisites. The full MAME source build still takes hours.
-
-note: VS code's AI and GitHub credentials will need initialization - good luck with that!
-(open browser first and log in github user dcaputi1)
-...ask AI to set git user to 'Dan Caputi' and email 'dcaputi1@users.noreply.github.com'
+NOTE: VS code's Copilot and GitHub credentials will need initialization...
+    - Open browser first and log in github user 'dcaputi1' (not email)
+    - Use Copilot to set git user to 'Dan Caputi' and email 'dcaputi1@users.noreply.github.com'
 
 ===========================================
   Pi3 baseline setup
