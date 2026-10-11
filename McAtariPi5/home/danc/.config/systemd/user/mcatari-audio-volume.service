@@ -1,9 +1,0 @@
-[Unit]
-Description=Set the default PipeWire audio output volume to 90%
-
-[Service]
-Type=oneshot
-ExecStart=/usr/bin/bash %h/scripts/set_audio_volume.sh
-
-[Install]
-WantedBy=default.target
