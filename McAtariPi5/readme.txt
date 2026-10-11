@@ -27,15 +27,16 @@ e. preferences, pi config, localization US UTF-8 for all
 f. reboot and run:
 > locale (confirm all US UTF-8)
 > git clone https://github.com/dcaputi1/IvarArcade.git
-  then reload this readme.txt from ~/IvarArcade/McAtariPi5, make sure nothing above changed
 > cd ~/IvarArcade; git switch feature/pi5-setup-scripts
   10/3/2026: use above to switch to this feature branch
+  then reload this readme.txt from ~/IvarArcade/McAtariPi5, make sure nothing above changed
 > git clone --depth=1 https://github.com/dcaputi1/RetroPie-Setup.git
   2/28/2026: use dcaputi1/Retropie-Setup.git for *Trixie* (*using 5/27...)
   5/27/2026: attempt to fix mapdevice feature for duplicate device IDs
 > cd RetroPie-Setup
+> sudo env IVAR_MAME_PROFILE=arcade ./retropie_setup.sh
+  OR for full mame (not arcade-only mamearcade) build in step h, use:
 > sudo env IVAR_MAME_PROFILE=full ./retropie_setup.sh
-  NOTE: for arcade-only mame build (step h) use sudo env IVAR_MAME_PROFILE=arcade ./retropie_setup.sh
   9/26/2026: Could not successfully _update_hook... [frotz, joy2code, kodi, lincity-ng, openttd, supertux, uqm]
 g. install all core packs - notes:
    5/27/2026: install emulationstation-dev
