@@ -400,9 +400,9 @@ main_menu()
                 persist_frontend_choice "M"
                 send_dmarquees_cmd "SA"
                 if [ "$SCREEN_HORIZONTAL" = false ]; then
-                    mame -rol -inipath "/opt/retropie/emulators/mame/ini;/opt/retropie/emulators/mame/ini_horz_ror" -cfg_directory $CFG_PATH -joystickprovider sdljoy
+                    "$BASE_PATH/mame" -rol -inipath "$BASE_PATH/ini;$BASE_PATH/ini_horz_ror" -cfg_directory "$CFG_PATH" -joystickprovider sdljoy
                 else
-                    mame -norol -inipath "/opt/retropie/emulators/mame/ini" -cfg_directory $CFG_PATH -joystickprovider sdljoy
+                    "$BASE_PATH/mame" -norol -inipath "$BASE_PATH/ini" -cfg_directory "$CFG_PATH" -joystickprovider sdljoy
                 fi
                 continue
                 ;;

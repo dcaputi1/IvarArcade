@@ -305,9 +305,9 @@ main_menu()
                 local CTRLR_NAME
                 CTRLR_NAME=$(resolve_ctrlr_name "$CTRLR_CFG")
                 if [ "$SCREEN_HORIZONTAL" = false ]; then
-                    mame -rol -inipath "/opt/retropie/emulators/mame/ini;/opt/retropie/emulators/mame/ini_horz_ror" -cfg_directory "$CFG_PATH" -ctrlr "$CTRLR_NAME" -verbose > "$HOME/mame.log" 2>&1
+                    "$BASE_PATH/mame" -rol -inipath "$BASE_PATH/ini;$BASE_PATH/ini_horz_ror" -cfg_directory "$CFG_PATH" -ctrlr "$CTRLR_NAME" -verbose > "$HOME/mame.log" 2>&1
                 else
-                    mame -norol -inipath "/opt/retropie/emulators/mame/ini" -cfg_directory "$CFG_PATH" -ctrlr "$CTRLR_NAME" -verbose > "$HOME/mame.log" 2>&1
+                    "$BASE_PATH/mame" -norol -inipath "$BASE_PATH/ini" -cfg_directory "$CFG_PATH" -ctrlr "$CTRLR_NAME" -verbose > "$HOME/mame.log" 2>&1
                 fi
                 continue
                 ;;

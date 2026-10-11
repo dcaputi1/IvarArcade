@@ -107,6 +107,10 @@ export PATH="$PATH:/opt/retropie/emulators/mame:/opt/retropie/emulators/retroarc
 echo "Disabling HDMI audio..."
 bash "$HOME/scripts/disable_hdmi_audio.sh"
 
+echo "Setting the default audio output volume to 90% at user-session startup..."
+systemctl --user daemon-reload
+systemctl --user enable --now mcatari-audio-volume.service
+
 echo "Configuring the Pi 5 wired link for the Pi 3 marquee node..."
 if nmcli -t -f NAME connection show | grep -Fx eth0-static >/dev/null; then
   sudo nmcli connection modify eth0-static \
@@ -121,5 +125,6 @@ sudo nmcli connection up eth0-static
 
 echo
 echo "Pi 5 setup complete. Reboot to apply the HDMI audio setting."
+echo "The default OS audio output volume will be set to 90% at each user-session startup."
 echo "Configure the Pi 3 wired connection as 10.77.77.3/24, then verify with:"
 echo "  ping -c2 10.77.77.3"

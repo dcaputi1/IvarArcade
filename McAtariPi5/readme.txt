@@ -61,14 +61,17 @@ Each phase appends its terminal output and errors to ~/pi5_setup.log.
    the autostart sudo rules and FUSE user_allow_other`
    setting, installs IvarArcade, builds UltrastikCmd, restores the MAME and
    frontend assets, generates game-analysis files, disables HDMI audio, and
-   configures the Pi 5 wired LAN connection to the Pi 3 marquee server.
+   configures the PipeWire audio output to 90% at user-session startup and the Pi 5
+   wired LAN connection to the Pi 3 marquee server.
    It prompts for the sudo password near the start and refreshes authorization
    during long steps, so it should not prompt again near the end.
    Copy output is line-buffered; each ROM filename is printed when its copy
    completes, not as a progress indicator while that file is being copied.
 2. Reboot to apply the HDMI audio change. On first boot, if there is no saved
    menu choice, the frontend defaults to Exit to Desktop. Verify that USB audio
-   works in EmulationStation.
+   works in EmulationStation. The setup enables a user service that sets the OS
+   default PipeWire output volume to 90% at each user-session startup using
+   wpctl; MAME's mixer volume remains a separate setting.
 
 If using a Pi3 as a remote marquee node, configure the Pi3 connection as 10.77.77.3/24 and verify from the Pi5 with:
    ping -c2 10.77.77.3
