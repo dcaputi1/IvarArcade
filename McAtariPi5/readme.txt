@@ -35,7 +35,7 @@ f. reboot and run:
   5/27/2026: attempt to fix mapdevice feature for duplicate device IDs
 > cd RetroPie-Setup
 > sudo env IVAR_MAME_PROFILE=full ./retropie_setup.sh
-  NOTE: for arcade-only build use sudo env IVAR_MAME_PROFILE=arcade ./retropie_setup.sh
+  NOTE: for arcade-only mame build (step h) use sudo env IVAR_MAME_PROFILE=arcade ./retropie_setup.sh
   9/26/2026: Could not successfully _update_hook... [frotz, joy2code, kodi, lincity-ng, openttd, supertux, uqm]
 g. install all core packs - notes:
    5/27/2026: install emulationstation-dev
@@ -89,7 +89,7 @@ f. reboot, open command prompt and run:
   4/4/2026 - any diffs with https://github.com/RetroPie/RetroPie-Setup.git ?
 > cd RetroPie-Setup
 > sudo env IVAR_MAME_PROFILE=full ./retropie_setup.sh
-        use IVAR_MAME_PROFILE=arcade later if you want the stripped-down mamearcade build from the same repo
+  NOTE: use IVAR_MAME_PROFILE=arcade for stripped-down/faster mamearcade build
 g. install all core packs, enable boot to ES
 h. do NOT reboot, from command prompt:
 
@@ -102,21 +102,13 @@ h. do NOT reboot, from command prompt:
  > sudo chown -R danc /opt/retropie
  > make install
 
-4/4/2026 NA - sudo dpkg-reconfigure locales (change GB to US)
-4/4/2026 NA - sudo mkdir -p /media/danc/ExtremeSSD
-4/4/2026 NA - sudo mount /dev/sda1 /media/danc/ExtremeSSD
+i. Configure Pi3's direct wired link to Pi5 with static IPs:
 
-i. Configure direct wired link static IPs (NetworkManager):
-
-   # Pi3 side
+   # from Pi3 side:
    sudo nmcli con add type ethernet ifname eth0 con-name eth0-static ip4 10.77.77.3/24
    sudo nmcli con up eth0-static
 
-   # Pi5 side
-   sudo nmcli con add type ethernet ifname eth0 con-name eth0-static ip4 10.77.77.5/24
-   sudo nmcli con up eth0-static
-
-   # Verify from Pi5
+   # Verify from Pi5:
    ping -c2 10.77.77.3
 
 ===========================================
