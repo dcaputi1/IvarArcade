@@ -72,12 +72,18 @@ if [[ -n "$ROM" ]]; then
         fi
     fi
 
-    # Send either the game name or the console art name to dmarquees-send.sh
-	echo "input $romzip : sending $display_name to dmarquees" >> /tmp/rc.out
+    if [[ "$EMULATOR" == "mame" ]]; then
+        # run_mame.sh applies the per-ROM panel/controller profile first, then
+        # sends the initial artwork command. Avoid rendering with stale state.
+        echo "input $romzip : deferring artwork to run_mame.sh" >> /tmp/rc.out
+    else
+        # Send either the game name or the console art name to dmarquees.
+        echo "input $romzip : sending $display_name to dmarquees" >> /tmp/rc.out
 
-    if [[ -x "$SENDER_SCRIPT" ]]; then
-        "$SENDER_SCRIPT" "$display_name"
+        if [[ -x "$SENDER_SCRIPT" ]]; then
+            "$SENDER_SCRIPT" "$display_name"
+        fi
+
+        echo "$display_name" > "$CMD_FIFO"
     fi
-
-    echo "$display_name" > "$CMD_FIFO"
 fi

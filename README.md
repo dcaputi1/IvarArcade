@@ -118,5 +118,12 @@ case-insensitive; blank lines and lines starting with `#` are ignored. A match
 updates `~/.ctrlr` to the selected profile. `dcpanel1` also sets `~/.panel` to
 `DC`, and `atarifs` sets it to `MC` (the panel tokens are not the ctrlr names).
 Other profiles leave `~/.panel` unchanged. A ROM not listed keeps the current
-`~/.ctrlr` and `~/.panel` values. This lookup applies to the EmulationStation
-standalone-MAME launch path, not games launched from the standalone MAME GUI.
+`~/.ctrlr` and `~/.panel` values. The wrapper applies the profile and panel
+setting before sending the initial marquee command, so the secondary display
+renders the game once with the selected panel art. The EmulationStation launch
+hook defers standalone-MAME artwork to this wrapper; other emulator artwork
+continues to be sent by the launch hook. This lookup applies to the
+EmulationStation standalone-MAME launch path, not games launched from the
+standalone MAME GUI. The MAME marquee plugin only refreshes local art when a
+panel mode is deliberately changed in its menu; game exit artwork is restored
+by the Runcommand end hook.
