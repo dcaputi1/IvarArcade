@@ -98,3 +98,25 @@ How to use ultrastikcmd
 or:
 > ultrastikcmd -v -u /home/danc/IvarArcade/tools/UltraStikMaps/Analog.um
 Note: add -f to flash/save the map (runcommand start/end scripts overwrite the active map). Also note, the current default/flashed map seems to be 8-way digital
+
+### Per-game controller profiles in EmulationStation
+
+The arcade system's standalone `mame` emulator entry launches through
+`~/scripts/run_mame.sh`. To select a MAME `ctrlr` profile for particular ROMs,
+add `ROM shortname=profile name` entries to
+`/opt/retropie/configs/all/mame_ctrlr_map.txt` (the deployment source is
+`McAtariPi5/opt/retropie/configs/all/mame_ctrlr_map.txt`). For example:
+
+```text
+qbert=dcpanel1
+sf2=dcpanel1
+```
+
+Profile names correspond to files under
+`/opt/retropie/emulators/mame/ctrlr`, without the `.cfg` extension. Matching is
+case-insensitive; blank lines and lines starting with `#` are ignored. A match
+updates `~/.ctrlr` to the selected profile. `dcpanel1` also sets `~/.panel` to
+`DC`, and `atarifs` sets it to `MC` (the panel tokens are not the ctrlr names).
+Other profiles leave `~/.panel` unchanged. A ROM not listed keeps the current
+`~/.ctrlr` and `~/.panel` values. This lookup applies to the EmulationStation
+standalone-MAME launch path, not games launched from the standalone MAME GUI.

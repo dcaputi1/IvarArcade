@@ -1,0 +1,24 @@
+# Per-game standalone MAME profiles: ROM shortname=ctrlr profile
+# Profile names are from /opt/retropie/emulators/mame/ctrlr, without ".cfg".
+# A matching profile is saved to ~/.ctrlr. dcpanel1 also selects .panel=DC;
+# atarifs also selects .panel=MC. Other profiles do not change ~/.panel.
+# Games not listed here keep the current ~/.ctrlr and ~/.panel values.
+#
+qbert=dcpanel1
+sf=atarifs
+sf2=atarifs
+mk=atarifs
+mk2=atarifs
+mk3=atarifs
+mk4=atarifs
+marble=atarifs
+missile=atarifs
+centiped=atarifs
+milliped=atarifs
+robotron=atarifs
+joust=atarifs
+tempest=dcpanel1
+sprint1=dcpanel1
+superbug=dcpanel1
+pong=dcpanel1
+gtg2=atarifs
