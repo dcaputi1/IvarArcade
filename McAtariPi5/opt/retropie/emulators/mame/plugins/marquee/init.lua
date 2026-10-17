@@ -19,6 +19,7 @@ local marquee = exports
 -----------------------------------------------------------
 
 local MARQUEE_FIFO = "/tmp/dmarquees_cmd"
+local SENDER_SCRIPT = "/home/danc/scripts/dmarquees-send.sh"
 local SWAP_SCRIPT  = "/home/danc/scripts/swap_banner_art.sh"
 local PANEL_FILE   = "/home/danc/.panel"
 local CTRLR_FILE   = "/home/danc/.ctrlr"
@@ -43,6 +44,8 @@ local PANEL_TO_CTRLR = {
 local panel_mode = PANEL_NA
 local in_panel_submenu = false
 local pending_ctrlr_mismatch = nil
+local reset_subscriber
+local stop_subscriber
 
 -----------------------------------------------------------
 -- Helper Functions
@@ -58,6 +61,28 @@ local function send_local_command(text)
     else
         print(string.format("Marquee plugin: Failed to write to local FIFO %s for '%s'", MARQUEE_FIFO, text))
     end
+end
+
+local function send_remote_command(text)
+    local sender = io.open(SENDER_SCRIPT, "r")
+    if not sender then
+        print(string.format("Marquee plugin: Sender script unavailable: %s", SENDER_SCRIPT))
+        return
+    end
+    sender:close()
+
+    local quoted_text = "'" .. tostring(text):gsub("'", "'\\''") .. "'"
+    local status = os.execute(string.format("%s %s >/dev/null 2>&1", SENDER_SCRIPT, quoted_text))
+    if status == true or status == 0 then
+        print(string.format("Marquee plugin: Sent to Pi3: '%s'", text))
+    else
+        print(string.format("Marquee plugin: Sender failed for '%s'", text))
+    end
+end
+
+local function send_marquee_command(text)
+    send_remote_command(text)
+    send_local_command(text)
 end
 
 local function current_romname()
@@ -211,6 +236,23 @@ local function apply_panel_mode(mode)
     end
 end
 
+-----------------------------------------------------------
+-- Event Callbacks
+-----------------------------------------------------------
+
+local function on_game_start()
+    local gamename = current_romname()
+    if not gamename then return end
+
+    print("Marquee plugin: " .. gamename .. " started")
+    send_marquee_command(gamename)
+end
+
+local function on_game_stop()
+    print("Marquee plugin: Game stopped, reset marquee")
+    send_marquee_command("CLEAR")
+end
+
 local function menu_populate()
     if pending_ctrlr_mismatch then
         return {
@@ -309,6 +351,14 @@ function marquee.startplugin()
     print("Marquee Plugin: Initialized (v" .. VERSION .. ")")
 
     panel_mode = load_panel_mode()
+
+    if os.getenv("IVAR_RUN_MAME_WRAPPER") ~= "1" then
+        if reset_subscriber then emu.remove_notifier(reset_subscriber) end
+        if stop_subscriber then emu.remove_notifier(stop_subscriber) end
+        reset_subscriber = emu.add_machine_reset_notifier(on_game_start)
+        stop_subscriber = emu.add_machine_stop_notifier(on_game_stop)
+    end
+
     emu.register_menu(menu_callback, menu_populate, "Marquee")
 
 end

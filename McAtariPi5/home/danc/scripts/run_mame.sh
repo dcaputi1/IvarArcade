@@ -120,7 +120,7 @@ if [[ -n "${ROM_NAME:-}" ]]; then
 fi
 
 # --- RUN MAME ---
-"$MAME_ROOT/mame" \
+IVAR_RUN_MAME_WRAPPER=1 "$MAME_ROOT/mame" \
     -joystickprovider sdljoy \
     -inipath "$INI_PATH" \
     -cfg_directory "$CFG_DIR" \

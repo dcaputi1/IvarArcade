@@ -122,8 +122,9 @@ Other profiles leave `~/.panel` unchanged. A ROM not listed keeps the current
 setting before sending the initial marquee command, so the secondary display
 renders the game once with the selected panel art. The EmulationStation launch
 hook defers standalone-MAME artwork to this wrapper; other emulator artwork
-continues to be sent by the launch hook. This lookup applies to the
-EmulationStation standalone-MAME launch path, not games launched from the
-standalone MAME GUI. The MAME marquee plugin only refreshes local art when a
-panel mode is deliberately changed in its menu; game exit artwork is restored
-by the Runcommand end hook.
+continues to be sent by the launch hook. In the standalone MAME GUI, the MAME
+marquee plugin sends each selected game's name to both the Pi 3 marquee and
+the Pi 5 daemon; the daemon uses the current `~/.panel` value for the secondary
+screen. The per-ROM controller-map lookup applies only to the EmulationStation
+standalone-MAME launch path. The plugin handles game-exit artwork in the GUI;
+Runcommand handles it for EmulationStation launches.
