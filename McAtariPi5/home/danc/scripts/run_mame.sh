@@ -7,8 +7,12 @@ CTRLR_FILE="$HOME/.ctrlr"
 PANEL_FILE="$HOME/.panel"
 CTRLR_CFG_DEFAULT="allctrlrs.cfg"
 ROM_CTRLR_MAP="/opt/retropie/configs/all/mame_ctrlr_map.txt"
-SENDER_SCRIPT="$HOME/scripts/dmarquees-send.sh"
-CMD_FIFO="/tmp/dmarquees_cmd"
+
+PREPARE_ONLY=false
+if [[ "${1:-}" == "--prepare" ]]; then
+    PREPARE_ONLY=true
+    shift
+fi
 
 resolve_ctrlr_name()
 {
@@ -105,18 +109,8 @@ fi
 
 CTRLR_NAME=$(resolve_ctrlr_name "$CTRLR_CFG")
 
-# The launch hook defers standalone-MAME artwork until this point so the
-# controller map has already selected the panel mode before the first render.
-if [[ -n "${ROM_NAME:-}" ]]; then
-    if [[ -p "$CMD_FIFO" ]]; then
-        printf '%s\n' "$ROM_NAME" > "$CMD_FIFO"
-    fi
-
-    if [[ -x "$SENDER_SCRIPT" ]]; then
-        "$SENDER_SCRIPT" "$ROM_NAME"
-    else
-        echo "Marquee sender is unavailable: $SENDER_SCRIPT" >&2
-    fi
+if [[ "$PREPARE_ONLY" == true ]]; then
+    exit 0
 fi
 
 # --- RUN MAME ---
