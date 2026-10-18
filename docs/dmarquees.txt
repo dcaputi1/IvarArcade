@@ -1,300 +1,107 @@
-10:00:34.587 dmarquees: v1.11.1 starting...
-10:00:34.614 dmarquees: Selected connector 44 mode 1600x1200 crtc 106
-10:00:34.616 dmarquees: DRM master dropped - MAME can safely start.
-10:00:34.632 dmarquees: centering default splash screen: /home/danc/IvarArcade/images/RetroPieMarquee.png
-10:00:34.634 dmarquees: trying CRTC reset
-10:00:34.634 dmarquees: master set
-10:00:34.638 dmarquees: crtc reset success!
-10:00:34.638 dmarquees: master dropped
-10:00:34.709 dmarquees: pre-rendering panel PNG: /tmp/dmarquees_dcpanel.png
-10:00:35.448 dmarquees: panel PNG ready: /tmp/dmarquees_dcpanel.png
-10:00:35.459 dmarquees: pre-rendering panel PNG: /tmp/dmarquees_mcpanel.png
-10:00:35.790 dmarquees: panel PNG ready: /tmp/dmarquees_mcpanel.png
-10:00:35.794 dmarquees: pre-rendering panel PNG: /tmp/dmarquees_mkwheel.png
-10:00:36.127 dmarquees: panel PNG ready: /tmp/dmarquees_mkwheel.png
-10:00:36.127 dmarquees: entering main loop
-10:00:36.127 dmarquees (1): read on /tmp/dmarquees_cmd
-10:00:36.377 dmarquees (2): read on /tmp/dmarquees_cmd
-10:00:36.627 dmarquees (3): read on /tmp/dmarquees_cmd
-10:00:36.877 dmarquees (4): read on /tmp/dmarquees_cmd
-10:00:37.127 dmarquees (5): read on /tmp/dmarquees_cmd
-10:00:37.377 dmarquees (6): read on /tmp/dmarquees_cmd
-10:00:37.627 dmarquees (7): read on /tmp/dmarquees_cmd
-10:00:37.877 dmarquees (8): read on /tmp/dmarquees_cmd
-10:00:37.877 dmarquees: command received: 'NA'
-10:00:37.877 dmarquees: frontend mode changed to NA
-10:00:37.890 dmarquees: centering default splash screen: /home/danc/IvarArcade/images/RetroPieMarquee.png
-10:00:37.891 dmarquees: trying CRTC reset
-10:00:37.891 dmarquees: master set
-10:00:37.905 dmarquees: crtc reset success!
-10:00:37.905 dmarquees: master dropped
-10:00:37.905 dmarquees (9): read on /tmp/dmarquees_cmd
-10:00:38.155 dmarquees (10): read on /tmp/dmarquees_cmd
-10:00:38.405 dmarquees (11): read on /tmp/dmarquees_cmd
-10:00:38.655 dmarquees (12): read on /tmp/dmarquees_cmd
-10:00:38.905 dmarquees (13): read on /tmp/dmarquees_cmd
-10:00:39.155 dmarquees (14): read on /tmp/dmarquees_cmd
-10:00:39.406 dmarquees (15): read on /tmp/dmarquees_cmd
-10:00:39.656 dmarquees (16): read on /tmp/dmarquees_cmd
-10:00:39.906 dmarquees (17): read on /tmp/dmarquees_cmd
-10:00:40.156 dmarquees (18): read on /tmp/dmarquees_cmd
-10:00:40.406 dmarquees (19): read on /tmp/dmarquees_cmd
-10:00:40.656 dmarquees (20): read on /tmp/dmarquees_cmd
-10:00:40.906 dmarquees (21): read on /tmp/dmarquees_cmd
-10:00:41.157 dmarquees (22): read on /tmp/dmarquees_cmd
-10:00:41.407 dmarquees (23): read on /tmp/dmarquees_cmd
-10:00:41.657 dmarquees (24): read on /tmp/dmarquees_cmd
-10:00:41.908 dmarquees (25): read on /tmp/dmarquees_cmd
-10:00:42.158 dmarquees (26): read on /tmp/dmarquees_cmd
-10:00:42.408 dmarquees (27): read on /tmp/dmarquees_cmd
-10:00:42.658 dmarquees (28): read on /tmp/dmarquees_cmd
-10:00:42.908 dmarquees (29): read on /tmp/dmarquees_cmd
-10:00:43.159 dmarquees (30): read on /tmp/dmarquees_cmd
-10:00:43.409 dmarquees (31): read on /tmp/dmarquees_cmd
-10:00:43.659 dmarquees (32): read on /tmp/dmarquees_cmd
-10:00:43.909 dmarquees (33): read on /tmp/dmarquees_cmd
-10:00:44.160 dmarquees (34): read on /tmp/dmarquees_cmd
-10:00:44.410 dmarquees (35): read on /tmp/dmarquees_cmd
-10:00:44.660 dmarquees (36): read on /tmp/dmarquees_cmd
-10:00:44.910 dmarquees (37): read on /tmp/dmarquees_cmd
-10:00:45.161 dmarquees (38): read on /tmp/dmarquees_cmd
-10:00:45.411 dmarquees (39): read on /tmp/dmarquees_cmd
-10:00:45.661 dmarquees (40): read on /tmp/dmarquees_cmd
-10:00:45.661 dmarquees: command received: 'RA'
-10:00:45.661 dmarquees: frontend mode changed to RA
-10:00:45.680 dmarquees: centering default splash screen: /home/danc/IvarArcade/images/RetroArch_logo.png
-10:00:45.682 dmarquees: trying CRTC reset
-10:00:45.682 dmarquees: master set
-10:00:45.688 dmarquees: crtc reset success!
-10:00:45.688 dmarquees: master dropped
-10:00:45.688 dmarquees (41): read on /tmp/dmarquees_cmd
-10:00:45.938 dmarquees (42): read on /tmp/dmarquees_cmd
-10:00:46.188 dmarquees (43): read on /tmp/dmarquees_cmd
-10:00:46.439 dmarquees (44): read on /tmp/dmarquees_cmd
-10:00:46.689 dmarquees (45): read on /tmp/dmarquees_cmd
-10:00:46.939 dmarquees (46): read on /tmp/dmarquees_cmd
-10:00:47.189 dmarquees (47): read on /tmp/dmarquees_cmd
-10:00:47.439 dmarquees (48): read on /tmp/dmarquees_cmd
-10:00:47.689 dmarquees (49): read on /tmp/dmarquees_cmd
-10:00:47.939 dmarquees (50): read on /tmp/dmarquees_cmd
-10:00:58.192 dmarquees: command received: 'tempest'
-10:00:58.192 dmarquees: splash ROM 'tempest', .panel='DC'
-10:00:58.194 find_panel_map: trying '/home/danc/IvarArcade/labels/tempest.dcp'
-10:00:58.197 find_panel_map: not found (errno=2)
-10:00:58.197 find_panel_map: trying fallback '/home/danc/IvarArcade/labels/default.dcp'
-10:00:58.197 find_panel_map: fallback found (errno=2)
-10:00:58.238 dmarquees: panel substitutions applied: 12 (/home/danc/IvarArcade/labels/default.dcp)
-10:00:58.654 dmarquees: trying CRTC reset
-10:00:58.654 drmSetMaster (try_reset_crtc): Device or resource busy
-10:00:58.654 drmModeSetCrtc (try_reset_crtc): Permission denied
-10:00:58.654 warning: try_reset_crtc failed for DC panel; scheduling retry
-10:00:58.654 dmarquees: showing DC panel for tempest (12 substitutions)
-10:00:59.654 dmarquees: retrying CRTC - re-blitting last panel image
-10:00:59.654 dmarquees: REFRESH - reloading /tmp/dmarquees_dcpanel.png
-10:00:59.662 dmarquees: trying CRTC reset
-10:00:59.662 drmSetMaster (try_reset_crtc): Device or resource busy
-10:00:59.662 drmModeSetCrtc (try_reset_crtc): Permission denied
-10:00:59.662 dmarquees: REFRESH complete
-10:01:00.662 dmarquees: retrying CRTC - re-blitting last panel image
-10:01:00.662 dmarquees: REFRESH - reloading /tmp/dmarquees_dcpanel.png
-10:01:00.670 dmarquees: trying CRTC reset
-10:01:00.670 drmSetMaster (try_reset_crtc): Device or resource busy
-10:01:00.670 drmModeSetCrtc (try_reset_crtc): Permission denied
-10:01:00.670 dmarquees: REFRESH complete
-10:01:02.378 dmarquees: retrying CRTC - re-blitting last panel image
-10:01:02.378 dmarquees: REFRESH - reloading /tmp/dmarquees_dcpanel.png
-10:01:02.386 dmarquees: trying CRTC reset
-10:01:02.386 drmSetMaster (try_reset_crtc): Device or resource busy
-10:01:02.386 drmModeSetCrtc (try_reset_crtc): Permission denied
-10:01:02.386 dmarquees: REFRESH complete
-10:01:03.386 dmarquees: retrying CRTC - re-blitting last panel image
-10:01:03.386 dmarquees: REFRESH - reloading /tmp/dmarquees_dcpanel.png
-10:01:03.394 dmarquees: trying CRTC reset
-10:01:03.394 drmSetMaster (try_reset_crtc): Device or resource busy
-10:01:03.394 drmModeSetCrtc (try_reset_crtc): Permission denied
-10:01:03.394 dmarquees: REFRESH complete
-10:01:04.394 dmarquees: retrying CRTC - re-blitting last panel image
-10:01:04.394 dmarquees: REFRESH - reloading /tmp/dmarquees_dcpanel.png
-10:01:04.402 dmarquees: trying CRTC reset
-10:01:04.402 drmSetMaster (try_reset_crtc): Device or resource busy
-10:01:04.402 drmModeSetCrtc (try_reset_crtc): Permission denied
-10:01:04.402 dmarquees: REFRESH complete
-10:01:05.403 dmarquees: retrying CRTC - re-blitting last panel image
-10:01:05.403 dmarquees: REFRESH - reloading /tmp/dmarquees_dcpanel.png
-10:01:05.411 dmarquees: trying CRTC reset
-10:01:05.411 drmSetMaster (try_reset_crtc): Device or resource busy
-10:01:05.411 drmModeSetCrtc (try_reset_crtc): Permission denied
-10:01:05.411 dmarquees: REFRESH complete
-10:01:06.411 dmarquees: retrying CRTC - re-blitting last panel image
-10:01:06.411 dmarquees: REFRESH - reloading /tmp/dmarquees_dcpanel.png
-10:01:06.419 dmarquees: trying CRTC reset
-10:01:06.419 drmSetMaster (try_reset_crtc): Device or resource busy
-10:01:06.419 drmModeSetCrtc (try_reset_crtc): Permission denied
-10:01:06.419 dmarquees: REFRESH complete
-10:01:07.420 dmarquees: retrying CRTC - re-blitting last panel image
-10:01:07.420 dmarquees: REFRESH - reloading /tmp/dmarquees_dcpanel.png
-10:01:07.428 dmarquees: trying CRTC reset
-10:01:07.428 drmSetMaster (try_reset_crtc): Device or resource busy
-10:01:07.428 drmModeSetCrtc (try_reset_crtc): Permission denied
-10:01:07.428 dmarquees: REFRESH complete
-10:01:08.428 dmarquees: retrying CRTC - re-blitting last panel image
-10:01:08.428 dmarquees: REFRESH - reloading /tmp/dmarquees_dcpanel.png
-10:01:08.436 dmarquees: trying CRTC reset
-10:01:08.437 drmSetMaster (try_reset_crtc): Device or resource busy
-10:01:08.437 drmModeSetCrtc (try_reset_crtc): Permission denied
-10:01:08.437 dmarquees: REFRESH complete
-10:01:09.437 dmarquees: retrying CRTC - re-blitting last panel image
-10:01:09.437 dmarquees: REFRESH - reloading /tmp/dmarquees_dcpanel.png
-10:01:09.445 dmarquees: trying CRTC reset
-10:01:09.445 drmSetMaster (try_reset_crtc): Device or resource busy
-10:01:09.445 drmModeSetCrtc (try_reset_crtc): Permission denied
-10:01:09.445 dmarquees: REFRESH complete
-10:01:10.445 dmarquees: retrying CRTC - re-blitting last panel image
-10:01:10.445 dmarquees: REFRESH - reloading /tmp/dmarquees_dcpanel.png
-10:01:10.453 dmarquees: trying CRTC reset
-10:01:10.453 drmSetMaster (try_reset_crtc): Device or resource busy
-10:01:10.453 drmModeSetCrtc (try_reset_crtc): Permission denied
-10:01:10.453 dmarquees: REFRESH complete
-10:01:11.453 dmarquees: retrying CRTC - re-blitting last panel image
-10:01:11.454 dmarquees: REFRESH - reloading /tmp/dmarquees_dcpanel.png
-10:01:11.465 dmarquees: trying CRTC reset
-10:01:11.465 drmSetMaster (try_reset_crtc): Device or resource busy
-10:01:11.465 drmModeSetCrtc (try_reset_crtc): Permission denied
-10:01:11.465 dmarquees: REFRESH complete
-10:01:12.465 dmarquees: retrying CRTC - re-blitting last panel image
-10:01:12.465 dmarquees: REFRESH - reloading /tmp/dmarquees_dcpanel.png
-10:01:12.474 dmarquees: trying CRTC reset
-10:01:12.474 drmSetMaster (try_reset_crtc): Device or resource busy
-10:01:12.474 drmModeSetCrtc (try_reset_crtc): Permission denied
-10:01:12.474 dmarquees: REFRESH complete
-10:01:13.474 dmarquees: retrying CRTC - re-blitting last panel image
-10:01:13.474 dmarquees: REFRESH - reloading /tmp/dmarquees_dcpanel.png
-10:01:13.482 dmarquees: trying CRTC reset
-10:01:13.482 drmSetMaster (try_reset_crtc): Device or resource busy
-10:01:13.482 drmModeSetCrtc (try_reset_crtc): Permission denied
-10:01:13.482 dmarquees: REFRESH complete
-10:01:14.483 dmarquees: retrying CRTC - re-blitting last panel image
-10:01:14.483 dmarquees: REFRESH - reloading /tmp/dmarquees_dcpanel.png
-10:01:14.491 dmarquees: trying CRTC reset
-10:01:14.491 drmSetMaster (try_reset_crtc): Device or resource busy
-10:01:14.491 drmModeSetCrtc (try_reset_crtc): Permission denied
-10:01:14.491 dmarquees: REFRESH complete
-10:01:15.492 dmarquees: retrying CRTC - re-blitting last panel image
-10:01:15.492 dmarquees: REFRESH - reloading /tmp/dmarquees_dcpanel.png
-10:01:15.499 dmarquees: trying CRTC reset
-10:01:15.499 drmSetMaster (try_reset_crtc): Device or resource busy
-10:01:15.499 drmModeSetCrtc (try_reset_crtc): Permission denied
-10:01:15.499 dmarquees: REFRESH complete
-10:01:16.500 dmarquees: retrying CRTC - re-blitting last panel image
-10:01:16.500 dmarquees: REFRESH - reloading /tmp/dmarquees_dcpanel.png
-10:01:16.508 dmarquees: trying CRTC reset
-10:01:16.508 drmSetMaster (try_reset_crtc): Device or resource busy
-10:01:16.508 drmModeSetCrtc (try_reset_crtc): Permission denied
-10:01:16.508 dmarquees: REFRESH complete
-10:01:17.508 dmarquees: retrying CRTC - re-blitting last panel image
-10:01:17.508 dmarquees: REFRESH - reloading /tmp/dmarquees_dcpanel.png
-10:01:17.516 dmarquees: trying CRTC reset
-10:01:17.516 drmSetMaster (try_reset_crtc): Device or resource busy
-10:01:17.516 drmModeSetCrtc (try_reset_crtc): Permission denied
-10:01:17.516 dmarquees: REFRESH complete
-10:01:18.517 dmarquees: retrying CRTC - re-blitting last panel image
-10:01:18.517 dmarquees: REFRESH - reloading /tmp/dmarquees_dcpanel.png
-10:01:18.526 dmarquees: trying CRTC reset
-10:01:18.526 drmSetMaster (try_reset_crtc): Device or resource busy
-10:01:18.526 drmModeSetCrtc (try_reset_crtc): Permission denied
-10:01:18.526 dmarquees: REFRESH complete
-10:01:19.526 dmarquees: retrying CRTC - re-blitting last panel image
-10:01:19.526 dmarquees: REFRESH - reloading /tmp/dmarquees_dcpanel.png
-10:01:19.534 dmarquees: trying CRTC reset
-10:01:19.534 drmSetMaster (try_reset_crtc): Device or resource busy
-10:01:19.534 drmModeSetCrtc (try_reset_crtc): Permission denied
-10:01:19.534 dmarquees: REFRESH complete
-10:01:20.535 dmarquees: retrying CRTC - re-blitting last panel image
-10:01:20.535 dmarquees: REFRESH - reloading /tmp/dmarquees_dcpanel.png
-10:01:20.543 dmarquees: trying CRTC reset
-10:01:20.544 drmSetMaster (try_reset_crtc): Device or resource busy
-10:01:20.544 drmModeSetCrtc (try_reset_crtc): Permission denied
-10:01:20.544 dmarquees: REFRESH complete
-10:01:21.544 dmarquees: retrying CRTC - re-blitting last panel image
-10:01:21.544 dmarquees: REFRESH - reloading /tmp/dmarquees_dcpanel.png
-10:01:21.552 dmarquees: trying CRTC reset
-10:01:21.552 drmSetMaster (try_reset_crtc): Device or resource busy
-10:01:21.552 drmModeSetCrtc (try_reset_crtc): Permission denied
-10:01:21.552 dmarquees: REFRESH complete
-10:01:22.552 dmarquees: retrying CRTC - re-blitting last panel image
-10:01:22.553 dmarquees: REFRESH - reloading /tmp/dmarquees_dcpanel.png
-10:01:22.561 dmarquees: trying CRTC reset
-10:01:22.561 drmSetMaster (try_reset_crtc): Device or resource busy
-10:01:22.561 drmModeSetCrtc (try_reset_crtc): Permission denied
-10:01:22.561 dmarquees: REFRESH complete
-10:01:23.561 dmarquees: retrying CRTC - re-blitting last panel image
-10:01:23.561 dmarquees: REFRESH - reloading /tmp/dmarquees_dcpanel.png
-10:01:23.570 dmarquees: trying CRTC reset
-10:01:23.571 drmSetMaster (try_reset_crtc): Device or resource busy
-10:01:23.571 drmModeSetCrtc (try_reset_crtc): Permission denied
-10:01:23.571 dmarquees: REFRESH complete
-10:01:24.571 dmarquees: retrying CRTC - re-blitting last panel image
-10:01:24.571 dmarquees: REFRESH - reloading /tmp/dmarquees_dcpanel.png
-10:01:24.579 dmarquees: trying CRTC reset
-10:01:24.579 drmSetMaster (try_reset_crtc): Device or resource busy
-10:01:24.579 drmModeSetCrtc (try_reset_crtc): Permission denied
-10:01:24.579 dmarquees: REFRESH complete
-10:01:25.579 dmarquees: retrying CRTC - re-blitting last panel image
-10:01:25.579 dmarquees: REFRESH - reloading /tmp/dmarquees_dcpanel.png
-10:01:25.588 dmarquees: trying CRTC reset
-10:01:25.588 drmSetMaster (try_reset_crtc): Device or resource busy
-10:01:25.588 drmModeSetCrtc (try_reset_crtc): Permission denied
-10:01:25.588 dmarquees: REFRESH complete
-10:01:26.588 dmarquees: retrying CRTC - re-blitting last panel image
-10:01:26.588 dmarquees: REFRESH - reloading /tmp/dmarquees_dcpanel.png
-10:01:26.596 dmarquees: trying CRTC reset
-10:01:26.596 drmSetMaster (try_reset_crtc): Device or resource busy
-10:01:26.596 drmModeSetCrtc (try_reset_crtc): Permission denied
-10:01:26.596 dmarquees: REFRESH complete
-10:01:27.597 dmarquees: retrying CRTC - re-blitting last panel image
-10:01:27.597 dmarquees: REFRESH - reloading /tmp/dmarquees_dcpanel.png
-10:01:27.606 dmarquees: trying CRTC reset
-10:01:27.606 drmSetMaster (try_reset_crtc): Device or resource busy
-10:01:27.606 drmModeSetCrtc (try_reset_crtc): Permission denied
-10:01:27.606 dmarquees: REFRESH complete
-10:01:28.607 dmarquees: retrying CRTC - re-blitting last panel image
-10:01:28.607 dmarquees: REFRESH - reloading /tmp/dmarquees_dcpanel.png
-10:01:28.615 dmarquees: trying CRTC reset
-10:01:28.615 drmSetMaster (try_reset_crtc): Device or resource busy
-10:01:28.615 drmModeSetCrtc (try_reset_crtc): Permission denied
-10:01:28.615 dmarquees: REFRESH complete
-10:01:29.615 dmarquees: retrying CRTC - re-blitting last panel image
-10:01:29.615 dmarquees: REFRESH - reloading /tmp/dmarquees_dcpanel.png
-10:01:29.623 dmarquees: trying CRTC reset
-10:01:29.623 drmSetMaster (try_reset_crtc): Device or resource busy
-10:01:29.623 drmModeSetCrtc (try_reset_crtc): Permission denied
-10:01:29.623 dmarquees: REFRESH complete
-10:01:30.623 dmarquees: retrying CRTC - re-blitting last panel image
-10:01:30.623 dmarquees: REFRESH - reloading /tmp/dmarquees_dcpanel.png
-10:01:30.631 dmarquees: trying CRTC reset
-10:01:30.631 drmSetMaster (try_reset_crtc): Device or resource busy
-10:01:30.631 drmModeSetCrtc (try_reset_crtc): Permission denied
-10:01:30.631 dmarquees: REFRESH complete
-10:01:31.381 dmarquees: command received: 'RA'
-10:01:31.381 dmarquees: frontend mode changed to RA
-10:01:31.390 dmarquees: centering default splash screen: /home/danc/IvarArcade/images/RetroArch_logo.png
-10:01:31.392 dmarquees: trying CRTC reset
-10:01:31.392 dmarquees: master set
-10:01:31.395 dmarquees: crtc reset success!
-10:01:31.395 dmarquees: master dropped
-10:01:31.646 dmarquees: retrying CRTC - re-blitting last panel image
-10:01:31.646 dmarquees: REFRESH - reloading /home/danc/IvarArcade/images/RetroArch_logo.png
-10:01:31.656 dmarquees: trying CRTC reset
-10:01:31.656 dmarquees: master set
-10:01:31.662 dmarquees: crtc reset success!
-10:01:31.662 dmarquees: master dropped
-10:01:31.662 dmarquees: REFRESH complete
-10:01:43.915 dmarquees: command received: 'NA'
-10:01:43.915 dmarquees: frontend mode changed to NA
-10:01:43.933 dmarquees: centering default splash screen: /home/danc/IvarArcade/images/RetroPieMarquee.png
-10:01:43.936 dmarquees: trying CRTC reset
-10:01:43.936 dmarquees: master set
-10:01:43.946 dmarquees: crtc reset success!
-10:01:43.946 dmarquees: master dropped
-10:01:48.197 dmarquees: command received: 'EXIT'
-10:01:48.229 dmarquees: exiting
+18:24:53.045 dmarquees: v1.11.1 starting...
+18:24:53.072 dmarquees: Selected connector 44 mode 1600x1200 crtc 106
+18:24:53.074 dmarquees: DRM master dropped - MAME can safely start.
+18:24:53.089 dmarquees: centering default splash screen: /home/danc/IvarArcade/images/RetroPieMarquee.png
+18:24:53.091 dmarquees: trying CRTC reset
+18:24:53.091 dmarquees: master set
+18:24:53.106 dmarquees: crtc reset success!
+18:24:53.106 dmarquees: master dropped
+18:24:53.177 dmarquees: pre-rendering panel PNG: /tmp/dmarquees_dcpanel.png
+18:24:53.890 dmarquees: panel PNG ready: /tmp/dmarquees_dcpanel.png
+18:24:53.901 dmarquees: pre-rendering panel PNG: /tmp/dmarquees_mcpanel.png
+18:24:54.232 dmarquees: panel PNG ready: /tmp/dmarquees_mcpanel.png
+18:24:54.236 dmarquees: pre-rendering panel PNG: /tmp/dmarquees_mkwheel.png
+18:24:54.568 dmarquees: panel PNG ready: /tmp/dmarquees_mkwheel.png
+18:24:54.568 dmarquees: entering main loop
+18:24:54.568 dmarquees (1): read on /tmp/dmarquees_cmd
+18:24:54.818 dmarquees (2): read on /tmp/dmarquees_cmd
+18:24:54.818 dmarquees: command received: 'NA'
+18:24:54.818 dmarquees: frontend mode changed to NA
+18:24:54.830 dmarquees: centering default splash screen: /home/danc/IvarArcade/images/RetroPieMarquee.png
+18:24:54.832 dmarquees: trying CRTC reset
+18:24:54.832 dmarquees: master set
+18:24:54.839 dmarquees: crtc reset success!
+18:24:54.839 dmarquees: master dropped
+18:24:54.839 dmarquees (3): read on /tmp/dmarquees_cmd
+18:24:55.089 dmarquees (4): read on /tmp/dmarquees_cmd
+18:24:55.339 dmarquees (5): read on /tmp/dmarquees_cmd
+18:24:55.590 dmarquees (6): read on /tmp/dmarquees_cmd
+18:24:55.840 dmarquees (7): read on /tmp/dmarquees_cmd
+18:24:56.090 dmarquees (8): read on /tmp/dmarquees_cmd
+18:24:56.340 dmarquees (9): read on /tmp/dmarquees_cmd
+18:24:56.590 dmarquees (10): read on /tmp/dmarquees_cmd
+18:24:56.840 dmarquees (11): read on /tmp/dmarquees_cmd
+18:24:57.090 dmarquees (12): read on /tmp/dmarquees_cmd
+18:24:57.340 dmarquees (13): read on /tmp/dmarquees_cmd
+18:24:57.590 dmarquees (14): read on /tmp/dmarquees_cmd
+18:24:57.840 dmarquees (15): read on /tmp/dmarquees_cmd
+18:24:58.091 dmarquees (16): read on /tmp/dmarquees_cmd
+18:24:58.341 dmarquees (17): read on /tmp/dmarquees_cmd
+18:24:58.591 dmarquees (18): read on /tmp/dmarquees_cmd
+18:24:58.841 dmarquees (19): read on /tmp/dmarquees_cmd
+18:24:59.092 dmarquees (20): read on /tmp/dmarquees_cmd
+18:24:59.342 dmarquees (21): read on /tmp/dmarquees_cmd
+18:24:59.592 dmarquees (22): read on /tmp/dmarquees_cmd
+18:24:59.842 dmarquees (23): read on /tmp/dmarquees_cmd
+18:25:00.092 dmarquees (24): read on /tmp/dmarquees_cmd
+18:25:00.343 dmarquees (25): read on /tmp/dmarquees_cmd
+18:25:00.593 dmarquees (26): read on /tmp/dmarquees_cmd
+18:25:00.843 dmarquees (27): read on /tmp/dmarquees_cmd
+18:25:01.094 dmarquees (28): read on /tmp/dmarquees_cmd
+18:25:01.344 dmarquees (29): read on /tmp/dmarquees_cmd
+18:25:01.594 dmarquees (30): read on /tmp/dmarquees_cmd
+18:25:01.594 dmarquees: command received: 'RA'
+18:25:01.594 dmarquees: frontend mode changed to RA
+18:25:01.608 dmarquees: centering default splash screen: /home/danc/IvarArcade/images/RetroArch_logo.png
+18:25:01.610 dmarquees: trying CRTC reset
+18:25:01.610 dmarquees: master set
+18:25:01.623 dmarquees: crtc reset success!
+18:25:01.623 dmarquees: master dropped
+18:25:01.623 dmarquees (31): read on /tmp/dmarquees_cmd
+18:25:01.873 dmarquees (32): read on /tmp/dmarquees_cmd
+18:25:02.123 dmarquees (33): read on /tmp/dmarquees_cmd
+18:25:02.373 dmarquees (34): read on /tmp/dmarquees_cmd
+18:25:02.623 dmarquees (35): read on /tmp/dmarquees_cmd
+18:25:02.873 dmarquees (36): read on /tmp/dmarquees_cmd
+18:25:03.123 dmarquees (37): read on /tmp/dmarquees_cmd
+18:25:03.373 dmarquees (38): read on /tmp/dmarquees_cmd
+18:25:03.623 dmarquees (39): read on /tmp/dmarquees_cmd
+18:25:03.873 dmarquees (40): read on /tmp/dmarquees_cmd
+18:25:04.124 dmarquees (41): read on /tmp/dmarquees_cmd
+18:25:04.374 dmarquees (42): read on /tmp/dmarquees_cmd
+18:25:04.624 dmarquees (43): read on /tmp/dmarquees_cmd
+18:25:04.874 dmarquees (44): read on /tmp/dmarquees_cmd
+18:25:05.124 dmarquees (45): read on /tmp/dmarquees_cmd
+18:25:05.374 dmarquees (46): read on /tmp/dmarquees_cmd
+18:25:05.624 dmarquees (47): read on /tmp/dmarquees_cmd
+18:25:05.874 dmarquees (48): read on /tmp/dmarquees_cmd
+18:25:06.124 dmarquees (49): read on /tmp/dmarquees_cmd
+18:25:06.374 dmarquees (50): read on /tmp/dmarquees_cmd
+18:25:16.273 dmarquees: command received: 'tempest'
+18:25:16.273 dmarquees: splash ROM 'tempest', .panel='DC'
+18:25:16.274 find_panel_map: trying '/home/danc/IvarArcade/labels/tempest.dcp'
+18:25:16.275 find_panel_map: not found (errno=2)
+18:25:16.275 find_panel_map: trying fallback '/home/danc/IvarArcade/labels/default.dcp'
+18:25:16.275 find_panel_map: fallback found (errno=2)
+18:25:16.311 dmarquees: panel substitutions applied: 12 (/home/danc/IvarArcade/labels/default.dcp)
+18:25:16.721 dmarquees: trying CRTC reset
+18:25:16.721 dmarquees: master set
+18:25:16.735 dmarquees: crtc reset success!
+18:25:16.735 dmarquees: master dropped
+18:25:16.735 dmarquees: showing DC panel for tempest (12 substitutions)
+18:25:30.490 dmarquees: command received: 'RA'
+18:25:30.490 dmarquees: frontend mode changed to RA
+18:25:30.499 dmarquees: centering default splash screen: /home/danc/IvarArcade/images/RetroArch_logo.png
+18:25:30.501 dmarquees: trying CRTC reset
+18:25:30.501 dmarquees: master set
+18:25:30.502 dmarquees: crtc reset success!
+18:25:30.502 dmarquees: master dropped
+18:25:38.754 dmarquees: command received: 'NA'
+18:25:38.754 dmarquees: frontend mode changed to NA
+18:25:38.766 dmarquees: centering default splash screen: /home/danc/IvarArcade/images/RetroPieMarquee.png
+18:25:38.768 dmarquees: trying CRTC reset
+18:25:38.768 dmarquees: master set
+18:25:38.769 dmarquees: crtc reset success!
+18:25:38.769 dmarquees: master dropped
+18:25:43.520 dmarquees: command received: 'EXIT'
+18:25:43.552 dmarquees: exiting
