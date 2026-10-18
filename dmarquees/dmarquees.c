@@ -54,7 +54,7 @@
 #include <xf86drmMode.h>
 #include <sys/utsname.h>
 
-#define VERSION "1.10.0"
+#define VERSION "1.11.1"
 #define CMD_FIFO "/tmp/dmarquees_cmd"
 #define DEF_MARQUEE_NAME "RetroPieMarquee"
 #define DEF_RA_MARQUEE_NAME "RetroArch_logo"
@@ -1405,6 +1405,13 @@ int main(int argc, char **argv)
 
     char buf[128];
     int spam_count = 0;
+    int fifo = open(CMD_FIFO, O_RDONLY | O_NONBLOCK);
+    if (fifo < 0)
+    {
+        ts_perror("open");
+        ts_fprintf(stderr, "dmarquees: FATAL - can't access command fifo\n");
+        running = false;
+    }
 
     // main loop: read FIFO lines and act on them
     while (running)
@@ -1415,22 +1422,12 @@ int main(int argc, char **argv)
             refresh_current_marquee();
         }
 
-        int fifo = open(CMD_FIFO, O_RDONLY | O_NONBLOCK);
-        if (fifo < 0)
-        {
-            ts_perror("open");
-            ts_fprintf(stderr, "dmarquees: FATAL - can't access command fifo\n");
-            break;  // get out of main loop
-        }
-
         if (spam_count++ < 50)
             ts_printf("dmarquees (%d): read on %s\n", spam_count, CMD_FIFO);
         else if (spam_count == 6)
             ts_printf("dmarquees: further logging for fifo suppressed\n");
 
         ssize_t read_len = read(fifo, buf, sizeof(buf) - 1);
-
-        close(fifo);
 
         if (read_len > 0)
         {
@@ -1461,6 +1458,8 @@ int main(int argc, char **argv)
     }
 
     // cleanup
+    if (fifo >= 0)
+        close(fifo);
     destroy_dumb_fb(drm_fd);
     if (drm_fd >= 0)
     {
