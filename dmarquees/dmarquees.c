@@ -48,6 +48,7 @@
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <time.h>
 #include <unistd.h>
 #include <xf86drm.h>
 #include <xf86drmMode.h>
@@ -61,6 +62,7 @@
 #define PREFERRED_W 1920
 #define PREFERRED_H 1080
 #define FIFO_RETRY_DELAY_MSEC 250
+#define CRTC_RETRY_DELAY_MSEC 1000
 #define PANEL_TMP_DC_SVG "/tmp/dmarquees_dcpanel.svg"
 #define PANEL_TMP_DC_PNG "/tmp/dmarquees_dcpanel.png"
 #define PANEL_TMP_MC_SVG "/tmp/dmarquees_mcpanel.svg"
@@ -90,9 +92,47 @@ FrontendMode _frontend_mode = eNA;
 bool _splash_mode = false;
 char _drm_device_path[128] = "";
 char _drm_connector_name[32] = "";
-static time_t _ra_init_hold = 0;
+static struct timespec _crtc_retry_at = {0};
 static uint8_t* image = NULL;
 static char last_image_path[PATH_MAX] = {0};
+
+static void schedule_crtc_retry(void)
+{
+    if (clock_gettime(CLOCK_MONOTONIC, &_crtc_retry_at) != 0)
+    {
+        ts_perror("clock_gettime (schedule_crtc_retry)");
+        _crtc_retry_at = (struct timespec){0};
+        return;
+    }
+
+    _crtc_retry_at.tv_nsec += CRTC_RETRY_DELAY_MSEC * 1000000L;
+    if (_crtc_retry_at.tv_nsec >= 1000000000L)
+    {
+        _crtc_retry_at.tv_sec++;
+        _crtc_retry_at.tv_nsec -= 1000000000L;
+    }
+}
+
+static bool crtc_retry_is_due(void)
+{
+    if (_crtc_retry_at.tv_sec == 0 && _crtc_retry_at.tv_nsec == 0)
+        return false;
+
+    struct timespec now;
+    if (clock_gettime(CLOCK_MONOTONIC, &now) != 0)
+    {
+        ts_perror("clock_gettime (crtc_retry_is_due)");
+        return false;
+    }
+
+    return now.tv_sec > _crtc_retry_at.tv_sec ||
+        (now.tv_sec == _crtc_retry_at.tv_sec && now.tv_nsec >= _crtc_retry_at.tv_nsec);
+}
+
+static void clear_crtc_retry(void)
+{
+    _crtc_retry_at = (struct timespec){0};
+}
 
 static const char* _image_dir_misc = HOME_PATH "/mnt/marquees";
 static const char* _image_dir_alt = HOME_PATH "/RetroPie/roms/mame/media/marquees";
@@ -1194,8 +1234,10 @@ static bool show_panel_marquee(const char *shortname, ControlPanel panel_type)
             // Schedule a re-blit retry so the panel appears once the game
             // releases (or stabilises) DRM master.
             ts_fprintf(stderr, "warning: try_reset_crtc failed for %s panel; scheduling retry\n", panel_label);
-            _ra_init_hold = time(NULL) + 4;
+            schedule_crtc_retry();
         }
+        else
+            clear_crtc_retry();
         snprintf(last_image_path, sizeof(last_image_path), "%s", tmp_png);
     }
 
@@ -1237,7 +1279,10 @@ static void refresh_current_marquee(void)
     
     memset(fb_map, 0, bo_size);
     scale_and_blit_to_xrgb(image, iw, ih, fbptr, fb_w, fb_h, stride_pixels, 0, _splash_mode);
-    try_reset_crtc();
+    if (!try_reset_crtc())
+        schedule_crtc_retry();
+    else
+        clear_crtc_retry();
     
     ts_printf("dmarquees: REFRESH complete\n");
 }
@@ -1364,7 +1409,13 @@ int main(int argc, char **argv)
     // main loop: read FIFO lines and act on them
     while (running)
     {
-        int fifo = open(CMD_FIFO, O_RDONLY);
+        if (crtc_retry_is_due())
+        {
+            ts_printf("dmarquees: retrying CRTC - re-blitting last panel image\n");
+            refresh_current_marquee();
+        }
+
+        int fifo = open(CMD_FIFO, O_RDONLY | O_NONBLOCK);
         if (fifo < 0)
         {
             ts_perror("open");
@@ -1385,13 +1436,6 @@ int main(int argc, char **argv)
         {
             // Looks like we have one or more newline-delimited commands.
             buf[read_len] = '\0';
-        }
-        else if (_ra_init_hold && (time(NULL) > _ra_init_hold))
-        {
-            ts_printf("dmarquees: retrying CRTC - re-blitting last panel image\n");
-            refresh_current_marquee(); // re-blit + try_reset_crtc internally
-            _ra_init_hold = 0;         // one retry attempt; clear regardless of outcome
-            continue;
         }
         else
         {
