@@ -121,10 +121,12 @@ Other profiles leave `~/.panel` unchanged. A ROM not listed keeps the current
 `~/.ctrlr` and `~/.panel` values. For EmulationStation launches, the Runcommand
 hook first asks `run_mame.sh` to apply the per-ROM profile, then sends the
 initial artwork command and waits briefly for the Pi 5 daemon to finish its
-display update before MAME starts. Other emulator artwork continues to be sent
-by the launch hook. In the standalone MAME GUI, the MAME marquee plugin sends
-each selected game's name to both the Pi 3 marquee and the Pi 5 daemon; the
-daemon uses the current `~/.panel` value for the secondary screen. The per-ROM
-controller-map lookup applies only to the EmulationStation standalone-MAME
-launch path. The plugin handles game-exit artwork in the GUI; Runcommand
-handles it for EmulationStation launches.
+display update before MAME starts. MAME's `screen0` is pinned to `HDMI-A-1`
+in its global INI so its fullscreen output does not select the spare
+`HDMI-A-2` connector driven by dmarquees. Other emulator artwork continues to
+be sent by the launch hook. In the standalone MAME GUI, the MAME marquee
+plugin sends each selected game's name to both the Pi 3 marquee and the Pi 5
+daemon; the daemon uses the current `~/.panel` value for the secondary screen.
+The per-ROM controller-map lookup applies only to the EmulationStation
+standalone-MAME launch path. The plugin handles game-exit artwork in the GUI;
+Runcommand handles it for EmulationStation launches.
