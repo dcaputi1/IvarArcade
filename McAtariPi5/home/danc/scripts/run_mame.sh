@@ -120,4 +120,5 @@ IVAR_RUN_MAME_WRAPPER=1 "$MAME_ROOT/mame" \
     -cfg_directory "$CFG_DIR" \
     -ctrlr "$CTRLR_NAME" \
     $ROL_FLAG \
-    "$@"
+    -verbose \
+    "$@" > "$HOME/mame.log" 2>&1
