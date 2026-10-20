@@ -8,12 +8,6 @@ PANEL_FILE="$HOME/.panel"
 CTRLR_CFG_DEFAULT="allctrlrs.cfg"
 ROM_CTRLR_MAP="/opt/retropie/configs/all/mame_ctrlr_map.txt"
 
-PREPARE_ONLY=false
-if [[ "${1:-}" == "--prepare" ]]; then
-    PREPARE_ONLY=true
-    shift
-fi
-
 resolve_ctrlr_name()
 {
     local cfg_name="$1"
@@ -109,16 +103,11 @@ fi
 
 CTRLR_NAME=$(resolve_ctrlr_name "$CTRLR_CFG")
 
-if [[ "$PREPARE_ONLY" == true ]]; then
-    exit 0
-fi
-
 # --- RUN MAME ---
-IVAR_RUN_MAME_WRAPPER=1 "$MAME_ROOT/mame" \
+"$MAME_ROOT/mame" \
     -joystickprovider sdljoy \
     -inipath "$INI_PATH" \
     -cfg_directory "$CFG_DIR" \
     -ctrlr "$CTRLR_NAME" \
     $ROL_FLAG \
-    -verbose \
-    "$@" > "$HOME/mame.log" 2>&1
+    "$@"

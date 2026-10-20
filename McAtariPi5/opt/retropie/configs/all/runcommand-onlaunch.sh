@@ -72,36 +72,12 @@ if [[ -n "$ROM" ]]; then
         fi
     fi
 
-    if [[ "$EMULATOR" == "mame" ]]; then
-        # Apply the per-ROM profile before rendering panel art, then give the
-        # daemon time to finish its DRM update before MAME starts.
-        MAME_WRAPPER="$HOME/scripts/run_mame.sh"
-        if [[ -x "$MAME_WRAPPER" ]] && "$MAME_WRAPPER" --prepare "$ROM" >> /tmp/rc.out 2>&1; then
-            mame_rom_name="${romzip%.*}"
-            echo "input $romzip : sending $mame_rom_name to dmarquees before MAME" >> /tmp/rc.out
+    # Send either the game name or the console art name to dmarquees-send.sh
+	echo "input $romzip : sending $display_name to dmarquees" >> /tmp/rc.out
 
-            if [[ -p "$CMD_FIFO" ]]; then
-                printf '%s\n' "$mame_rom_name" > "$CMD_FIFO"
-            else
-                echo "dmarquees FIFO unavailable: $CMD_FIFO" >> /tmp/rc.out
-            fi
-
-            if [[ -x "$SENDER_SCRIPT" ]]; then
-                "$SENDER_SCRIPT" "$mame_rom_name" >/dev/null 2>&1 &
-            fi
-
-            sleep 0.75
-        else
-            echo "Failed to prepare MAME profile; skipping early marquee command" >> /tmp/rc.out
-        fi
-    else
-        # Send either the game name or the console art name to dmarquees.
-        echo "input $romzip : sending $display_name to dmarquees" >> /tmp/rc.out
-
-        if [[ -x "$SENDER_SCRIPT" ]]; then
-            "$SENDER_SCRIPT" "$display_name"
-        fi
-
-        echo "$display_name" > "$CMD_FIFO"
+    if [[ -x "$SENDER_SCRIPT" ]]; then
+        "$SENDER_SCRIPT" "$display_name"
     fi
+
+    echo "$display_name" > "$CMD_FIFO"
 fi

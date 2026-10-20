@@ -41,15 +41,33 @@ local PANEL_TO_CTRLR = {
 -- Internal State
 -----------------------------------------------------------
 
+local reset_subscriber
+local stop_subscriber
 local panel_mode = PANEL_NA
 local in_panel_submenu = false
 local pending_ctrlr_mismatch = nil
-local reset_subscriber
-local stop_subscriber
 
 -----------------------------------------------------------
 -- Helper Functions
 -----------------------------------------------------------
+
+local function shell_quote(text)
+    return "'" .. tostring(text):gsub("'", "'\\''") .. "'"
+end
+
+local function send_remote_command(text)
+    -- Send to Pi3 via sender script (for main marquee display)
+    local sender = io.open(SENDER_SCRIPT, "r")
+    if sender then
+        sender:close()
+        local status = os.execute(string.format("%s %s >/dev/null 2>&1", SENDER_SCRIPT, shell_quote(text)))
+        if status == true or status == 0 then
+            print(string.format("Marquee plugin: Sent to Pi3 via sender: '%s'", text))
+        else
+            print(string.format("Marquee plugin: Sender failed for '%s'", text))
+        end
+    end
+end
 
 local function send_local_command(text)
     -- Write to local FIFO so Pi5 dmarquees can drive the spare monitor panel art
@@ -60,23 +78,6 @@ local function send_local_command(text)
         print(string.format("Marquee plugin: Sent to local FIFO: '%s'", text))
     else
         print(string.format("Marquee plugin: Failed to write to local FIFO %s for '%s'", MARQUEE_FIFO, text))
-    end
-end
-
-local function send_remote_command(text)
-    local sender = io.open(SENDER_SCRIPT, "r")
-    if not sender then
-        print(string.format("Marquee plugin: Sender script unavailable: %s", SENDER_SCRIPT))
-        return
-    end
-    sender:close()
-
-    local quoted_text = "'" .. tostring(text):gsub("'", "'\\''") .. "'"
-    local status = os.execute(string.format("%s %s >/dev/null 2>&1", SENDER_SCRIPT, quoted_text))
-    if status == true or status == 0 then
-        print(string.format("Marquee plugin: Sent to Pi3: '%s'", text))
-    else
-        print(string.format("Marquee plugin: Sender failed for '%s'", text))
     end
 end
 
@@ -103,6 +104,12 @@ local function sync_rom_for_panel()
     -- Panel sync should only target the local Pi5 daemon.
     send_local_command(gamename)
     return true
+end
+
+local function cleanup_notifiers()
+    if reset_subscriber then emu.remove_notifier(reset_subscriber) end
+    if stop_subscriber then emu.remove_notifier(stop_subscriber) end
+    reset_subscriber, stop_subscriber = nil, nil
 end
 
 local function panel_mode_label(mode)
@@ -352,14 +359,10 @@ function marquee.startplugin()
 
     panel_mode = load_panel_mode()
 
-    if os.getenv("IVAR_RUN_MAME_WRAPPER") ~= "1" then
-        if reset_subscriber then emu.remove_notifier(reset_subscriber) end
-        if stop_subscriber then emu.remove_notifier(stop_subscriber) end
-        reset_subscriber = emu.add_machine_reset_notifier(on_game_start)
-        stop_subscriber = emu.add_machine_stop_notifier(on_game_stop)
-    end
-
-    emu.register_menu(menu_callback, menu_populate, "Marquee")
+    cleanup_notifiers()
+    reset_subscriber = emu.add_machine_reset_notifier(on_game_start)
+    stop_subscriber = emu.add_machine_stop_notifier(on_game_stop)
+	emu.register_menu(menu_callback, menu_populate, "Marquee")
 
 end
 

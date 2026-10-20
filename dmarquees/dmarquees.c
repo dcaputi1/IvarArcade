@@ -54,7 +54,7 @@
 #include <xf86drmMode.h>
 #include <sys/utsname.h>
 
-#define VERSION "1.11.1"
+#define VERSION "1.11.2"
 #define CMD_FIFO "/tmp/dmarquees_cmd"
 #define DEF_MARQUEE_NAME "RetroPieMarquee"
 #define DEF_RA_MARQUEE_NAME "RetroArch_logo"
