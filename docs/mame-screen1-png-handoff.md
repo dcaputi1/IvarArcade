@@ -15,6 +15,15 @@ it was time-limited and forcibly stopped, not a clean-exit test. The fix is
 deployed to `/opt/retropie/emulators/mame/plugins/screen1png`.
 Physical display acceptance testing is still required.
 
+First hardware run (log: `McAtariPi5/home/danc/screen1png.txt`): the GUI worked on
+screen0, but screen1 showed a white, letterboxed rectangle. The log contained
+`Texture too big! (wanted: 4500x1500, max is 4096x4096)`, because
+`MAMELogoR.png` exceeds the V3D GL texture limit. `prepare()` now uses
+`bitmap:resample` to shrink decoded images so they fit both the output size and
+4096 px. In this case, that produces 1600x533 and logs `screen1png: scaled ...`.
+The mocked tests cover this case, but those new checks have not yet run because
+no Lua runtime was available on Windows. Run them on the Pi5 before deploying
+and rerunning the display test.
 Continue the opt-in `screen1png` proof of concept described below with a manual
 display test outside the desktop session. Do not expand this into the full
 dmarquees migration yet. Validation notes below describe the original Windows

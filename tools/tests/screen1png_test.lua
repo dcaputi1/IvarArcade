@@ -1,6 +1,6 @@
 local plugin_path = "McAtariPi5/opt/retropie/emulators/mame/plugins/screen1png/init.lua"
 local callbacks, messages, opens, textures, draws
-local rom, targets, screen_count, bad_data, missing_file
+local rom, targets, screen_count, bad_data, missing_file, image_w, image_h
 local real_open, real_getenv = io.open, os.getenv
 local passed = 0
 
@@ -32,9 +32,18 @@ local function output(hidden, ui, width, height)
     return result
 end
 
+local function mock_bitmap(width, height, data)
+    local bitmap = { width = width, height = height, data = data }
+    function bitmap:resample(dest)
+        dest.source = self
+    end
+    return bitmap
+end
+
 local function setup()
     callbacks, messages, opens, textures, draws = {}, {}, {}, {}, {}
     rom, screen_count, bad_data, missing_file = "___empty", 1, false, false
+    image_w, image_h = 800, 200
     targets = { output(true, false), output(false, true), output(false, false) }
     emu = {
         print_error = function (message) table.insert(messages, message) end,
@@ -43,12 +52,12 @@ local function setup()
         register_before_load_settings = function (cb) callbacks.before_settings = cb end,
         add_machine_stop_notifier = function (cb) callbacks.stop = cb; return {} end,
         register_frame_done = function (cb) callbacks.frame = cb end,
-        bitmap_argb32 = {
+        bitmap_argb32 = setmetatable({
             load = function (data)
                 assert(not bad_data, "invalid PNG")
-                return { width = 800, height = 200, data = data }
+                return mock_bitmap(image_w, image_h, data)
             end
-        }
+        }, { __call = function (_, width, height) return mock_bitmap(width, height) end })
     }
     manager = { machine = { render = {
         targets = targets,
@@ -208,6 +217,25 @@ check(opens[2] == "custom-game.png", "game path override")
 targets[3].width = 0
 callbacks.frame()
 check(#draws == 0, "zero-sized output must not draw")
+callbacks.stop()
+
+setup()
+image_w, image_h = 4500, 1500
+targets[3].width, targets[3].height = 1600, 1200
+prepare()
+local scaled = textures[1].bitmap
+check(scaled.width == 1600 and scaled.height == 533, "oversized image must shrink to fit the output")
+check(scaled.source and scaled.source.width == 4500, "oversized image must be resampled from the decoded PNG")
+
+setup()
+image_w, image_h = 5000, 1000
+targets[3].width, targets[3].height = 0, 0
+prepare()
+check(textures[1].bitmap.width == 4096 and textures[1].bitmap.height == 819, "texture must respect the GL size limit")
+
+setup()
+prepare()
+check(textures[1].bitmap.source == nil and textures[1].bitmap.width == 800, "small image must not be resampled")
 callbacks.stop()
 
 io.open, os.getenv = real_open, real_getenv

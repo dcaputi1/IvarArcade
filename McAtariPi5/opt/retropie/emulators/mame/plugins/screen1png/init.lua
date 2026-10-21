@@ -7,6 +7,7 @@ local exports = {
 }
 
 local stop_subscriber
+local MAX_TEXTURE = 4096
 
 function exports.startplugin()
     local pending = false
@@ -81,6 +82,23 @@ function exports.startplugin()
             return
         end
         bitmap = result
+
+        -- GL renderers reject textures above their max size (4096 on the Pi5 V3D),
+        -- drawing a white quad instead; shrink to the output size as well.
+        local scale = math.min(1, MAX_TEXTURE / bitmap.width, MAX_TEXTURE / bitmap.height)
+        if target.width > 0 and target.height > 0 then
+            scale = math.min(scale, target.width / bitmap.width, target.height / bitmap.height)
+        end
+        if scale < 1 then
+            local width = math.max(1, math.floor(bitmap.width * scale + 0.5))
+            local height = math.max(1, math.floor(bitmap.height * scale + 0.5))
+            local scaled = emu.bitmap_argb32(width, height)
+            bitmap:resample(scaled)
+            emu.print_info(string.format("screen1png: scaled %dx%d -> %dx%d",
+                bitmap.width, bitmap.height, width, height))
+            bitmap = scaled
+        end
+
         texture = manager.machine.render:texture_alloc(bitmap)
         emu.print_info("screen1png: " .. rom .. " -> " .. path)
     end

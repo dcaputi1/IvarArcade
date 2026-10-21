@@ -17,7 +17,10 @@ For MAME 0.288 compatibility, `register_before_load_settings` marks each new
 session and the first `register_frame_done` callback loads the image after UI
 and render-target initialization, including the selection GUI before reset.
 An unreadable or invalid image is logged; the normal second-output view remains
-visible instead of silently substituting another image.
+visible instead of silently substituting another image. Images larger than the
+output, or larger than 4096 px (the Pi5 V3D maximum GL texture size), are
+resampled once at load time. Otherwise, the renderer reports `Texture too big!`
+and draws a white rectangle.
 
 ## Isolated Pi5 test
 
