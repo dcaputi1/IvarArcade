@@ -13,6 +13,8 @@ Linux daemon to display retro arcade game marquee images on a secondary monitor.
 - Listens on a named FIFO for commands
 - Supports nearest-neighbor scaling to preserve pixel art
 - Persistent framebuffer with efficient updates
+- On a failed panel CRTC reset, retries the reset without redrawing the framebuffer
+  so a MAME DRM-master conflict does not produce periodic image flashes
 
 ## Commands
 

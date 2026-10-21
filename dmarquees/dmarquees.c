@@ -1287,6 +1287,14 @@ static void refresh_current_marquee(void)
     ts_printf("dmarquees: REFRESH complete\n");
 }
 
+static void retry_crtc_reset(void)
+{
+    if (try_reset_crtc())
+        clear_crtc_retry();
+    else
+        schedule_crtc_retry();
+}
+
 static void handle_fifo_command(char *cmd_str)
 {
     if (!cmd_str)
@@ -1419,8 +1427,8 @@ int main(int argc, char **argv)
     {
         if (crtc_retry_is_due())
         {
-            ts_printf("dmarquees: retrying CRTC - re-blitting last panel image\n");
-            refresh_current_marquee();
+            ts_printf("dmarquees: retrying CRTC reset without re-blitting panel image\n");
+            retry_crtc_reset();
         }
 
         if (spam_count++ < 50)
