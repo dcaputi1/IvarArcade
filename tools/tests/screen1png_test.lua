@@ -40,7 +40,7 @@ local function setup()
         print_error = function (message) table.insert(messages, message) end,
         print_info = function (message) table.insert(messages, message) end,
         romname = function () return rom end,
-        register_before_startup_screens = function (cb) callbacks.prepare = cb end,
+        register_before_load_settings = function (cb) callbacks.before_settings = cb end,
         add_machine_stop_notifier = function (cb) callbacks.stop = cb; return {} end,
         register_frame_done = function (cb) callbacks.frame = cb end,
         bitmap_argb32 = {
@@ -76,8 +76,22 @@ end
 local function prepare()
     manager.machine.screens = {}
     for i = 1, screen_count do manager.machine.screens[i] = {} end
-    callbacks.prepare()
+    local open_count = #opens
+    callbacks.before_settings()
+    check(#opens == open_count, "must defer image loading until the first presentation frame")
+    callbacks.frame()
+    draws = {}
 end
+
+setup()
+manager.machine.screens = {}
+callbacks.before_settings()
+check(#opens == 0 and #draws == 0, "pre-settings callback must not access uninitialized UI targets")
+callbacks.frame()
+check(#opens == 1 and #draws == 2, "first GUI frame must load and draw without waiting for reset")
+callbacks.stop()
+callbacks.frame()
+check(#opens == 1 and #draws == 2, "stopped session must wait for the next pre-settings callback")
 
 setup()
 prepare()
@@ -136,6 +150,7 @@ targets[3] = nil
 prepare()
 callbacks.frame()
 check(#opens == 0 and #draws == 0 and messages[1]:match("second visible output unavailable"), "missing output must be diagnosed")
+check(#messages == 1, "unavailable output must not be retried every frame")
 
 setup()
 targets[3].is_ui_target = true
@@ -148,6 +163,7 @@ missing_file = true
 prepare()
 callbacks.frame()
 check(#draws == 0 and messages[1]:match("cannot open"), "missing image must be diagnosed")
+check(#opens == 1, "failed image must not be reopened every frame")
 
 setup()
 bad_data = true

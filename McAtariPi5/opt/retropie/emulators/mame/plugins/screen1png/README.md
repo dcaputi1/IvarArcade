@@ -13,6 +13,9 @@ Paths default to `/home/danc/IvarArcade/images`. Override them with
 `MAME_SCREEN1_GAME_PNG` and `MAME_SCREEN1_BANNER_PNG`. Images are loaded once per
 machine session, not every frame. Resources are released when the session stops,
 including GUI/game transitions. Paused frames and menus continue to show the PNG.
+For MAME 0.288 compatibility, `register_before_load_settings` marks each new
+session and the first `register_frame_done` callback loads the image after UI
+and render-target initialization, including the selection GUI before reset.
 An unreadable or invalid image is logged; the normal second-output view remains
 visible instead of silently substituting another image.
 

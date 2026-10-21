@@ -9,6 +9,7 @@ local exports = {
 local stop_subscriber
 
 function exports.startplugin()
+    local pending = false
     local target
     local bitmap
     local texture
@@ -20,6 +21,7 @@ function exports.startplugin()
     end
 
     local function release()
+        pending = false
         target = nil
         if texture then
             texture:free()
@@ -83,9 +85,16 @@ function exports.startplugin()
         emu.print_info("screen1png: " .. rom .. " -> " .. path)
     end
 
-    emu.register_before_startup_screens(prepare)
+    emu.register_before_load_settings(function ()
+        release()
+        pending = true
+    end)
     stop_subscriber = emu.add_machine_stop_notifier(release)
     emu.register_frame_done(function ()
+        -- Startup UI frames run before the first machine reset.
+        if pending then
+            prepare()
+        end
         if not target or not texture or target.is_ui_target then
             return
         end

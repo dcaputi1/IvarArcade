@@ -4,11 +4,21 @@ Date: 2026-10-20
 
 ## Resume here
 
-Continue the opt-in `screen1png` proof of concept described below. The code has
-been written but has NOT been executed successfully or hardware-validated.
-First run the Lua regression tests on the Pi5, fix any failures, and then arrange
-a manual display test outside the desktop session. Do not expand this into the
-full dmarquees migration yet.
+Pi5 follow-up: the original mocked tests passed (35 checks), but the installed
+MAME 0.288 rejected `emu.register_before_startup_screens`, which it does not
+expose. The plugin now uses `emu.register_before_load_settings` to mark a new
+session and prepares the image on its first presentation frame. The local
+0.288 source confirms these hooks and the required rendering APIs. Updated
+mocked tests pass (54 checks). A real-MAME smoke test using SDL's dummy video
+driver reached the selection GUI and loaded the banner without Lua errors;
+it was time-limited and forcibly stopped, not a clean-exit test. The fix is
+deployed to `/opt/retropie/emulators/mame/plugins/screen1png`.
+Physical display acceptance testing is still required.
+
+Continue the opt-in `screen1png` proof of concept described below with a manual
+display test outside the desktop session. Do not expand this into the full
+dmarquees migration yet. Validation notes below describe the original Windows
+handoff unless superseded by this Pi5 follow-up.
 
 **Important user-provided environment constraint:** the Pi5 has the correct
 toolchain, but actual display testing cannot be done inside VS Code while the
@@ -73,8 +83,9 @@ was modified. No live Pi5/Pi3 processes were changed.
 The new `screen1png` plugin is disabled by default (`start: "false"`).
 Explicitly enable it using `-plugin screen1png`.
 
-- Uses `emu.register_before_startup_screens` to prepare artwork for each machine
-  session, including the internal `___empty` machine used by game selection.
+- Uses `emu.register_before_load_settings` to mark each machine session, then
+  prepares artwork on the first `emu.register_frame_done` callback, including
+  the internal `___empty` machine used by game selection.
 - Enumerates `manager.machine.render.targets`, ignores hidden targets, and
   selects the second visible target. Does not blindly index Lua target 2,
   since hidden snapshot targets can appear in the list.
