@@ -1,9 +1,8 @@
 <?xml version="1.0"?>
 <!--
-  Tempest-only kludge: ini/tempest.ini opens a second output (numscreens 2) and
-  selects this view for it (view1), so MAME itself draws the control panel on
-  the spare monitor instead of dmarquees.
-  dcpanel-1-labels.png is rendered from images/dcpanel-1-labels.svg at exactly
+  ini/tempest.ini opens a second output and selects this view for it (view1),
+  so MAME itself draws the panel on the spare monitor instead of dmarquees.
+  panel-tempest.png is rendered from images/dcpanel-1-labels.svg at exactly
   1600x433 (nanosvg cannot draw its embedded bitmap or text), centered in a
   1600x1200 view to match dmarquees' fill-width/center-vertically placement.
 -->
@@ -12,7 +11,7 @@
 		<rect><color red="0" green="0" blue="0" /></rect>
 	</element>
 	<element name="panel">
-		<image file="dcpanel-1-labels.png" />
+		<image file="panel-tempest.png" />
 	</element>
 
 	<view name="Dual Spinners">
