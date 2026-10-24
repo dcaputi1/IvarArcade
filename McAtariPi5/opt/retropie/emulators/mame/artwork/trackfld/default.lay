@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+  ini/trackfld.ini opens a second output and selects this view for it (view1),
+  so MAME itself draws the panel on the spare monitor instead of dmarquees.
+  panel-trackfld.png is a copy of Marble Madness's MicroCenter panel image.
+-->
+<mamelayout version="2">
+	<element name="black">
+		<rect><color red="0" green="0" blue="0" /></rect>
+	</element>
+	<element name="panel">
+		<image file="panel-trackfld.png" />
+	</element>
+
+	<view name="MicroCenter Panel">
+		<bounds x="0" y="0" width="1600" height="1200" />
+		<element ref="black"><bounds x="0" y="0" width="1600" height="1200" /></element>
+		<element ref="panel"><bounds x="0" y="236" width="1600" height="728" /></element>
+	</view>
+</mamelayout>
