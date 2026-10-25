@@ -22,3 +22,7 @@ sprint1=dcpanel1
 superbug=dcpanel1
 pong=dcpanel1
 gtg2=atarifs
+spyhunt=mkwheel
+crusnusa=mkwheel
+outrun=mkwheel
+polepos=mkwheel

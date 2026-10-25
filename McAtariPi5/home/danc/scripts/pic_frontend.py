@@ -426,6 +426,7 @@ def _sync_panel_from_ctrlr(selected_cfg):
     panel_for_ctrlr = {
         "atarifs": "MC",   # Atari/FightStick panel image
         "dcpanel1": "DC",  # UltraStick/Spinners panel image
+        "mkwheel": "MK",   # Mario Kart wheel panel image
     }
     target_panel = panel_for_ctrlr.get(cfg_name)
     if target_panel and panel != target_panel:
@@ -439,7 +440,7 @@ def _sync_ctrlr_from_panel(selected_panel):
     ctrlr_for_panel = {
         "MC": "atarifs.cfg",        # Atari/FightStick panel -> atarifs controller
         "DC": "dcpanel1.cfg",       # UltraStick/Spinners panel -> dcpanel1 controller
-        # "MK": "mkwheel.cfg",      # MarioKart panel -> mkwheel controller (if it exists)
+        "MK": "mkwheel.cfg",        # MarioKart panel -> mkwheel controller
     }
     target_ctrlr = ctrlr_for_panel.get(selected_panel)
     if target_ctrlr:

@@ -54,6 +54,7 @@ persist_game_profile()
     case "$ctrlr_name" in
         dcpanel1) panel_code="DC" ;;
         atarifs) panel_code="MC" ;;
+        mkwheel) panel_code="MK" ;;
         *) panel_code="" ;;
     esac
 
