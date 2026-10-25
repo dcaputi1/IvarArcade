@@ -8,7 +8,7 @@
    height="640"
    viewBox="0 0 853.33331 640"
    sodipodi:docname="mkwheel-1-labels.svg"
-   inkscape:version="1.4.3 (0d15f75, 2025-12-25)"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -124,14 +124,14 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:zoom="1.2234375"
-     inkscape:cx="405.41507"
-     inkscape:cy="302.01788"
-     inkscape:window-width="1631"
+     inkscape:cx="405.00639"
+     inkscape:cy="302.83525"
+     inkscape:window-width="1587"
      inkscape:window-height="959"
-     inkscape:window-x="86"
-     inkscape:window-y="44"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="0"
-     inkscape:current-layer="layer3" />
+     inkscape:current-layer="layer1" />
   <g
      inkscape:groupmode="layer"
      inkscape:label="Image"
@@ -396,25 +396,26 @@
        transform="translate(-2,-18)"><tspan
          x="334.06445"
          y="291.04163"
-         id="tspan13">L</tspan></text>
+         id="tspan1">L</tspan></text>
     <text
        xml:space="preserve"
        id="txt-y"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-anchor:end;writing-mode:lr-tb;direction:ltr;display:inline;opacity:1;fill:#0eff18;fill-opacity:1;stroke-width:2.66667"
-       transform="translate(-38,-52)"><tspan
-         x="639.66389"
-         y="361.55335"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;direction:ltr;text-anchor:end;display:inline;opacity:1;fill:#0eff18;fill-opacity:1;stroke-width:2.66667"
+       x="-76"
+       y="-54"><tspan
+         x="563.66388"
+         y="307.55334"
          id="tspan16">Y</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;direction:ltr;display:inline;fill:#00ff00;stroke:none;stroke-width:2.66667;stroke-dasharray:none;stroke-opacity:1"
-       x="636.67377"
-       y="256.42377"
+       x="638.67377"
+       y="250.42377"
        id="txt-x"><tspan
          sodipodi:role="line"
          id="tspan20"
-         x="636.67377"
-         y="256.42377">X</tspan></text>
+         x="638.67377"
+         y="250.42377">X</tspan></text>
     <text
        xml:space="preserve"
        style="display:inline;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;direction:ltr;fill:#00ff00;stroke:none;stroke-width:2.66667;stroke-dasharray:none;stroke-opacity:1"
@@ -429,12 +430,12 @@
        xml:space="preserve"
        style="font-size:12px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';writing-mode:lr-tb;direction:ltr;display:inline;fill:#00ff00;stroke:none;stroke-width:2.66667;stroke-dasharray:none;stroke-opacity:1"
        x="676.37292"
-       y="297.11368"
+       y="303.11368"
        id="txt-a"><tspan
          sodipodi:role="line"
          id="tspan18"
          x="676.37292"
-         y="297.11368"
+         y="303.11368"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">A</tspan></text>
     <text
        xml:space="preserve"
@@ -460,7 +461,7 @@
        inkscape:transform-center-y="-64.73233"><tspan
          x="368.16602"
          y="247.11585"
-         id="tspan21">Home</tspan></text>
+         id="tspan2">Home</tspan></text>
     <text
        xml:space="preserve"
        id="txt-start"
@@ -468,7 +469,7 @@
        transform="translate(12,48)"><tspan
          x="420.18164"
          y="126.32093"
-         id="tspan23">Start</tspan></text>
+         id="tspan8">Start</tspan></text>
     <text
        xml:space="preserve"
        id="txt-sel"
@@ -476,7 +477,7 @@
        transform="translate(7.513574,-0.3576395)"><tspan
          x="325.97266"
          y="175.44788"
-         id="tspan24">Coin</tspan></text>
+         id="tspan10">Coin</tspan></text>
     <text
        xml:space="preserve"
        id="txt-d-pad"
@@ -484,6 +485,6 @@
        inkscape:label=""><tspan
          x="157.78516"
          y="303.75648"
-         id="tspan25">D-Pad</tspan></text>
+         id="tspan11">D-Pad</tspan></text>
   </g>
 </svg>
