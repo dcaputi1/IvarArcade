@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+  ini/crusnusa.ini opens a second output and selects this view for it (view1),
+  so MAME itself draws the wheel panel on the spare monitor instead of dmarquees.
+  panel-crusnusa.png is rendered from images/mkwheel-1-labels.svg at 1600x1200.
+-->
+<mamelayout version="2">
+	<element name="black">
+		<rect><color red="0" green="0" blue="0" /></rect>
+	</element>
+	<element name="panel">
+		<image file="panel-crusnusa.png" />
+	</element>
+
+	<view name="Mario Kart Wheel">
+		<bounds x="0" y="0" width="1600" height="1200" />
+		<element ref="black"><bounds x="0" y="0" width="1600" height="1200" /></element>
+		<element ref="panel"><bounds x="0" y="0" width="1600" height="1200" /></element>
+	</view>
+</mamelayout>
