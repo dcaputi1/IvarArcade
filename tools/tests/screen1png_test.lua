@@ -1,6 +1,6 @@
 local plugin_path = "McAtariPi5/opt/retropie/emulators/mame/plugins/screen1png/init.lua"
 local state_path = "/tmp/dmarquees_panel_state"
-local callbacks, messages, opens, textures, draws
+local callbacks, messages, errors, opens, textures, draws
 local rom, state, screen_count, image_width, image_height
 local missing_state, missing_image, bad_image, read_error, close_error
 local real_open, real_getenv = io.open, os.getenv
@@ -56,14 +56,17 @@ local function file_stub(content, should_error, fail_close)
 end
 
 local function setup(panel_output_enabled)
-    callbacks, messages, opens, textures, draws = {}, {}, {}, {}, {}
+    callbacks, messages, errors, opens, textures, draws = {}, {}, {}, {}, {}, {}
     rom, state, screen_count = "___empty", "GUI|1", 0
     image_width, image_height = 800, 200
     missing_state, missing_image, bad_image, read_error, close_error = false, false, false, false, false
     local targets = { output(true, false), output(false, true), output(false, false) }
 
     emu = {
-        print_error = function (message) table.insert(messages, message) end,
+        print_error = function (message)
+            table.insert(messages, message)
+            table.insert(errors, message)
+        end,
         print_info = function (message) table.insert(messages, message) end,
         romname = function () return rom end,
         register_before_load_settings = function (cb) callbacks.before_settings = cb end,
@@ -177,45 +180,45 @@ targets = setup()
 targets[3] = nil
 screen_count = 1
 start_session(targets)
-check(#opens == 0 and messages[1]:match("second visible output unavailable"),
+check(#opens == 0 and errors[1] and errors[1]:match("second visible output unavailable"),
     "missing output must be diagnosed without opening an image")
 
 targets = setup()
 rom, state, screen_count = "sf", "PANEL|sf|XX|1", 1
 start_session(targets)
-check(#opens == 1 and messages[#messages]:match("unknown panel code"), "unknown panel code must be diagnosed")
+check(#opens == 1 and errors[1] and errors[1]:match("unknown panel code"), "unknown panel code must be diagnosed")
 
 targets = setup()
 rom, state, screen_count = "sf", "PANEL|sf|DC|1", 1
 missing_image = true
 start_session(targets)
-check(messages[#messages]:match("cannot open"), "missing panel image must be diagnosed")
+check(errors[1] and errors[1]:match("cannot open"), "missing panel image must be diagnosed")
 check(#textures == 0, "missing image must not create a texture")
 
 targets = setup()
 rom, state, screen_count = "sf", "PANEL|sf|DC|1", 1
 bad_image = true
 start_session(targets)
-check(messages[#messages]:match("cannot decode"), "corrupt panel image must be diagnosed")
+check(errors[1] and errors[1]:match("cannot decode"), "corrupt panel image must be diagnosed")
 
 targets = setup()
 rom, state, screen_count = "___empty", "GUI|1", 0
 missing_state = true
 start_session(targets)
-check(messages[1]:match("cannot open panel state"), "missing panel state must be diagnosed")
+check(errors[1] and errors[1]:match("cannot open panel state"), "missing panel state must be diagnosed")
 check(#draws == 0, "missing state must not draw stale artwork")
 
 targets = setup()
 rom, state, screen_count = "sf", "PANEL|sf|DC|1", 1
 read_error = true
 start_session(targets)
-check(messages[#messages]:match("read failed"), "state and artwork read failures must be diagnosed")
+check(errors[1] and errors[1]:match("read failed"), "state and artwork read failures must be diagnosed")
 
 targets = setup()
 rom, state, screen_count = "sf", "PANEL|sf|DC|1", 1
 close_error = true
 start_session(targets)
-check(messages[#messages]:match("close failed"), "state and artwork close failures must be diagnosed")
+check(errors[1] and errors[1]:match("close failed"), "state and artwork close failures must be diagnosed")
 
 targets = setup(false)
 rom, state, screen_count = "sf", "PANEL|sf|DC|1", 1
