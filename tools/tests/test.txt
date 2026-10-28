@@ -1,0 +1,6 @@
+lua5.4: cannot open McAtariPi5/opt/retropie/emulators/mame/plugins/screen1png/init.lua: No such file or directory
+stack traceback:
+	[C]: in function 'dofile'
+	screen1png_test.lua:104: in local 'setup'
+	screen1png_test.lua:120: in main chunk
+	[C]: in ?
