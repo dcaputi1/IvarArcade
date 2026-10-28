@@ -43,6 +43,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <strings.h>
 #include <limits.h>
 #include <sys/ioctl.h>
 #include <sys/mman.h>
@@ -69,6 +70,7 @@
 #define PANEL_TMP_MC_PNG "/tmp/dmarquees_mcpanel.png"
 #define PANEL_TMP_MKW_SVG "/tmp/dmarquees_mkwheel.svg"
 #define PANEL_TMP_MKW_PNG "/tmp/dmarquees_mkwheel.png"
+#define MAME_PANEL_STATE_FILE "/tmp/dmarquees_panel_state"
 #define HOME_PATH "/home/danc"
 #define MAX_TOKEN 128
 
@@ -90,6 +92,8 @@ bool _pi5_dual_display = false;
 bool _pi3_present = false;
 FrontendMode _frontend_mode = eNA;
 bool _splash_mode = false;
+static bool _mame_panel_output = false;
+static uint64_t _mame_panel_state_generation = 0;
 char _drm_device_path[128] = "";
 char _drm_connector_name[32] = "";
 static struct timespec _crtc_retry_at = {0};
@@ -145,6 +149,55 @@ static const char* _PI5_HOSTNAME = "McAtariPi5";
 static const char* _pi5_dual_display_file = HOME_PATH "/.pi5_dual_display";
 static const char* _pi3_is_present_file = HOME_PATH "/.pi3_present";
 static const char* _panel_file = HOME_PATH "/.panel";
+
+static bool is_native_multiscreen_game(const char *romname)
+{
+    return romname &&
+        (strcasecmp(romname, "punchout") == 0 || strcasecmp(romname, "spnchout") == 0);
+}
+
+static bool publish_mame_panel_state(const char *state, const char *rom, const char *panel_code)
+{
+    char tmp_path[PATH_MAX];
+    int n = snprintf(tmp_path, sizeof(tmp_path), "%s.%ld.tmp", MAME_PANEL_STATE_FILE, (long)getpid());
+    if (n < 0 || (size_t)n >= sizeof(tmp_path))
+    {
+        ts_fprintf(stderr, "error: MAME panel state temp path too long\n");
+        return false;
+    }
+
+    FILE *fp = fopen(tmp_path, "w");
+    if (!fp)
+    {
+        ts_fprintf(stderr, "error: cannot write MAME panel state %s: %s\n", tmp_path, strerror(errno));
+        return false;
+    }
+
+    int written;
+    unsigned long long generation = (unsigned long long)++_mame_panel_state_generation;
+    if (strcmp(state, "PANEL") == 0)
+        written = fprintf(fp, "PANEL|%s|%s|%llu\n", rom, panel_code, generation);
+    else if (strcmp(state, "DEFAULT") == 0)
+        written = fprintf(fp, "DEFAULT|%s|%llu\n", rom, generation);
+    else
+        written = fprintf(fp, "%s|%llu\n", state, generation);
+
+    bool ok = written >= 0;
+    if (fclose(fp) != 0)
+        ok = false;
+    if (ok && rename(tmp_path, MAME_PANEL_STATE_FILE) != 0)
+    {
+        ts_fprintf(stderr, "error: cannot publish MAME panel state %s: %s\n",
+                   MAME_PANEL_STATE_FILE, strerror(errno));
+        ok = false;
+    }
+    if (!ok)
+    {
+        ts_fprintf(stderr, "error: failed writing MAME panel state %s\n", MAME_PANEL_STATE_FILE);
+        unlink(tmp_path);
+    }
+    return ok;
+}
 
 static bool join_path(char *out, size_t out_size, const char *dir, const char *file)
 {
@@ -360,7 +413,7 @@ static void initialize_globals()
 // Draw the default marquee. Clears screen to black first.
 static void show_default_marquee(void)
 {
-    if (!fb_map)
+    if (!fb_map || _mame_panel_output)
         return;
 
     const char *name = default_marquee_name_for(_frontend_mode);
@@ -644,6 +697,7 @@ static bool convert_svg_to_png(const char *svg_path, const char *png_path);
 static int initialize(void)
 {
     initialize_globals();
+    publish_mame_panel_state("OFF", NULL, NULL);
 
     // ensure FIFO exists
     if (mkfifo(CMD_FIFO, 0666) < 0)
@@ -1209,6 +1263,14 @@ static bool show_panel_marquee(const char *shortname, ControlPanel panel_type)
         return false;
     }
 
+    if (_mame_panel_output)
+    {
+        if (!publish_mame_panel_state("PANEL", shortname, panel_label))
+            return false;
+        ts_printf("dmarquees: published %s panel for MAME output: %s\n", panel_label, shortname);
+        return true;
+    }
+
     int iw = 0, ih = 0;
     if (image)
         free(image);
@@ -1300,6 +1362,53 @@ static void handle_fifo_command(char *cmd_str)
     if (!cmd_str)
         return;
 
+    bool from_mame = strncmp(cmd_str, "MAME:", 5) == 0;
+    if (from_mame)
+    {
+        cmd_str += 5;
+        _mame_panel_output = _splash_mode;
+        if (_splash_mode)
+        {
+            clear_crtc_retry();
+            if (!*cmd_str || strcmp(cmd_str, "___empty") == 0)
+            {
+                publish_mame_panel_state("GUI", NULL, NULL);
+                return;
+            }
+
+            if (is_native_multiscreen_game(cmd_str))
+            {
+                ts_printf("dmarquees: leaving native multi-screen game to MAME: %s\n", cmd_str);
+                publish_mame_panel_state("OFF", NULL, NULL);
+                return;
+            }
+
+            char panel_code[4] = {0};
+            read_token_file(_panel_file, panel_code, sizeof(panel_code));
+            ControlPanel panel_type = toControlPanel(panel_code);
+            if (panel_type == ePANEL_NA)
+            {
+                publish_mame_panel_state("DEFAULT", cmd_str, NULL);
+                return;
+            }
+            if (!show_panel_marquee(cmd_str, panel_type))
+                publish_mame_panel_state("OFF", NULL, NULL);
+            return;
+        }
+
+        publish_mame_panel_state("OFF", NULL, NULL);
+        if (!*cmd_str || strcmp(cmd_str, "___empty") == 0)
+        {
+            show_default_marquee();
+            return;
+        }
+    }
+    else
+    {
+        _mame_panel_output = false;
+        publish_mame_panel_state("OFF", NULL, NULL);
+    }
+
     char token[128] = {0};
     char arg[128] = {0};
     int parsed = sscanf(cmd_str, "%127s %127s", token, arg);
@@ -1346,9 +1455,8 @@ static void handle_fifo_command(char *cmd_str)
 
     case CMD_ROM:
 
-        // multi-screen games (punchout, tempest panel view) own the spare monitor
-        // through MAME, so stay off it whether or not a Pi3 drives the marquee
-        if (_this_is_pi5 && _pi5_dual_display && game_has_multiple_screens(cmd_str))
+        // Punch-Out and Super Punch-Out use both outputs for gameplay.
+        if (_this_is_pi5 && _pi5_dual_display && is_native_multiscreen_game(cmd_str))
         {
             ts_printf("dmarquees: Skipping multi-screen game: %s\n", cmd_str);
             break;

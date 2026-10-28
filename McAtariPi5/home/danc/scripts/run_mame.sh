@@ -8,6 +8,20 @@ PANEL_FILE="$HOME/.panel"
 CTRLR_CFG_DEFAULT="allctrlrs.cfg"
 ROM_CTRLR_MAP="/opt/retropie/configs/all/mame_ctrlr_map.txt"
 
+read_enabled_flag()
+{
+    local path="$1"
+    local value="$2"
+    if [[ -f "$path" ]]; then
+        value=$(<"$path")
+    fi
+
+    case "${value,,}" in
+        true|1|on|yes) return 0 ;;
+        *) return 1 ;;
+    esac
+}
+
 resolve_ctrlr_name()
 {
     local cfg_name="$1"
@@ -104,11 +118,21 @@ fi
 
 CTRLR_NAME=$(resolve_ctrlr_name "$CTRLR_CFG")
 
+# MAME owns output 1 for the dynamic panel when the Pi5 panel-display mode is active.
+SCREEN_ARGS=()
+if read_enabled_flag "$HOME/.pi3_present" true && read_enabled_flag "$HOME/.pi5_dual_display" true; then
+    SCREEN_ARGS=(-numscreens 2 -screen0 screen0 -screen1 screen1)
+    export MAME_PANEL_OUTPUT=1
+else
+    export MAME_PANEL_OUTPUT=0
+fi
+
 # --- RUN MAME ---
 "$MAME_ROOT/mame" \
     -joystickprovider sdljoy \
     -inipath "$INI_PATH" \
     -cfg_directory "$CFG_DIR" \
     -ctrlr "$CTRLR_NAME" \
+    "${SCREEN_ARGS[@]}" \
     $ROL_FLAG \
     "$@"

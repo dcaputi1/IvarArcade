@@ -85,41 +85,6 @@ uint8_t *load_png_rgba(const char *path, int *out_w, int *out_h)
     return data;
 }
 
-// Returns true if the game appears to use multiple screens
-bool game_has_multiple_screens(const char *romname)
-{
-    char inipath[512];
-    snprintf(inipath, sizeof(inipath), "%s/%s.ini", INI_DIR, romname);
-
-    FILE *fp = fopen(inipath, "r");
-    if (!fp)
-        return false; // No ini file, assume single-screen
-
-    char line[256];
-    bool multi = false;
-    while (fgets(line, sizeof(line), fp))
-    {
-        if (strncasecmp(line, "numscreens", 10) == 0)
-        {
-            // parse "numscreens <n>" using strtol to avoid sscanf
-            char *p = line + 10; // after "numscreens"
-            while (*p && isspace((unsigned char)*p))
-                ++p;
-            if (*p)
-            {
-                char *endptr = NULL;
-                long val = strtol(p, &endptr, 10);
-                if (endptr != p && val > 1)
-                    multi = true;
-            }
-            break;
-        }
-    }
-
-    fclose(fp);
-    return multi;
-}
-
 /* Nearest-neighbor scale/blit RGBA -> XRGB8888 framebuffer (dest is uint32_t array)
  * center: if true, vertically center the image; if false, bottom-align (normal marquee). */
 void scale_and_blit_to_xrgb(const uint8_t *src_rgba, int src_w, int src_h, uint32_t *dst, int dst_w, int dst_h,

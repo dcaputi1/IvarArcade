@@ -1,10 +1,10 @@
 {
   "plugin": {
     "name": "screen1png",
-    "version": "0.1.0",
-    "description": "Opt-in second-output PNG proof of concept",
+    "version": "0.2.0",
+    "description": "Dynamically displays the selected control panel on output 1",
     "author": "Dan Caputi",
     "type": "plugin",
-    "start": "false"
+    "start": "true"
   }
 }

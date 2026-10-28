@@ -70,7 +70,7 @@ local function send_remote_command(text)
 end
 
 local function send_local_command(text)
-    -- Write to local FIFO so Pi5 dmarquees can drive the spare monitor panel art
+    -- Prefix MAME commands so the Pi5 daemon can publish panel art for MAME.
     local fifo = io.open(MARQUEE_FIFO, "w")
     if fifo then
         fifo:write(text .. "\n")
@@ -83,7 +83,7 @@ end
 
 local function send_marquee_command(text)
     send_remote_command(text)
-    send_local_command(text)
+    send_local_command("MAME:" .. text)
 end
 
 local function current_romname()
@@ -102,7 +102,7 @@ local function sync_rom_for_panel()
     end
 
     -- Panel sync should only target the local Pi5 daemon.
-    send_local_command(gamename)
+    send_local_command("MAME:" .. gamename)
     return true
 end
 
@@ -257,7 +257,8 @@ end
 
 local function on_game_stop()
     print("Marquee plugin: Game stopped, reset marquee")
-    send_marquee_command("CLEAR")
+    send_remote_command("CLEAR")
+    send_local_command("MAME:___empty")
 end
 
 local function menu_populate()

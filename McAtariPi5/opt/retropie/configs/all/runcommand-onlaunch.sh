@@ -79,5 +79,11 @@ if [[ -n "$ROM" ]]; then
         "$SENDER_SCRIPT" "$display_name"
     fi
 
-    echo "$display_name" > "$CMD_FIFO"
+    local_command="$display_name"
+    case "$EMULATOR" in
+        mame|mame-*)
+            local_command="MAME:$display_name"
+            ;;
+    esac
+    echo "$local_command" > "$CMD_FIFO"
 fi

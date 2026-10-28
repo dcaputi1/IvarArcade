@@ -8,8 +8,6 @@
 #include <stdio.h>
 #include <time.h>
 
-#define INI_DIR   "/opt/retropie/emulators/mame/ini"
-
 // Frontend mode enum and conversion helpers
 typedef enum
 {
@@ -49,7 +47,6 @@ typedef enum
 CommandType toCommandType(const char *s);
 
 uint8_t *load_png_rgba(const char *path, int *out_w, int *out_h);
-bool game_has_multiple_screens(const char *romname);
 void scale_and_blit_to_xrgb(const uint8_t *src_rgba, int src_w, int src_h,
                             uint32_t *dst, int dst_w, int dst_h, int dst_stride,
                             int dest_x, bool center);

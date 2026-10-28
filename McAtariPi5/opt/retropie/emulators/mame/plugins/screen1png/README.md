@@ -1,98 +1,54 @@
-# screen1png proof of concept
+# MAME panel output plugin
 
-An opt-in MAME plugin that draws a centered, aspect-preserving PNG over output 1.
-It makes no DRM calls and does not change output 0, game drivers, artwork views,
-the existing marquee plugin, or the Pi3 protocol.
+The `screen1png` plugin displays the selected control-panel image on MAME output
+1 for single-screen games when the Pi5 has both the Pi3 marquee and dual-display
+mode enabled. Panel selection remains in `~/.panel`; the local dmarquees daemon
+continues applying the game's `.dcp`, `.mcp`, or `.mkw` labels and publishing
+the rendered PNG. MAME reads that PNG and owns the output while the game runs.
 
-- Game-selection GUI (`___empty`): displays `images/MAMELogoR.png`, the existing
-  standalone-MAME default banner.
-- Single-screen game: displays `images/RetroPieMarquee.png` as a fixed test image.
-- Multi-screen game (including Punch-Out): does not draw or change either output.
+MAME's game-selection UI displays `images/MAMELogoR.png`. If panel mode is `NA`,
+the same banner is displayed during a game. `OFF` state leaves the output
+untouched. Native multi-screen systems are never covered, preserving both
+Punch-Out and Super Punch-Out gameplay screens. The existing remote marquee
+commands are unchanged, so the Pi3 continues to display game marquees.
 
-Paths default to `/home/danc/IvarArcade/images`. Override them with
-`MAME_SCREEN1_GAME_PNG` and `MAME_SCREEN1_BANNER_PNG`. Images are loaded once per
-machine session, not every frame. Resources are released when the session stops,
-including GUI/game transitions. Paused frames and menus continue to show the PNG.
-For MAME 0.288 compatibility, `register_before_load_settings` marks each new
-session and the first `register_frame_done` callback loads the image after UI
-and render-target initialization, including the selection GUI before reset.
-An unreadable or invalid image is logged; the normal second-output view remains
-visible instead of silently substituting another image. Images larger than the
-output, or larger than 4096 px (the Pi5 V3D maximum GL texture size), are
-resampled once at load time. Otherwise, the renderer reports `Texture too big!`
-and draws a white rectangle.
+The daemon and plugin exchange state through `/tmp/dmarquees_panel_state`.
+The daemon atomically publishes `PANEL|rom|code|generation`, `DEFAULT|rom|generation`,
+`GUI|generation`, or `OFF|generation`. The generation changes on each update,
+including repeat launches of the same game, and panel state is published only
+after rendering finishes. The plugin checks for changes every 30 MAME frames
+and loads the corresponding image from
+`/tmp/dmarquees_dcpanel.png`, `/tmp/dmarquees_mcpanel.png`, or
+`/tmp/dmarquees_mkwheel.png`. Override the state and banner paths with
+`MAME_PANEL_STATE_FILE` and `MAME_PANEL_BANNER_PNG`.
 
-## Isolated Pi5 test
+The `run_mame.sh` launcher enables two outputs and sets `MAME_PANEL_OUTPUT=1`
+only when both `~/.pi3_present` and `~/.pi5_dual_display` are true. In all
+other launches the variable is `0`, so the plugin cannot overlay a stale panel
+state on another display mode. The plugin is enabled by default through its
+`plugin.json`.
 
-Copy this directory to `/opt/retropie/emulators/mame/plugins/screen1png`. The
-plugin is disabled by default; no global configuration changes are required.
-Use the deployed MAME executable with the Lua rendering APIs present in the
-supplied MAME source.
+## Validation and rollout
 
-Before testing, stop **only the local Pi5** dmarquees daemon and prevent its
-supervisor from restarting it. For example, with its FIFO reader running:
-
-```bash
-printf 'EXIT\n' > /tmp/dmarquees_cmd
-```
-
-Verify that the local process has exited before starting MAME. Leave the Pi3
-alone. Do not run launch hooks that write to the now-unattended local FIFO.
-For this test, launch MAME directly, not through the existing runcommand hooks.
-Disable the existing `marquee` plugin so it cannot write to that FIFO either.
-
-From the MAME installation directory:
-
-```bash
-cd /opt/retropie/emulators/mame
-./mame -inipath ini -plugins -plugin screen1png -noplugin marquee \
-    -numscreens 2 -screen0 screen0 -screen1 screen1 -verbose
-```
-
-Start **without a ROM argument** to test the selection GUI first. Select a
-single-screen game, return to the selection GUI, and select another game. A
-direct ROM launch normally exits MAME when the game ends rather than returning
-to the selection GUI.
-
-To choose a different game PNG:
-
-```bash
-export MAME_SCREEN1_GAME_PNG=/home/danc/mnt/marquees/sf.png
-```
-
-The `screen0`/`screen1` monitor names above match MAME's SDL monitor provider.
-Check verbose monitor enumeration and reverse the mappings if necessary.
-Output numbers are zero-based; Lua's target list is one-based and includes
-hidden targets, so this plugin selects the second **visible** target.
-Two distinct monitors must be exposed by the active SDL backend. Creating two
-outputs alone does not prove that they are on different physical monitors.
-
-## Acceptance checklist
-
-On the Pi5, verify:
-
-1. Selection GUI stays on output 0; output 1 shows the MAME banner.
-2. A single-screen game shows the test PNG on output 1 without covering gameplay.
-3. Pause, Tab menus, resize/mode changes, and game reset preserve the image.
-4. Returning to the GUI restores the MAME banner; another game restores the test PNG.
-5. Punch-Out retains both native screens, with no plugin drawing.
-6. Missing/corrupt PNGs produce diagnostics without crashing MAME.
-7. Exit/relaunch works without DRM contention or stale textures.
-
-This is an overlay proof of concept: MAME may still render the game's normal
-view beneath the opaque background. It intentionally does not implement ROM
-artwork lookup, labeled-panel generation, image swapping, exact legacy
-bottom-alignment, rotation compensation, or ownership handoff outside MAME.
-Hardware/backend behavior and performance require Pi5 testing.
-
-## Local regression tests
-
-From the repository root, using Lua 5.4:
+Run the mocked regression tests from the repository root with Lua 5.4:
 
 ```bash
 lua tools/tests/screen1png_test.lua
 ```
 
-The tests execute the real plugin with mocked MAME objects. They cover output
-selection, lifecycle, aspect-preserving bounds, and failure paths, but do not
-replace the hardware acceptance checklist.
+The tests cover dynamic panel changes, default/disabled states, native
+multi-screen games, output targeting, aspect-preserving placement, texture
+limits, and image/state I/O failures. Physical Pi5 testing is still required to
+confirm the SDL output mapping and display ownership handoff before removing
+the older per-game second-output layouts.
+
+On the Pi5, verify:
+
+1. With Pi3 present and dual-display enabled, a single-screen MAME game displays
+   the currently selected panel and its game-specific labels on output 1.
+2. Changing panels in the MAME menu updates the image without restarting.
+3. `NA` displays the MAME banner; the Pi3 continues showing the game marquee.
+4. Punch-Out and Super Punch-Out retain both game screens, with no panel drawn.
+5. With either mode flag disabled, the plugin does not draw over the daemon's
+   existing output.
+6. Exiting MAME returns output ownership to dmarquees.
