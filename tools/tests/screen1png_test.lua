@@ -21,9 +21,11 @@ local function output(hidden, ui, width, height)
         is_ui_target = ui,
         width = width or 1920,
         height = height or 1080,
+        orientation = 0,
         pixel_aspect = 1
     }
     result.ui_container = {
+        orientation = 0,
         draw_box = function (_, ...)
             table.insert(draws, { target = result, kind = "box", args = { ... } })
         end,
@@ -149,6 +151,36 @@ start_session(targets)
 check(opens[2] == "/tmp/dmarquees_mkwheel.png", "MK panel state must load the dynamically rendered wheel image")
 check(draws[#draws].target == targets[3], "new MAME session must reacquire output 1")
 callbacks.stop()
+
+for _, orientation in ipairs({ 0, 1, 2, 3, 4, 5, 6, 7 }) do
+    targets = setup()
+    rom, state, screen_count = "spyhunt", "PANEL|spyhunt|MK|1", 1
+    targets[2].orientation = 5
+    targets[2].ui_container.orientation = 6
+    targets[3].orientation = orientation
+    targets[3].ui_container.orientation = 3
+    start_session(targets)
+    local overlay_orientation = targets[3].ui_container.orientation
+    for _, corner in ipairs({ { 0, 0 }, { 1, 0 }, { 0, 1 }, { 1, 1 } }) do
+        local x, y = corner[1], corner[2]
+        for _, flags in ipairs({ overlay_orientation, orientation }) do
+            if (flags & 4) ~= 0 then x, y = y, x end
+            if (flags & 1) ~= 0 then x = 1 - x end
+            if (flags & 2) ~= 0 then y = 1 - y end
+        end
+        check(x == corner[1] and y == corner[2], "panel must cancel target rotation and flips")
+    end
+    check(targets[2].orientation == 5 and targets[2].ui_container.orientation == 6,
+        "panel orientation must not change the gameplay output")
+    check(targets[3].orientation == orientation, "panel must not rotate the output's underlying artwork")
+    state = "OFF|2"
+    for _ = 1, 30 do callbacks.frame() end
+    check(targets[3].ui_container.orientation == 3, "OFF must restore the original UI orientation")
+    state = "PANEL|spyhunt|MK|3"
+    for _ = 1, 30 do callbacks.frame() end
+    callbacks.stop()
+    check(targets[3].ui_container.orientation == 3, "stop must restore the original UI orientation")
+end
 
 targets = setup()
 rom, state, screen_count = "sf", "DEFAULT|sf|1", 1

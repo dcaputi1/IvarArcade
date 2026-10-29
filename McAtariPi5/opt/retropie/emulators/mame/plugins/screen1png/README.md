@@ -5,6 +5,9 @@ The `screen1png` plugin displays the selected control-panel image on MAME output
 mode enabled. Panel selection remains in `~/.panel`; the local dmarquees daemon
 continues applying the game's `.dcp`, `.mcp`, or `.mkw` labels and publishing
 the rendered PNG. MAME reads that PNG and owns the output while the game runs.
+The panel overlay cancels output 1's game rotation and flips so the image stays
+upright, without changing output 0 or the underlying artwork. The original UI
+orientation is restored when the panel is disabled or the game stops.
 
 MAME's game-selection UI displays `images/MAMELogoR.png`. If panel mode is `NA`,
 the same banner is displayed during a game. `OFF` state leaves the output

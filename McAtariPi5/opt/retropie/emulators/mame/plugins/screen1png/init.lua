@@ -21,6 +21,8 @@ function exports.startplugin()
     local target
     local bitmap
     local texture
+    local panel_container
+    local original_orientation
     local frame_count = 0
     local last_state
     local state_error_reported = false
@@ -38,6 +40,11 @@ function exports.startplugin()
     end
 
     local function release_image()
+        if panel_container then
+            panel_container.orientation = original_orientation
+            panel_container = nil
+            original_orientation = nil
+        end
         close_texture(texture)
         texture = nil
         bitmap = nil
@@ -213,6 +220,17 @@ function exports.startplugin()
         if target.width <= 0 or target.height <= 0 then
             return
         end
+
+        if not panel_container then
+            panel_container = container
+            original_orientation = container.orientation
+        end
+        -- Cancel the target's game rotation/flips for this UI overlay only.
+        local orientation = target.orientation
+        if (orientation & 4) ~= 0 then
+            orientation = (orientation & 4) | ((orientation & 1) << 1) | ((orientation & 2) >> 1)
+        end
+        container.orientation = orientation
 
         local pixel_aspect = target.pixel_aspect
         local output_aspect = target.width * pixel_aspect / target.height
