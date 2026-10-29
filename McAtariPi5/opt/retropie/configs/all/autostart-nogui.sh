@@ -400,9 +400,9 @@ main_menu()
                 persist_frontend_choice "M"
                 send_dmarquees_cmd "SA"
                 if [ "$SCREEN_HORIZONTAL" = false ]; then
-                    "$BASE_PATH/mame" -rol -inipath "$BASE_PATH/ini;$BASE_PATH/ini_horz_ror" -cfg_directory "$CFG_PATH" -joystickprovider sdljoy
+                    "$HOME/scripts/run_mame.sh" -rol -inipath "$BASE_PATH/ini;$BASE_PATH/ini_horz_ror" -cfg_directory "$CFG_PATH" -joystickprovider sdljoy
                 else
-                    "$BASE_PATH/mame" -norol -inipath "$BASE_PATH/ini" -cfg_directory "$CFG_PATH" -joystickprovider sdljoy
+                    "$HOME/scripts/run_mame.sh" -norol -inipath "$BASE_PATH/ini" -cfg_directory "$CFG_PATH" -joystickprovider sdljoy
                 fi
                 continue
                 ;;

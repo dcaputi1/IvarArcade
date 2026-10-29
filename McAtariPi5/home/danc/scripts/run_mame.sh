@@ -100,7 +100,7 @@ else
     echo "$CTRLR_CFG" > "$CTRLR_FILE"
 fi
 
-if [[ -n "${1:-}" ]]; then
+if [[ -n "${1:-}" && "$1" != -* ]]; then
     ROM_NAME="${1##*/}"
     ROM_NAME="${ROM_NAME%.*}"
     if GAME_CTRLR_CFG=$(lookup_game_ctrlr "$ROM_NAME"); then

@@ -28,20 +28,26 @@ and loads the corresponding image from
 The `run_mame.sh` launcher enables two outputs and sets `MAME_PANEL_OUTPUT=1`
 only when both `~/.pi3_present` and `~/.pi5_dual_display` are true. In all
 other launches the variable is `0`, so the plugin cannot overlay a stale panel
-state on another display mode. The plugin is enabled by default through its
-`plugin.json`.
+state on another display mode. Both standalone GUI startup menus
+(`autostart.sh` and `autostart-nogui.sh`) use this same launcher, as does ES.
+Deploy the startup scripts together with `~/scripts/run_mame.sh`; launching
+the MAME binary directly does not set up panel output. The plugin is enabled
+by default through its `plugin.json`.
 
 ## Validation and rollout
 
-Run the mocked regression tests from the repository root with Lua 5.4:
+Run the regression tests from the repository root (Lua 5.4 for the plugin tests):
 
 ```bash
 lua tools/tests/screen1png_test.lua
+bash tools/tests/mame_launch_test.sh
 ```
 
 The tests cover dynamic panel changes, default/disabled states, native
 multi-screen games, output targeting, aspect-preserving placement, texture
-limits, and image/state I/O failures. Physical Pi5 testing is still required to
+limits, and image/state I/O failures. The isolated shell tests check both GUI
+startup paths and ES launches, including panel-mode flags, rotation, and
+controller selection. Physical Pi5 testing is still required to
 confirm the SDL output mapping and display ownership handoff before removing
 the older per-game second-output layouts.
 
@@ -55,3 +61,7 @@ On the Pi5, verify:
 5. With either mode flag disabled, the plugin does not draw over the daemon's
    existing output.
 6. Exiting MAME returns output ownership to dmarquees.
+7. From each standalone startup menu, enter the MAME GUI, launch Spy Hunter,
+   Asteroids (`asteroid`), Indiana Jones (`indytemp`), and Defender in turn,
+   returning to the GUI between games. Verify the selected panel and labels
+   appear on output 1, and the MAME banner returns in the GUI.
