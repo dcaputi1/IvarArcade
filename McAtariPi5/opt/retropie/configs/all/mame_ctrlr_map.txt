@@ -1,8 +1,10 @@
 # Per-game standalone MAME profiles: ROM shortname=ctrlr profile
 # Profile names are from /opt/retropie/emulators/mame/ctrlr, without ".cfg".
 # A matching profile is saved to ~/.ctrlr. dcpanel1 also selects .panel=DC;
-# atarifs also selects .panel=MC. Other profiles do not change ~/.panel.
+# atarifs also selects .panel=MC; mkwheel selects .panel=MK.
+# Other profiles do not change ~/.panel.
 # Games not listed here keep the current ~/.ctrlr and ~/.panel values.
+# Used by run_mame.sh (ES) and the marquee plugin (MAME GUI).
 #
 qbert=dcpanel1
 sf=atarifs

@@ -107,7 +107,7 @@ or:
 > ultrastikcmd -v -u /home/danc/IvarArcade/tools/UltraStikMaps/Analog.um
 Note: add -f to flash/save the map (runcommand start/end scripts overwrite the active map). Also note, the current default/flashed map seems to be 8-way digital
 
-### Per-game controller profiles in EmulationStation
+### Per-game controller profiles in EmulationStation and MAME GUI
 
 The arcade system's standalone `mame` emulator entry launches through
 `~/scripts/run_mame.sh`. To select a MAME `ctrlr` profile for particular ROMs,
@@ -117,14 +117,28 @@ add `ROM shortname=profile name` entries to
 
 ```text
 qbert=dcpanel1
-sf2=dcpanel1
+sf2=atarifs
 ```
 
 Profile names correspond to files under
 `/opt/retropie/emulators/mame/ctrlr`, without the `.cfg` extension. Matching is
 case-insensitive; blank lines and lines starting with `#` are ignored. A match
 updates `~/.ctrlr` to the selected profile. `dcpanel1` also sets `~/.panel` to
-`DC`, and `atarifs` sets it to `MC` (the panel tokens are not the ctrlr names).
+`DC`, `atarifs` sets it to `MC`, and `mkwheel` sets it to `MK` (the panel tokens
+are not the ctrlr names).
 Other profiles leave `~/.panel` unchanged. A ROM not listed keeps the current
-`~/.ctrlr` and `~/.panel` values. This lookup applies to the EmulationStation
-standalone-MAME launch path, not games launched from the standalone MAME GUI.
+`~/.ctrlr` and `~/.panel` values.
+
+The launcher applies the map for EmulationStation launches. The enabled `marquee`
+plugin also reads it each time a game is selected in the standalone MAME GUI,
+before MAME loads controller settings. This updates the active controller profile
+as well as the saved selection and panel artwork; no MAME process restart is
+needed. Soft resets do not reapply the map. Deploy both Marquee plugin files
+(`init.lua` and `plugin.json`) to
+`/opt/retropie/emulators/mame/plugins/marquee/` along with the map.
+
+Run the mocked GUI profile regression tests with Lua 5.4:
+
+```bash
+lua tools/tests/marquee_test.lua
+```

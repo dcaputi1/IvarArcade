@@ -2,7 +2,7 @@
 -- Marquee Plugin - Sends FIFO commands to dmarquees daemon
 -----------------------------------------------------------
 
-local VERSION = "1.4.0"
+local VERSION = "1.5.0"
 
 local exports = {
     name = "marquee",
@@ -21,8 +21,10 @@ local marquee = exports
 local MARQUEE_FIFO = "/tmp/dmarquees_cmd"
 local SENDER_SCRIPT = "/home/danc/scripts/dmarquees-send.sh"
 local SWAP_SCRIPT  = "/home/danc/scripts/swap_banner_art.sh"
-local PANEL_FILE   = "/home/danc/.panel"
-local CTRLR_FILE   = "/home/danc/.ctrlr"
+local HOME = os.getenv("HOME") or "/home/danc"
+local PANEL_FILE   = HOME .. "/.panel"
+local CTRLR_FILE   = HOME .. "/.ctrlr"
+local ROM_CTRLR_MAP = "/opt/retropie/configs/all/mame_ctrlr_map.txt"
 
 local PANEL_NA = "NA"
 local PANEL_DC = "DC"
@@ -144,16 +146,24 @@ local function read_ctrlr_file()
     return value ~= "" and value or nil
 end
 
-local function persist_ctrlr_file(ctrlr_name)
-    local file = io.open(CTRLR_FILE, "w")
+local function persist_selection(path, value)
+    local file, open_error = io.open(path, "w")
     if not file then
-        print(string.format("Marquee plugin: Failed to persist controller config to %s", CTRLR_FILE))
+        emu.print_error("Marquee plugin: Cannot write " .. path .. ": " .. tostring(open_error))
         return false
     end
 
-    file:write(ctrlr_name .. "\n")
-    file:close()
+    local written, write_error = file:write(value .. "\n")
+    local closed, close_error = file:close()
+    if not written or not closed then
+        emu.print_error("Marquee plugin: Cannot save " .. path .. ": " .. tostring(write_error or close_error))
+        return false
+    end
     return true
+end
+
+local function persist_ctrlr_file(ctrlr_name)
+    return persist_selection(CTRLR_FILE, ctrlr_name)
 end
 
 local function ctrlr_mode_label(ctrlr_name)
@@ -214,15 +224,69 @@ local function load_panel_mode()
 end
 
 local function persist_panel_mode(mode)
-    local file = io.open(PANEL_FILE, "w")
+    return persist_selection(PANEL_FILE, panel_mode_file_code(mode))
+end
+
+local function lookup_game_ctrlr(gamename)
+    local file, open_error, error_code = io.open(ROM_CTRLR_MAP, "r")
     if not file then
-        print(string.format("Marquee plugin: Failed to persist panel mode to %s", PANEL_FILE))
-        return false
+        if error_code == 2 then
+            return nil, true -- An absent map leaves the user's selection unchanged.
+        end
+        emu.print_error("Marquee plugin: Cannot read " .. ROM_CTRLR_MAP .. ": " .. tostring(open_error))
+        return nil, false
     end
 
-    file:write(panel_mode_file_code(mode) .. "\n")
-    file:close()
-    return true
+    local content, read_error = file:read("*a")
+    local closed, close_error = file:close()
+    if not content or not closed then
+        emu.print_error("Marquee plugin: Cannot read " .. ROM_CTRLR_MAP .. ": " .. tostring(read_error or close_error))
+        return nil, false
+    end
+
+    for line in (content .. "\n"):gmatch("(.-)\n") do
+        line = line:gsub("#.*$", "")
+        local key, value = line:match("^%s*(.-)%s*=%s*(.-)%s*$")
+        if key and key:lower() == gamename:lower() and value ~= "" then
+            return value, true
+        end
+    end
+    return nil, true
+end
+
+local function on_before_load_settings()
+    local gamename = current_romname()
+    if not gamename then return end
+
+    local mapped_profile, map_read = lookup_game_ctrlr(gamename)
+    if not map_read then return end
+
+    local profile = mapped_profile or read_ctrlr_file()
+    if not profile then return end
+    local name = profile:gsub("^.*/", ""):gsub("%.cfg$", "")
+    if name == "" then
+        emu.print_error("Marquee plugin: Empty controller name for " .. gamename)
+        return
+    end
+
+    panel_mode = load_panel_mode()
+    pending_ctrlr_mismatch = nil
+    in_panel_submenu = false
+    if mapped_profile then
+        if not persist_ctrlr_file(profile) then return end
+        for mode, ctrlr in pairs(PANEL_TO_CTRLR) do
+            if ctrlr == name then
+                if not persist_panel_mode(mode) then return end
+                panel_mode = mode
+                break
+            end
+        end
+    end
+
+    -- MAME reads this option immediately after this callback, before usbmap
+    -- remaps inputs and before the reset notifier requests panel artwork.
+    manager.machine.options.entries.ctrlr:value(name)
+    print("Marquee plugin: Controller config for " .. gamename .. ": " .. name)
 end
 
 local function apply_panel_mode(mode)
@@ -361,6 +425,7 @@ function marquee.startplugin()
     panel_mode = load_panel_mode()
 
     cleanup_notifiers()
+    emu.register_before_load_settings(on_before_load_settings)
     reset_subscriber = emu.add_machine_reset_notifier(on_game_start)
     stop_subscriber = emu.add_machine_stop_notifier(on_game_stop)
 	emu.register_menu(menu_callback, menu_populate, "Marquee")
