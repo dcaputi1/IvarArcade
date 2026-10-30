@@ -35,13 +35,13 @@ All legacy dual monitor and transport logic has been removed. Use these booleans
 ### dmarquees
 A lightweight DRM-based daemon that displays game-specific marquee images on a dedicated display. Responds to commands via FIFO to switch marquees dynamically based on the currently playing game.
 
-On a dual-display Pi 5, MAME owns output 1 while running in panel-display mode. Punch-Out and Super Punch-Out use both outputs for gameplay; other single-screen games can use the second output for a control-panel image. Older per-game artwork layouts were workarounds for a display timing/race issue and remain in place until the replacement path is verified on hardware. `cfg/tempest.cfg` counter-rotates Tempest's second output so the fallback panel layout stays upright when the vertical game is auto-rotated.
+On a dual-display Pi 5, MAME owns output 1 while running in panel-display mode. Punch-Out and Super Punch-Out use both outputs for gameplay; other single-screen games can use the second output for a control-panel image.
 
-dmarquees applies game-specific label maps and converts SVG panels to PNGs at runtime. MAME's static artwork layouts cannot consume that generated file, which is why the older per-game layouts needed separate PNG assets. The new plugin consumes the live PNG directly; the static assets and layouts remain as fallbacks until the display migration is physically verified.
+dmarquees applies game-specific label maps and converts SVG panels to PNGs at runtime. In panel-display mode, MAME's `screen1png` plugin consumes the live PNG directly and draws it on output 1 for single-screen games. The old per-game second-output layouts, their static panel PNGs, and Tempest's rotation workaround have been removed; MAME's general artwork support remains configured for other artwork.
 
-The panel-display migration is underway: in Pi5 dual-display mode with the Pi3 marquee present, MAME's `screen1png` plugin now consumes the daemon's dynamically rendered panel PNG and draws it on output 1 for single-screen games. MAME launch commands request a second output only in that mode. Punch-Out and Super Punch-Out are excluded so both gameplay screens remain available; their marquee continues to the Pi3. Existing per-game layouts remain as fallbacks until the new path has passed physical Pi5 testing.
+MAME launch commands request a second output only in Pi5 dual-display mode with the Pi3 marquee present. Punch-Out and Super Punch-Out are excluded from the panel overlay so both gameplay screens remain available; their marquee continues to the Pi3.
 
-The Atari/MicroCenter controller map also assigns the fight-stick/trackball panel to Centipede, Golden Tee Golf II, Joust, Marble Madness, Millipede, Missile Command, Robotron, Street Fighter, Street Fighter II, Mortal Kombat I–IV, and Track & Field. Marble Madness, Robotron, MK4, and Track & Field are confirmed to need the second-output kludge; the others are candidates to test, not assumed to need it.
+The Atari/MicroCenter controller map also assigns the fight-stick/trackball panel to Centipede, Golden Tee Golf II, Joust, Marble Madness, Millipede, Missile Command, Robotron, Street Fighter, Street Fighter II, Mortal Kombat I–IV, and Track & Field.
 
 ### analyze_games
 Analyzes your MAME game collection and automatically generates:

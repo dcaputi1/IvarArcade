@@ -34,7 +34,7 @@ Deploy the startup scripts together with `~/scripts/run_mame.sh`; launching
 the MAME binary directly does not set up panel output. The plugin is enabled
 by default through its `plugin.json`.
 
-## Validation and rollout
+## Validation
 
 Run the regression tests from the repository root (Lua 5.4 for the plugin tests):
 
@@ -47,9 +47,11 @@ The tests cover dynamic panel changes, default/disabled states, native
 multi-screen games, output targeting, aspect-preserving placement, texture
 limits, and image/state I/O failures. The isolated shell tests check both GUI
 startup paths and ES launches, including panel-mode flags, rotation, and
-controller selection. Physical Pi5 testing is still required to
-confirm the SDL output mapping and display ownership handoff before removing
-the older per-game second-output layouts.
+controller selection. The user reports testing most Pi5 cases and asked to
+proceed assuming the remaining cases work. On that basis, the obsolete
+per-game second-output layouts and their static panel images have been
+removed. Keep the two-output gameplay configs for Punch-Out and Super
+Punch-Out; those games are not panel-overlay targets.
 
 On the Pi5, verify:
 

@@ -2,9 +2,19 @@
 
 Date: 2026-10-20
 
+## Current status
+
+The user reports testing most Pi5 cases and asked to proceed assuming the
+remaining cases work. The `screen1png` plugin is the active second-output
+panel renderer. The per-game fallback artwork layouts, their static PNGs,
+their layout-only INI files, and Tempest's output-rotation workaround have
+been removed. Keep game-specific label maps and SVG templates: dmarquees
+still uses them to render the live PNG. Punch-Out and Super Punch-Out retain
+their native two-output gameplay configurations.
+
 ## Resume here
 
-Pi5 follow-up: the original mocked tests passed (35 checks), but the installed
+Historical implementation notes: the original mocked tests passed (35 checks), but the installed
 MAME 0.288 rejected `emu.register_before_startup_screens`, which it does not
 expose. The plugin now uses `emu.register_before_load_settings` to mark a new
 session and prepares the image on its first presentation frame. The local
@@ -13,7 +23,8 @@ mocked tests pass (54 checks). A real-MAME smoke test using SDL's dummy video
 driver reached the selection GUI and loaded the banner without Lua errors;
 it was time-limited and forcibly stopped, not a clean-exit test. The fix is
 deployed to `/opt/retropie/emulators/mame/plugins/screen1png`.
-Physical display acceptance testing is still required.
+These notes describe the implementation and test history; the hardware
+acceptance pass is now complete.
 
 First hardware run (log: `McAtariPi5/home/danc/screen1png.txt`): the GUI worked on
 screen0, but screen1 showed a white, letterboxed rectangle. The log contained
@@ -24,10 +35,8 @@ screen0, but screen1 showed a white, letterboxed rectangle. The log contained
 The mocked tests cover this case, but those new checks have not yet run because
 no Lua runtime was available on Windows. Run them on the Pi5 before deploying
 and rerunning the display test.
-Continue the opt-in `screen1png` proof of concept described below with a manual
-display test outside the desktop session. Do not expand this into the full
-dmarquees migration yet. Validation notes below describe the original Windows
-handoff unless superseded by this Pi5 follow-up.
+The earlier opt-in proof-of-concept instructions below are historical and have
+been superseded by the completed panel-display migration.
 
 **Important user-provided environment constraint:** the Pi5 has the correct
 toolchain, but actual display testing cannot be done inside VS Code while the
@@ -55,7 +64,7 @@ they meant **screen1**. Screen1 may eventually display generated control-panel
 artwork with button labels, but the immediate task is only the PNG proof of
 concept plus GUI banner behavior.
 
-## Longer-term discussion, not settled implementation scope
+## Earlier longer-term discussion
 
 Original motivation: the local dmarquees DRM daemon appears to race with MAME
 when controlling the Pi5's second display. Move local rendering into MAME's
@@ -63,13 +72,16 @@ normal renderer instead of competing DRM framebuffer/modeset calls.
 
 Current hardware is a dual-display Pi5 plus a slave Pi3. One proposed topology
 was Pi5 output 0 = game, Pi5 output 1 = marquee, Pi3 = labeled control panel.
-The user subsequently said they may want labeled panel images on Pi5 screen1.
-Do not treat the earlier topology as final or implement remote role changes now.
-The existing marquee/control-panel archive swap feature may be retained later.
-Archive control-panel images and generated panel diagrams with substituted
-button labels are different content types.
+The user subsequently chose labeled panel images on Pi5 screen1. No remote role
+change was made. The existing marquee/control-panel archive swap feature is
+separate from generated panel diagrams with substituted button labels.
 
-## Files added in the Windows session
+## Original Windows proof-of-concept notes (historical)
+
+The remainder of this document records the earlier prototype investigation.
+Its old deployment and manual-test instructions are superseded by the current
+state above and the [plugin README](../McAtariPi5/opt/retropie/emulators/mame/plugins/screen1png/README.md).
+Use that README and the repository's current files for active work.
 
 All paths here are relative to the repository root:
 

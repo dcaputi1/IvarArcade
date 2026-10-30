@@ -13,6 +13,34 @@ SHELLFLAGS := -eu -o pipefail -c
 # Binary install directory for dmarquees daemon
 DMARQUEES_BIN_DIR ?= /home/danc/marquees/bin
 
+# Removed second-output panel fallback files must also be cleaned from existing installs.
+LEGACY_PANEL_FALLBACKS := \
+	cfg/tempest.cfg \
+	ini/crusnusa.ini \
+	ini/llander.ini \
+	ini/marble.ini \
+	ini/mhavoc.ini \
+	ini/mk4.ini \
+	ini/robotron.ini \
+	ini/tempest.ini \
+	ini/trackfld.ini \
+	artwork/crusnusa/default.lay \
+	artwork/crusnusa/panel-crusnusa.png \
+	artwork/llander/default.lay \
+	artwork/llander/panel-llander.png \
+	artwork/marble/default.lay \
+	artwork/marble/panel-marble.png \
+	artwork/mhavoc/default.lay \
+	artwork/mhavoc/panel-mhavoc.png \
+	artwork/mk4/default.lay \
+	artwork/mk4/panel-mk4.png \
+	artwork/robotron/default.lay \
+	artwork/robotron/panel-robotron.png \
+	artwork/tempest/default.lay \
+	artwork/tempest/panel-tempest.png \
+	artwork/trackfld/default.lay \
+	artwork/trackfld/panel-trackfld.png
+
 # NOTE: images and labels are referenced directly from ~/IvarArcade/ - no install needed
 
 all: dmarquees analyze_games
@@ -80,6 +108,11 @@ install: all
 			echo "Set executable: /opt/retropie/configs/all/autostart.sh"; \
 		fi; \
 	fi
+
+	@echo "Removing obsolete per-game panel fallback files..."
+	@for file in $(LEGACY_PANEL_FALLBACKS); do \
+		rm -f "/opt/retropie/emulators/mame/$$file"; \
+	done
 	
 	@echo "Installation complete!"
 
@@ -126,6 +159,11 @@ install-force: all
 			echo "Set executable: /opt/retropie/configs/all/autostart.sh"; \
 		fi; \
 	fi
+
+	@echo "Removing obsolete per-game panel fallback files..."
+	@for file in $(LEGACY_PANEL_FALLBACKS); do \
+		rm -f "/opt/retropie/emulators/mame/$$file"; \
+	done
 	
 	@echo "Force installation complete!"
 
