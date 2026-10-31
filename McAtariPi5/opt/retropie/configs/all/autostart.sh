@@ -345,6 +345,13 @@ start_netbridge()
 # The log is truncated on each boot so it only shows the current session.
 exec > >(tee "$AUTOSTART_LOG") 2>&1
 
+if command -v wpctl >/dev/null 2>&1; then
+    echo "[autostart] Setting the default PipeWire audio output volume to 90%..."
+    wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.9
+else
+    echo "[autostart] wpctl not found; skipping PipeWire volume adjustment."
+fi
+
 load_persisted_options
 
 if [ "$THIS_IS_PI5" != true ] || [ "$PI5_DUAL_DISPLAY" = true ]; then
