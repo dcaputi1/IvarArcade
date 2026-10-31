@@ -48,6 +48,8 @@ check_option()
 check_mode()
 {
     local expected="$1"
+    check_line -artpath
+    check_option -artpath ""
     [[ $(head -n 1 "$CAPTURE") == "$expected" ]] || {
         echo "FAIL: panel output should be $expected" >&2
         cat "$CAPTURE" >&2
@@ -130,5 +132,9 @@ for pi3 in true false; do
         printf 'DC\n' > "$HOME/.panel"
     done
 done
+
+"$HOME/scripts/run_mame.sh" spyhunt -artpath "$WORK/artwork"
+check_option -artpath "$WORK/artwork"
+check_line spyhunt
 
 printf 'mame_launch: %d checks passed\n' "$passed"
