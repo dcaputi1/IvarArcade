@@ -133,7 +133,6 @@ fi
     -inipath "$INI_PATH" \
     -cfg_directory "$CFG_DIR" \
     -ctrlr "$CTRLR_NAME" \
-    -artpath "" \
     "${SCREEN_ARGS[@]}" \
     $ROL_FLAG \
     "$@"

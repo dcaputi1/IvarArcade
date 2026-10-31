@@ -68,21 +68,6 @@ NOTE: VS code's Copilot and GitHub credentials will need initialization...
     - Use Copilot to set git user to 'Dan Caputi' and email 'dcaputi1@users.noreply.github.com'
 
 ===========================================
-  Standalone MAME external artwork
-===========================================
-
-run_mame.sh passes -artpath "" for both ES game launches and the MAME
-frontend. This clears the configured external artwork search path without
-disabling internal layouts, GLSL shaders, or the dynamic panel display.
-MAME has no -noartpath switch; the old -noartwork switch is no longer supported.
-An empty artpath can still resolve artwork relative to the working directory,
-so do not launch from a directory containing game artwork archives/layouts.
-
-To test a game that needs external artwork (for example Spy Hunter), override
-the default for that launch:
-  ~/scripts/run_mame.sh spyhunt -artpath "/opt/retropie/emulators/mame/artwork;/home/danc/MAME_0.256_EXTRAs/artwork"
-
-===========================================
   Pi3 baseline setup
 ===========================================
 
