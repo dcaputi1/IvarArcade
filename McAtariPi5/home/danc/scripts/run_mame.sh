@@ -120,7 +120,7 @@ CTRLR_NAME=$(resolve_ctrlr_name "$CTRLR_CFG")
 
 # MAME owns output 1 for the dynamic panel when the Pi5 panel-display mode is active.
 SCREEN_ARGS=()
-if false && read_enabled_flag "$HOME/.pi3_present" true && read_enabled_flag "$HOME/.pi5_dual_display" true; then
+if read_enabled_flag "$HOME/.pi3_present" true && read_enabled_flag "$HOME/.pi5_dual_display" true; then
     SCREEN_ARGS=(-numscreens 2 -screen0 screen0 -screen1 screen1)
     export MAME_PANEL_OUTPUT=1
 else
