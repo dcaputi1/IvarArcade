@@ -152,6 +152,13 @@ check(opens[2] == "/tmp/dmarquees_mkwheel.png", "MK panel state must load the dy
 check(draws[#draws].target == targets[3], "new MAME session must reacquire output 1")
 callbacks.stop()
 
+targets = setup()
+rom, state, screen_count = "breakout", "PANEL|breakout|AC|1", 1
+start_session(targets)
+check(opens[2] == "/home/danc/IvarArcade/images/atari8bit-panel.png",
+    "AC panel state must load the Atari paddles and joystick PNG")
+callbacks.stop()
+
 for _, orientation in ipairs({ 0, 1, 2, 3, 4, 5, 6, 7 }) do
     targets = setup()
     rom, state, screen_count = "spyhunt", "PANEL|spyhunt|MK|1", 1

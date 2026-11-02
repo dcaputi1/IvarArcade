@@ -163,6 +163,16 @@ SCREEN_ORIENTATION_FILE = os.path.join(HOME, ".horizontal")
 DEF_KEY_FILE = os.path.join(HOME, ".def_key")
 DEFAULT_CTRLR_CFG = "allctrlrs.cfg"
 CTRLR_DIR = "/opt/retropie/emulators/mame/ctrlr"
+CTRLR_PROFILES = [
+    ("All Controllers (allctrlrs.cfg)", "allctrlrs.cfg", None),
+    ("Atari Fightstick/Trackball (atarifs.cfg)", "atarifs.cfg", "MC"),
+    ("Dual Spinners/UltraStick (dcpanel1.cfg)", "dcpanel1.cfg", "DC"),
+    ("Mario Kart/Wheel (mkwheel.cfg)", "mkwheel.cfg", "MK"),
+    ("Atari iCode USB/Console 8-bit (atarifs)", "atarifs.cfg", "AC"),
+]
+PANEL_TO_CTRLR = {
+    code: cfg for _, cfg, code in CTRLR_PROFILES if code is not None
+}
 MERGE_SCRIPT = os.path.join(HOME, "scripts", "merge_cfg_to_ctrlr.py")
 
 # Load or initialize state
@@ -187,7 +197,7 @@ def save_state(path, value):
 # Initial state
 dual_display = load_state(PI5_DUAL_DISPLAY_FILE, True)
 pi3_present = load_state(PI3_PRESENT_FILE, True)
-panel = load_state(PANEL_FILE, "DC")  # DC, MC, MK, NA
+panel = load_state(PANEL_FILE, "DC")  # DC, MC, MK, AC, NA
 ctrlr_cfg = load_state(CTRLR_FILE, DEFAULT_CTRLR_CFG)
 screen_horizontal = load_state(SCREEN_ORIENTATION_FILE, True)
 try:
@@ -332,209 +342,59 @@ def _output_choice(choice):
     sys.exit(0)
 
 def panel_menu():
-    global panel, screen_horizontal
-    options = [("None/Blank", "NA"), ("Atari FS", "MC"), ("UltraStick", "DC"), ("MK Wheel", "MK")]
-    idx = [i for i, (_, code) in enumerate(options) if code == panel]
-    idx = idx[0] if idx else 0
-    running = True
-    while running:
-        # menu surface: MENU_W x MENU_H black canvas; all elements are drawn here before blitting to the screen
-        base_surface = pygame.Surface((MENU_W, MENU_H))
-        base_surface.fill(MENU_BG_COLOR)
-        full_w = base_surface.get_width()   # MENU_W — reference width for full-span and inset rects
-        full_h = base_surface.get_height()  # MENU_H — reference height for the menu border rect
-
-        # title text: centered at (x=240, y=40) on the menu surface
-        title = font.render("Panel Image", True, CYAN_RGB)
-        title_rect = title.get_rect(center=(240, 40))
-        base_surface.blit(title, title_rect)
-        # title border (inner): cyan rect, inset BORDER_SZ+5 horizontally and 4px vertically from title text
-        pygame.draw.rect(base_surface, CYAN_RGB, pygame.Rect(BORDER_SZ + 5, title_rect.top - 4, full_w - 2*(BORDER_SZ + 5), title_rect.height + 8), BORDER_PX)
-        # title border (outer): cyan rect, inset BORDER_SZ horizontally and 9px vertically from title text
-        pygame.draw.rect(base_surface, CYAN_RGB, pygame.Rect(BORDER_SZ, title_rect.top - 9, full_w - 2*BORDER_SZ, title_rect.height + 18), BORDER_PX)
-        item_rects = []
-        for i, (label, code) in enumerate(options):
-            color = SELECT_RECT_COLOR if i == idx else UNSEL_ITEM_RGB
-            # menu item: centered at x=240; y starts at 120 with 70px fixed spacing between items
-            text = font.render(label, True, color)
-            text_rect = text.get_rect(midleft=(BORDER_SZ + 14, 120 + i*70))
-            base_surface.blit(text, text_rect)
-            hit_rect = pygame.Rect(BORDER_SZ, text_rect.top - 3, full_w - 2*BORDER_SZ, text_rect.height + 6)
-            item_rects.append(hit_rect)
-            if i == idx:
-                # selection rectangle: yellow outline, inset BORDER_SZ from surface edges, 3px padding above/below item text
-                pygame.draw.rect(base_surface, SELECT_RECT_COLOR, hit_rect, BORDER_PX)
-        # menu border: cyan outline drawn at the inner edge of the menu surface
-        # (negative coords are clipped by pygame, so draw at (0,0) not (-3,-3))
-        pygame.draw.rect(base_surface, CYAN_RGB, pygame.Rect(0, 0, full_w, full_h), BORDER_PX)
-        if screen_horizontal:
-            screen.fill(SCREEN_BG_COLOR)  # screen background: dark blue, fills the entire display
-            # blit menu surface centered on screen: offset = (screen_size - MENU_W/H) // 2 per axis
-            screen.blit(base_surface, ((screen.get_width()-MENU_W)//2, (screen.get_height()-MENU_H)//2))
-        else:
-            rotated = pygame.transform.rotate(base_surface, 90)
-            rect = rotated.get_rect(center=screen.get_rect().center)
-            screen.fill(SCREEN_BG_COLOR)  # screen background: dark blue, fills the entire display
-            screen.blit(rotated, rect)  # rotated menu surface centered on screen
-        pygame.display.flip()
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit(0)
-            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                off_x = (screen.get_width() - MENU_W) // 2
-                off_y = (screen.get_height() - MENU_H) // 2
-                hit = _hit_index(event.pos, item_rects, off_x, off_y, not screen_horizontal)
-                if hit >= 0:
-                    idx = hit
-                    panel = options[idx][1]
-                    save_state(PANEL_FILE, panel)
-                    _sync_ctrlr_from_panel(panel)
-                    running = False
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_UP:
-                    idx = (idx - 1) % len(options)
-                elif event.key == pygame.K_DOWN:
-                    idx = (idx + 1) % len(options)
-                elif event.key in (pygame.K_RETURN, pygame.K_SPACE):
-                    panel = options[idx][1]
-                    save_state(PANEL_FILE, panel)
-                    _sync_ctrlr_from_panel(panel)
-                    running = False
-                elif event.key == pygame.K_ESCAPE:
-                    running = False
-                elif event.key == pygame.K_F11:
-                    toggle_fullscreen()
-
-def _list_ctrlr_cfg_files():
-    try:
-        cfgs = [
-            name
-            for name in os.listdir(CTRLR_DIR)
-            if name.lower().endswith(".cfg") and os.path.isfile(os.path.join(CTRLR_DIR, name))
-        ]
-    except Exception:
-        cfgs = []
-    if DEFAULT_CTRLR_CFG not in cfgs:
-        cfgs.append(DEFAULT_CTRLR_CFG)
-    return sorted(cfgs, key=str.lower)
-
-def _sync_panel_from_ctrlr(selected_cfg):
-    """Auto-sync panel image from selected ctrlr profile for known mappings."""
     global panel
-
-    cfg_name = os.path.splitext(selected_cfg)[0].lower().strip()
-    panel_for_ctrlr = {
-        "atarifs": "MC",   # Atari/FightStick panel image
-        "dcpanel1": "DC",  # UltraStick/Spinners panel image
-        "mkwheel": "MK",   # Mario Kart wheel panel image
-    }
-    target_panel = panel_for_ctrlr.get(cfg_name)
-    if target_panel and panel != target_panel:
-        panel = target_panel
+    options = [("None/Blank", "NA"), ("Atari FS", "MC"),
+               ("UltraStick / Spinners", "DC"), ("MK Wheel", "MK"),
+               ("Atari iCode / Console 8-bit", "AC")]
+    idx = next((i for i, (_, code) in enumerate(options) if code == panel), 0)
+    selected = _choice_menu("Panel Image", [label for label, _ in options], idx)
+    if selected is not None:
+        panel = options[selected][1]
         save_state(PANEL_FILE, panel)
+        _resolve_panel_ctrlr_mismatch(panel)
 
-def _sync_ctrlr_from_panel(selected_panel):
-    """Auto-sync controller config from selected panel for known mappings."""
+def _resolve_panel_ctrlr_mismatch(selected_panel):
     global ctrlr_cfg
-
-    ctrlr_for_panel = {
-        "MC": "atarifs.cfg",        # Atari/FightStick panel -> atarifs controller
-        "DC": "dcpanel1.cfg",       # UltraStick/Spinners panel -> dcpanel1 controller
-        "MK": "mkwheel.cfg",        # MarioKart panel -> mkwheel controller
-    }
-    target_ctrlr = ctrlr_for_panel.get(selected_panel)
-    if target_ctrlr:
-        # Extract base name to match against available configs
-        target_base = os.path.splitext(target_ctrlr)[0].lower().strip()
-        # Check if this config is available
-        available_cfgs = _list_ctrlr_cfg_files()
-        for cfg in available_cfgs:
-            if os.path.splitext(cfg)[0].lower().strip() == target_base:
-                if ctrlr_cfg != cfg:
-                    ctrlr_cfg = cfg
-                    save_state(CTRLR_FILE, ctrlr_cfg)
-                    print(f"[pic_frontend] Auto-synced controller: {cfg} (panel={selected_panel})", file=sys.stderr)
-                break
+    expected = PANEL_TO_CTRLR.get(selected_panel)
+    current = os.path.splitext(os.path.basename(ctrlr_cfg.strip()))[0].lower()
+    if expected is None or current == os.path.splitext(expected)[0]:
+        return
+    choice = _choice_menu("Panel / CTRLR Mismatch", [
+        "Explicit Map (unmap possible conflicts)",
+        "All Controllers (default)",
+        "Ignore and Continue",
+    ])
+    if choice in (0, 1):
+        ctrlr_cfg = expected if choice == 0 else DEFAULT_CTRLR_CFG
+        save_state(CTRLR_FILE, ctrlr_cfg)
 
 def ctrlr_menu():
-    global ctrlr_cfg, screen_horizontal
-    options = _list_ctrlr_cfg_files()
-    idx = options.index(ctrlr_cfg) if ctrlr_cfg in options else 0
-    running = True
-    while running:
-        base_surface = pygame.Surface((MENU_W, MENU_H))
-        base_surface.fill(MENU_BG_COLOR)
-        full_w = base_surface.get_width()
-        full_h = base_surface.get_height()
-
-        title = font.render("Select CTRLR Cfg", True, CYAN_RGB)
-        title_rect = title.get_rect(center=(240, 40))
-        base_surface.blit(title, title_rect)
-        pygame.draw.rect(base_surface, CYAN_RGB, pygame.Rect(BORDER_SZ + 5, title_rect.top - 4, full_w - 2*(BORDER_SZ + 5), title_rect.height + 8), BORDER_PX)
-        pygame.draw.rect(base_surface, CYAN_RGB, pygame.Rect(BORDER_SZ, title_rect.top - 9, full_w - 2*BORDER_SZ, title_rect.height + 18), BORDER_PX)
-
-        item_count = len(options)
-        start_y = 100
-        spacing = (480 - start_y - 40) // max(item_count, 1)
-        item_rects = []
-        for i, label in enumerate(options):
-            color = SELECT_RECT_COLOR if i == idx else UNSEL_ITEM_RGB
-            text = font.render(label, True, color)
-            text_rect = text.get_rect(midleft=(BORDER_SZ + 14, start_y + i*spacing))
-            base_surface.blit(text, text_rect)
-            hit_rect = pygame.Rect(BORDER_SZ, text_rect.top - 3, full_w - 2*BORDER_SZ, text_rect.height + 6)
-            item_rects.append(hit_rect)
-            if i == idx:
-                pygame.draw.rect(base_surface, SELECT_RECT_COLOR, hit_rect, BORDER_PX)
-
-        pygame.draw.rect(base_surface, CYAN_RGB, pygame.Rect(0, 0, full_w, full_h), BORDER_PX)
-        if screen_horizontal:
-            screen.fill(SCREEN_BG_COLOR)
-            screen.blit(base_surface, ((screen.get_width()-MENU_W)//2, (screen.get_height()-MENU_H)//2))
-        else:
-            rotated = pygame.transform.rotate(base_surface, 90)
-            rect = rotated.get_rect(center=screen.get_rect().center)
-            screen.fill(SCREEN_BG_COLOR)
-            screen.blit(rotated, rect)
-        pygame.display.flip()
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit(0)
-            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                off_x = (screen.get_width() - MENU_W) // 2
-                off_y = (screen.get_height() - MENU_H) // 2
-                hit = _hit_index(event.pos, item_rects, off_x, off_y, not screen_horizontal)
-                if hit >= 0:
-                    idx = hit
-                    ctrlr_cfg = options[idx]
-                    save_state(CTRLR_FILE, ctrlr_cfg)
-                    _sync_panel_from_ctrlr(ctrlr_cfg)
-                    running = False
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_UP:
-                    idx = (idx - 1) % len(options)
-                elif event.key == pygame.K_DOWN:
-                    idx = (idx + 1) % len(options)
-                elif event.key in (pygame.K_RETURN, pygame.K_SPACE):
-                    ctrlr_cfg = options[idx]
-                    save_state(CTRLR_FILE, ctrlr_cfg)
-                    _sync_panel_from_ctrlr(ctrlr_cfg)
-                    running = False
-                elif event.key == pygame.K_ESCAPE:
-                    running = False
-                elif event.key == pygame.K_F11:
-                    toggle_fullscreen()
+    global ctrlr_cfg, panel
+    current = os.path.splitext(os.path.basename(ctrlr_cfg.strip()))[0].lower()
+    fallback = next((i for i, (_, cfg, _) in enumerate(CTRLR_PROFILES)
+                     if os.path.splitext(cfg)[0] == current), 0)
+    idx = next((i for i, (_, cfg, code) in enumerate(CTRLR_PROFILES)
+                if os.path.splitext(cfg)[0] == current
+                and (code is None or code == panel)), fallback)
+    selected = _choice_menu("Select Controller", [p[0] for p in CTRLR_PROFILES], idx)
+    if selected is not None:
+        _, ctrlr_cfg, target_panel = CTRLR_PROFILES[selected]
+        save_state(CTRLR_FILE, ctrlr_cfg)
+        if target_panel is not None:
+            panel = target_panel
+            save_state(PANEL_FILE, panel)
 
 def select_ctrlr_cfg_menu(title_text, current_cfg):
-    global screen_horizontal
-    options = _list_ctrlr_cfg_files()
-    if not options:
-        return None
-
+    # Merge targets are files, so the two Atari hardware choices share one entry.
+    options = list(dict.fromkeys(cfg for _, cfg, _ in CTRLR_PROFILES))
     idx = options.index(current_cfg) if current_cfg in options else 0
+    selected = _choice_menu(title_text, options, idx)
+    return options[selected] if selected is not None else None
+
+def _choice_menu(title_text, options, idx=0):
+    global screen_horizontal
     running = True
-    selected_cfg = None
+    selected = None
 
     while running:
         base_surface = pygame.Surface((MENU_W, MENU_H))
@@ -555,6 +415,10 @@ def select_ctrlr_cfg_menu(title_text, current_cfg):
         for i, label in enumerate(options):
             color = SELECT_RECT_COLOR if i == idx else UNSEL_ITEM_RGB
             text = font.render(label, True, color)
+            max_width = full_w - 2 * (BORDER_SZ + 14)
+            if text.get_width() > max_width:
+                height = max(1, round(text.get_height() * max_width / text.get_width()))
+                text = pygame.transform.smoothscale(text, (max_width, height))
             text_rect = text.get_rect(midleft=(BORDER_SZ + 14, start_y + i*spacing))
             base_surface.blit(text, text_rect)
             hit_rect = pygame.Rect(BORDER_SZ, text_rect.top - 3, full_w - 2*BORDER_SZ, text_rect.height + 6)
@@ -582,7 +446,7 @@ def select_ctrlr_cfg_menu(title_text, current_cfg):
                 hit = _hit_index(event.pos, item_rects, off_x, off_y, not screen_horizontal)
                 if hit >= 0:
                     idx = hit
-                    selected_cfg = options[idx]
+                    selected = idx
                     running = False
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
@@ -590,14 +454,14 @@ def select_ctrlr_cfg_menu(title_text, current_cfg):
                 elif event.key == pygame.K_DOWN:
                     idx = (idx + 1) % len(options)
                 elif event.key in (pygame.K_RETURN, pygame.K_SPACE):
-                    selected_cfg = options[idx]
+                    selected = idx
                     running = False
                 elif event.key == pygame.K_ESCAPE:
                     running = False
                 elif event.key == pygame.K_F11:
                     toggle_fullscreen()
 
-    return selected_cfg
+    return selected
 
 def advanced_menu():
     global dual_display, pi3_present, screen_horizontal, xinmo_auto_swap, mame_cfg_reset_count, ctrlr_cfg
@@ -693,6 +557,7 @@ def advanced_menu():
                 "DC": "UltraStick/Spinners",
                 "MC": "Atari/FightStick",
                 "MK": "MarioKart/Wheel",
+                "AC": "Atari iCode/Console 8-bit",
                 "NA": "None/Blank",
             }.get(panel, "None/Blank"),
         },

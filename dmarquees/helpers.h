@@ -25,7 +25,8 @@ typedef enum
     ePANEL_NA = 0,  // no panel selected
     eATARI_MC = 1,  // Atari MicroCenter
     eULTRA_DC = 2,  // UltraStick, 2x spinners
-    eWHEEL_MK = 3   // MarioKart wheel controller
+    eWHEEL_MK = 3,  // MarioKart wheel controller
+    eATARI_AC = 4   // Atari iCode CX30 paddles / CX40 joystick
 } ControlPanel;
 
 ControlPanel toControlPanel(const char* s);

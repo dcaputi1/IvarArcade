@@ -32,7 +32,8 @@ function exports.startplugin()
     local panel_pngs = {
         DC = "/tmp/dmarquees_dcpanel.png",
         MC = "/tmp/dmarquees_mcpanel.png",
-        MK = "/tmp/dmarquees_mkwheel.png"
+        MK = "/tmp/dmarquees_mkwheel.png",
+        AC = "/home/danc/IvarArcade/images/atari8bit-panel.png"
     }
 
     local function report_error(message)

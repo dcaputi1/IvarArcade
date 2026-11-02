@@ -107,6 +107,34 @@ or:
 > ultrastikcmd -v -u /home/danc/IvarArcade/tools/UltraStikMaps/Analog.um
 Note: add -f to flash/save the map (runcommand start/end scripts overwrite the active map). Also note, the current default/flashed map seems to be 8-way digital
 
+### Controller and panel choices
+
+The picture frontend's Advanced controller menu and MAME's Marquee plugin
+controller menu use the same fixed hardware choices (not a directory listing):
+
+| Choice | Controller file | Panel |
+|---|---|---|
+| All Controllers | `allctrlrs.cfg` | Keep current |
+| Atari Fightstick/Trackball | `atarifs.cfg` | `MC` |
+| Dual Spinners/UltraStick | `dcpanel1.cfg` | `DC` |
+| Mario Kart/Wheel | `mkwheel.cfg` | `MK` |
+| Atari iCode USB/Console 8-bit | `atarifs.cfg` | `AC` |
+
+`AC` uses the static [CX30 paddle / CX40 joystick image](images/atari8bit-panel.png);
+photo sources and public-domain status are in
+[the image attribution](images/atari8bit-panel-source.txt).
+Selecting a controller saves `~/.ctrlr` and its associated `~/.panel` (All
+Controllers keeps the panel). In MAME, restart the game to apply manual controller
+changes; the panel artwork updates immediately.
+Selecting a panel separately offers **Explicit Map**, **All Controllers**, or
+**Ignore and Continue** if its expected controller differs. No Panel Image
+does not change the controller. Merge targets are restricted to the four unique
+controller files.
+
+Deploy the updated frontend, Marquee and screen1png plugins, image, and rebuilt
+`dmarquees` daemon together to enable the `AC` panel on both display paths.
+Run headless frontend checks with `python tools/tests/pic_frontend_profiles_test.py`.
+
 ### Per-game controller profiles in EmulationStation and MAME GUI
 
 The arcade system's standalone `mame` emulator entry launches through

@@ -83,7 +83,7 @@ local function setup(map)
     }
     manager = { machine = { options = { entries = { ctrlr = {
         value = function(_, value) active_ctrlr = value end
-    } } } } }
+    } } }, popmessage = function() end } }
     dofile(plugin_path).startplugin()
 end
 
@@ -100,7 +100,8 @@ local function start_game(name, expected_ctrlr, expected_panel)
     check(command.active == expected_ctrlr, "artwork and live controller must agree")
     check(#errors == 0, "valid selection must not report errors")
     check(callbacks.populate()[2][2] == ({
-        DC = "DC Panel 1", MC = "MC Atari", MK = "MK Wheel", NA = "NONE"
+        DC = "DC Panel 1", MC = "MC Atari", MK = "MK Wheel",
+        AC = "Atari iCode / Console 8-bit", NA = "NONE"
     })[expected_panel], "menu must reflect selected panel")
 end
 
@@ -187,6 +188,48 @@ setup("mk4=/profiles/.cfg\n")
 rom = "mk4"
 callbacks.before_settings()
 check(#errors == 1 and #writes == 0, "reject empty controller name explicitly")
+
+local profiles = {
+    { "All Controllers (allctrlrs.cfg)", "allctrlrs.cfg", "DC" },
+    { "Atari Fightstick/Trackball (atarifs.cfg)", "atarifs.cfg", "MC" },
+    { "Dual Spinners/UltraStick (dcpanel1.cfg)", "dcpanel1.cfg", "DC" },
+    { "Mario Kart/Wheel (mkwheel.cfg)", "mkwheel.cfg", "MK" },
+    { "Atari iCode USB/Console 8-bit (atarifs)", "atarifs.cfg", "AC" },
+}
+for index, profile in ipairs(profiles) do
+    setup("# no requirements\n")
+    rom = "breakout"
+    callbacks.menu(3, "select")
+    local items = callbacks.populate()
+    check(#items == 5 and items[index][1] == profile[1], "fixed controller choices")
+    callbacks.menu(index, "select")
+    check(files[ctrlr_path] == profile[2] .. "\n", "save selected controller file")
+    check(files[panel_path] == profile[3] .. "\n", "save associated panel or retain for all")
+    check(active_ctrlr == "dcpanel1", "manual selection requires game restart")
+    start_game("breakout", profile[2]:gsub("%.cfg$", ""), profile[3])
+end
+
+for _, choice in ipairs({ 2, 3, 4 }) do
+    setup("# no requirements\n")
+    rom = "breakout"
+    callbacks.menu(2, "select")
+    callbacks.menu(5, "select")
+    check(files[panel_path] == "AC\n", "console panel has its own token")
+    check(#callbacks.populate() == 4, "mismatched panel offers resolution choices")
+    callbacks.menu(choice, "select")
+    local expected = ({ [2] = "atarifs.cfg\n", [3] = "allctrlrs.cfg\n", [4] = "dcpanel1.cfg\n" })[choice]
+    check(files[ctrlr_path] == expected, "explicit/all/ignore controller resolution")
+    check(files[panel_path] == "AC\n", "mismatch resolution retains selected artwork")
+end
+
+setup("# no requirements\n")
+files[ctrlr_path], files[panel_path] = "/profiles/ATARIFS.cfg\n", "AC\n"
+start_game("breakout", "ATARIFS", "AC")
+callbacks.menu(2, "select")
+callbacks.menu(5, "select")
+check(#callbacks.populate() == 3, "matching console profile needs no mismatch prompt")
+files[map_path] = "breakout=atarifs\n"
+start_game("breakout", "atarifs", "MC")
 
 io.open, os.getenv = real_open, real_getenv
 print(string.format("marquee: %d checks passed", passed))

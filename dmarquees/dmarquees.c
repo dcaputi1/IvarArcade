@@ -1183,6 +1183,48 @@ static bool convert_svg_to_png(const char *svg_path, const char *png_path)
     return system(cmd) == 0;
 }
 
+static bool display_panel_png(const char *shortname, const char *panel_label, const char *png_path)
+{
+    if (access(png_path, R_OK) != 0)
+    {
+        ts_fprintf(stderr, "error: panel png unavailable: %s (%s)\n", png_path, strerror(errno));
+        return false;
+    }
+
+    if (_mame_panel_output)
+        return publish_mame_panel_state("PANEL", shortname, panel_label);
+
+    int iw = 0, ih = 0;
+    if (image)
+        free(image);
+    image = load_png_rgba(png_path, &iw, &ih);
+    if (!image)
+    {
+        ts_fprintf(stderr, "error: panel png load failed: %s\n", png_path);
+        return false;
+    }
+
+    if (fb_map)
+    {
+        uint32_t *fbptr = (uint32_t *)fb_map;
+        int fb_w = chosen_mode.hdisplay;
+        int fb_h = chosen_mode.vdisplay;
+        int stride_pixels = stride / 4;
+
+        memset(fb_map, 0, bo_size);
+        scale_and_blit_to_xrgb(image, iw, ih, fbptr, fb_w, fb_h, stride_pixels, 0, true);
+        if (!try_reset_crtc())
+        {
+            ts_fprintf(stderr, "warning: try_reset_crtc failed for %s panel; scheduling retry\n", panel_label);
+            schedule_crtc_retry();
+        }
+        else
+            clear_crtc_retry();
+        snprintf(last_image_path, sizeof(last_image_path), "%s", png_path);
+    }
+    return true;
+}
+
 static bool show_panel_marquee(const char *shortname, ControlPanel panel_type)
 {
     const char *template_path;
@@ -1192,6 +1234,8 @@ static bool show_panel_marquee(const char *shortname, ControlPanel panel_type)
 
     switch (panel_type)
     {
+        case eATARI_AC:
+            return display_panel_png(shortname, "AC", HOME_PATH "/IvarArcade/images/atari8bit-panel.png");
         case eULTRA_DC:
             template_path = _dcpanel_template;
             tmp_svg = PANEL_TMP_DC_SVG;
@@ -1263,46 +1307,8 @@ static bool show_panel_marquee(const char *shortname, ControlPanel panel_type)
         return false;
     }
 
-    if (_mame_panel_output)
-    {
-        if (!publish_mame_panel_state("PANEL", shortname, panel_label))
-            return false;
-        ts_printf("dmarquees: published %s panel for MAME output: %s\n", panel_label, shortname);
-        return true;
-    }
-
-    int iw = 0, ih = 0;
-    if (image)
-        free(image);
-    image = load_png_rgba(tmp_png, &iw, &ih);
-    if (!image)
-    {
-        ts_fprintf(stderr, "error: converted panel png load failed: %s\n", tmp_png);
+    if (!display_panel_png(shortname, panel_label, tmp_png))
         return false;
-    }
-
-    if (fb_map)
-    {
-        uint32_t *fbptr = (uint32_t *)fb_map;
-        int fb_w = chosen_mode.hdisplay;
-        int fb_h = chosen_mode.vdisplay;
-        int stride_pixels = stride / 4;
-
-        memset(fb_map, 0, bo_size);
-        scale_and_blit_to_xrgb(image, iw, ih, fbptr, fb_w, fb_h, stride_pixels, 0, true);
-        if (!try_reset_crtc())
-        {
-            // CRTC confirmation failed - game may be initialising DRM.
-            // Schedule a re-blit retry so the panel appears once the game
-            // releases (or stabilises) DRM master.
-            ts_fprintf(stderr, "warning: try_reset_crtc failed for %s panel; scheduling retry\n", panel_label);
-            schedule_crtc_retry();
-        }
-        else
-            clear_crtc_retry();
-        snprintf(last_image_path, sizeof(last_image_path), "%s", tmp_png);
-    }
-
     ts_printf("dmarquees: showing %s panel for %s (%d substitutions)\n", panel_label, shortname, applied);
     return true;
 }

@@ -212,6 +212,8 @@ ControlPanel toControlPanel(const char *s)
             return eULTRA_DC;
         if (strcasecmp(s, "MK") == 0)
             return eWHEEL_MK;
+        if (strcasecmp(s, "AC") == 0)
+            return eATARI_AC;
     }
     return ePANEL_NA;
 }

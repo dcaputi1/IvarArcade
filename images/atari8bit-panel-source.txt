@@ -1,0 +1,58 @@
+atari8bit-panel.png
+==================
+Static photographic panel, 1600 x 1200 pixels (4:3), PNG.
+Created 2026-11-02 from photographs downloaded over HTTPS from Wikimedia Commons.
+
+1. Atari CX30 paddle controller
+   Original file: Atari-2600-Paddle-Controller-FR.jpg (2490 x 2490)
+   File description and license:
+   https://commons.wikimedia.org/wiki/File:Atari-2600-Paddle-Controller-FR.jpg
+   Original photograph URL:
+   https://upload.wikimedia.org/wikipedia/commons/7/78/Atari-2600-Paddle-Controller-FR.jpg
+   Download URL used: original URL with ?download=1
+   Author: Evan-Amos
+   Author page: https://commons.wikimedia.org/wiki/User:Evan-Amos
+   Photograph date: 2014-12-02
+   License: Public domain, released by its copyright holder (Commons PD-self).
+   Verified directly on the Commons file description page on 2026-11-02.
+   The page states: "I, the copyright holder of this work, release this work
+   into the public domain. This applies worldwide."
+   Its fallback grant permits use for any purpose, without any conditions,
+   unless conditions are required by law.
+   Changes: resized without distortion; the same photograph is shown twice
+   to represent the usual pair of CX30 paddles. This is a composite, not a
+   photograph of two distinct physical paddles or their shared wiring.
+
+2. Atari CX40 joystick
+   Original file: Atari-2600-Joystick.jpg (2480 x 2560)
+   File description and license:
+   https://commons.wikimedia.org/wiki/File:Atari-2600-Joystick.jpg
+   Original photograph URL:
+   https://upload.wikimedia.org/wikipedia/commons/3/33/Atari-2600-Joystick.jpg
+   Download URL used: original URL with ?download=1
+   Author: Evan-Amos
+   Author page: https://commons.wikimedia.org/wiki/User:Evan-Amos
+   Photograph date: 2010-11-23
+   License: Public domain, released by its copyright holder (Commons PD-self).
+   Verified directly on the Commons file description page on 2026-11-02.
+   The page states: "I, the copyright holder of this work, release this work
+   into the public domain. This applies worldwide."
+   Its fallback grant permits use for any purpose, without any conditions,
+   unless conditions are required by law.
+   Changes: resized without distortion and placed beside the paddle images.
+
+Original composition: white background, headings, divider, and controller labels added;
+photographs converted from JPEG to a single PNG using Windows System.Drawing.
+Edited 2026-11-02 using an AI image editor to change the background to light
+brown/tan, requesting preservation of the controllers, layout, and labels.
+The edited output may differ from the original photographic composite.
+Reformatted to 4:3 with matching tan padding above and below; content scaled
+proportionally without cropping or stretching the controllers.
+No claim is made that the source photographs were PNG files.
+
+Attribution: Controller photographs by Evan-Amos / Wikimedia Commons,
+public domain. Attribution is supplied for provenance even though PD-self
+does not require it. No CC BY or CC BY-SA obligations apply to these photos.
+The added layout and text are also dedicated to the public domain.
+Atari names and visible product marks identify the photographed hardware;
+no affiliation or endorsement is implied.

@@ -2,7 +2,7 @@
 -- Marquee Plugin - Sends FIFO commands to dmarquees daemon
 -----------------------------------------------------------
 
-local VERSION = "1.5.0"
+local VERSION = "1.6.0"
 
 local exports = {
     name = "marquee",
@@ -30,14 +30,26 @@ local PANEL_NA = "NA"
 local PANEL_DC = "DC"
 local PANEL_MC = "MC"
 local PANEL_MK = "MK"
+local PANEL_AC = "AC"
 
 -- Map panel modes to expected controller config file names
 local PANEL_TO_CTRLR = {
     [PANEL_DC] = "dcpanel1",
     [PANEL_MC] = "atarifs",
     [PANEL_MK] = "mkwheel",
+    [PANEL_AC] = "atarifs",
     [PANEL_NA] = nil,  -- no specific controller required
 }
+
+local CONTROLLER_PROFILES = {
+    { "All Controllers (allctrlrs.cfg)", "allctrlrs.cfg" },
+    { "Atari Fightstick/Trackball (atarifs.cfg)", "atarifs.cfg", PANEL_MC },
+    { "Dual Spinners/UltraStick (dcpanel1.cfg)", "dcpanel1.cfg", PANEL_DC },
+    { "Mario Kart/Wheel (mkwheel.cfg)", "mkwheel.cfg", PANEL_MK },
+    { "Atari iCode USB/Console 8-bit (atarifs)", "atarifs.cfg", PANEL_AC },
+}
+-- Per-game mappings name files, not hardware: atarifs retains its Fightstick default.
+local CTRLR_TO_PANEL = { dcpanel1 = PANEL_DC, atarifs = PANEL_MC, mkwheel = PANEL_MK }
 
 -----------------------------------------------------------
 -- Internal State
@@ -47,6 +59,7 @@ local reset_subscriber
 local stop_subscriber
 local panel_mode = PANEL_NA
 local in_panel_submenu = false
+local in_ctrlr_submenu = false
 local pending_ctrlr_mismatch = nil
 
 -----------------------------------------------------------
@@ -121,6 +134,8 @@ local function panel_mode_label(mode)
         return "MC Atari"
     elseif mode == PANEL_MK then
         return "MK Wheel"
+    elseif mode == PANEL_AC then
+        return "Atari iCode / Console 8-bit"
     end
     return "NONE"
 end
@@ -132,6 +147,8 @@ local function panel_mode_file_code(mode)
         return "MC"
     elseif mode == PANEL_MK then
         return "MK"
+    elseif mode == PANEL_AC then
+        return "AC"
     end
     return "NA"
 end
@@ -193,9 +210,9 @@ local function panel_ctrlr_mismatch(target_panel)
     end
 
     local expected_lower = tostring(expected_ctrlr):lower()
-    local current_lower = tostring(current_ctrlr):lower()
+    local current_lower = tostring(current_ctrlr):lower():gsub("^.*/", ""):gsub("%.cfg$", "")
 
-    if not current_lower:find(expected_lower, 1, true) then
+    if current_lower ~= expected_lower then
         return {
             expected = expected_ctrlr,
             expected_label = ctrlr_mode_label(expected_ctrlr),
@@ -217,7 +234,7 @@ local function load_panel_mode()
     file:close()
     value = tostring(value):upper()
 
-    if value == PANEL_DC or value == PANEL_MC or value == PANEL_MK then
+    if value == PANEL_DC or value == PANEL_MC or value == PANEL_MK or value == PANEL_AC then
         return value
     end
     return PANEL_NA
@@ -272,14 +289,13 @@ local function on_before_load_settings()
     panel_mode = load_panel_mode()
     pending_ctrlr_mismatch = nil
     in_panel_submenu = false
+    in_ctrlr_submenu = false
     if mapped_profile then
         if not persist_ctrlr_file(profile) then return end
-        for mode, ctrlr in pairs(PANEL_TO_CTRLR) do
-            if ctrlr == name then
-                if not persist_panel_mode(mode) then return end
-                panel_mode = mode
-                break
-            end
+        local mode = CTRLR_TO_PANEL[name]
+        if mode then
+            if not persist_panel_mode(mode) then return end
+            panel_mode = mode
         end
     end
 
@@ -290,12 +306,12 @@ local function on_before_load_settings()
 end
 
 local function apply_panel_mode(mode)
-    if mode ~= PANEL_DC and mode ~= PANEL_MC and mode ~= PANEL_MK then
+    if mode ~= PANEL_DC and mode ~= PANEL_MC and mode ~= PANEL_MK and mode ~= PANEL_AC then
         mode = PANEL_NA
     end
 
+    if not persist_panel_mode(mode) then return end
     panel_mode = mode
-    persist_panel_mode(panel_mode)
     sync_rom_for_panel()
 
     pending_ctrlr_mismatch = panel_ctrlr_mismatch(mode)
@@ -335,18 +351,31 @@ local function menu_populate()
         }
     end
 
+    if in_ctrlr_submenu then
+        local items = {}
+        local current = (read_ctrlr_file() or "allctrlrs.cfg"):lower():gsub("^.*/", ""):gsub("%.cfg$", "")
+        for _, profile in ipairs(CONTROLLER_PROFILES) do
+            local selected = current == profile[2]:gsub("%.cfg$", "")
+                and (not profile[3] or panel_mode == profile[3])
+            table.insert(items, { profile[1], selected and "ON" or "--", "" })
+        end
+        return items
+    end
+
     if in_panel_submenu then
         return {
             { "UltraStick / Spinners", panel_mode == PANEL_DC and "ON" or "--", "" },
             { "Atari / FightStick", panel_mode == PANEL_MC and "ON" or "--", "" },
             { "MarioKart / Wheel", panel_mode == PANEL_MK and "ON" or "--", "" },
-            { "No Panel Image", panel_mode == PANEL_NA and "ON" or "--", "" }
+            { "No Panel Image", panel_mode == PANEL_NA and "ON" or "--", "" },
+            { "Atari iCode / Console 8-bit", panel_mode == PANEL_AC and "ON" or "--", "" }
         }
     end
 
     return {
         { "Control Panel / Marquee", "SWAP", "" },
-        { "Spare Monitor Panel", panel_mode_label(panel_mode), "" }
+        { "Spare Monitor Panel", panel_mode_label(panel_mode), "" },
+        { "Controller Profile", ctrlr_mode_label(read_ctrlr_file()), "" }
     }
 end
 
@@ -382,6 +411,20 @@ local function menu_callback(index, event)
         return false
     end
 
+    if in_ctrlr_submenu then
+        local profile = CONTROLLER_PROFILES[index]
+        if not profile then return false end
+        if not persist_ctrlr_file(profile[2]) then return true, index end
+        if profile[3] then
+            if not persist_panel_mode(profile[3]) then return true, index end
+            panel_mode = profile[3]
+            sync_rom_for_panel()
+        end
+        in_ctrlr_submenu = false
+        manager.machine:popmessage("Controller config set to " .. profile[2] .. " - RESTART GAME to apply")
+        return true
+    end
+
     if in_panel_submenu then
         if index == 1 then
             in_panel_submenu = false
@@ -399,6 +442,10 @@ local function menu_callback(index, event)
             in_panel_submenu = false
             apply_panel_mode(PANEL_NA)
             return true
+        elseif index == 5 then
+            in_panel_submenu = false
+            apply_panel_mode(PANEL_AC)
+            return true
         end
         return false
     end
@@ -409,6 +456,9 @@ local function menu_callback(index, event)
         return false
     elseif index == 2 then
         in_panel_submenu = true
+        return true
+    elseif index == 3 then
+        in_ctrlr_submenu = true
         return true
     end
 
