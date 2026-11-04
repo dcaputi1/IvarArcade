@@ -165,10 +165,10 @@ DEFAULT_CTRLR_CFG = "allctrlrs.cfg"
 CTRLR_DIR = "/opt/retropie/emulators/mame/ctrlr"
 CTRLR_PROFILES = [
     ("All Controllers (allctrlrs.cfg)", "allctrlrs.cfg", None),
-    ("Atari Fightstick/Trackball (atarifs.cfg)", "atarifs.cfg", "MC"),
-    ("Dual Spinners/UltraStick (dcpanel1.cfg)", "dcpanel1.cfg", "DC"),
-    ("Mario Kart/Wheel (mkwheel.cfg)", "mkwheel.cfg", "MK"),
-    ("Atari iCode USB/Console 8-bit (atarifs)", "atarifs.cfg", "AC"),
+    ("Atari Fightstick / Trackball (atarifs.cfg)", "atarifs.cfg", "MC"),
+    ("Dual Spinners / UltraStick (dcpanel1.cfg)", "dcpanel1.cfg", "DC"),
+    ("MarioKart / Wheel (mkwheel.cfg)", "mkwheel.cfg", "MK"),
+    ("Atari iCode / 8-bit (atarifs.cfg)", "atarifs.cfg", "AC"),
 ]
 PANEL_TO_CTRLR = {
     code: cfg for _, cfg, code in CTRLR_PROFILES if code is not None
@@ -343,9 +343,9 @@ def _output_choice(choice):
 
 def panel_menu():
     global panel
-    options = [("None/Blank", "NA"), ("Atari FS", "MC"),
-               ("UltraStick / Spinners", "DC"), ("MK Wheel", "MK"),
-               ("Atari iCode / Console 8-bit", "AC")]
+    options = [("None / Blank", "NA"), ("Atari FightStick", "MC"),
+               ("UltraStick / Spinners", "DC"), ("MarioKart Wheel", "MK"),
+               ("Atari iCode / 8-bit", "AC")]
     idx = next((i for i, (_, code) in enumerate(options) if code == panel), 0)
     selected = _choice_menu("Panel Image", [label for label, _ in options], idx)
     if selected is not None:
@@ -557,7 +557,7 @@ def advanced_menu():
                 "DC": "UltraStick/Spinners",
                 "MC": "Atari/FightStick",
                 "MK": "MarioKart/Wheel",
-                "AC": "Atari iCode/Console 8-bit",
+                "AC": "Atari iCode/8-bit",
                 "NA": "None/Blank",
             }.get(panel, "None/Blank"),
         },
