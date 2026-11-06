@@ -218,6 +218,19 @@ ControlPanel toControlPanel(const char *s)
     return ePANEL_NA;
 }
 
+ControlPanel menuControlPanel(bool splash_mode, const char *panel, const char *ctrlr)
+{
+    if (!splash_mode || !ctrlr || !*ctrlr)
+        return ePANEL_NA;
+
+    const char *name = strrchr(ctrlr, '/');
+    name = name ? name + 1 : ctrlr;
+    if (strcasecmp(name, "allctrlrs") == 0 || strcasecmp(name, "allctrlrs.cfg") == 0)
+        return ePANEL_NA;
+
+    return toControlPanel(panel);
+}
+
 CommandType toCommandType(const char *s)
 {
     if (!s)

@@ -30,6 +30,7 @@ typedef enum
 } ControlPanel;
 
 ControlPanel toControlPanel(const char* s);
+ControlPanel menuControlPanel(bool splash_mode, const char* panel, const char* ctrlr);
 
 // Command type enum and conversion helpers
 typedef enum

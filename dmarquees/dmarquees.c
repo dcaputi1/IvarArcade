@@ -4,7 +4,7 @@
  Lightweight DRM marquee daemon for Raspberry Pi / RetroPie.
  - Runs as a long-lived daemon (run as root at boot).
  - Owns /dev/dri/card1 (attempts drmSetMaster) and modesets the chosen connector.
- - Listens on a named FIFO /tmp/dmarquee_cmd for commands written by your plugin.
+ - Listens on a named FIFO /tmp/dmarquees_cmd for commands written by your plugin.
  - Commands:
      <shortname>   => load $HOME/mnt/marquees/<shortname>.png and display it
      CLEAR         => clear the screen (black)
@@ -149,6 +149,7 @@ static const char* _PI5_HOSTNAME = "McAtariPi5";
 static const char* _pi5_dual_display_file = HOME_PATH "/.pi5_dual_display";
 static const char* _pi3_is_present_file = HOME_PATH "/.pi3_present";
 static const char* _panel_file = HOME_PATH "/.panel";
+static const char* _ctrlr_file = HOME_PATH "/.ctrlr";
 
 static bool is_native_multiscreen_game(const char *romname)
 {
@@ -1440,6 +1441,22 @@ static void handle_fifo_command(char *cmd_str)
     case CMD_NA:
         _frontend_mode = eNA;
         ts_printf("dmarquees: frontend mode changed to NA\n");
+        if (_splash_mode &&
+            read_bool_file(_pi5_dual_display_file, true) &&
+            read_bool_file(_pi3_is_present_file, true))
+        {
+            char panel_code[MAX_TOKEN] = {0};
+            char ctrlr[MAX_TOKEN] = {0};
+            if (!read_token_file(_panel_file, panel_code, sizeof(panel_code)))
+                ts_fprintf(stderr, "warning: cannot read menu panel from %s\n", _panel_file);
+            if (!read_token_file(_ctrlr_file, ctrlr, sizeof(ctrlr)))
+                ts_fprintf(stderr, "warning: cannot read menu controller from %s\n", _ctrlr_file);
+            trim(panel_code, strlen(panel_code));
+            trim(ctrlr, strlen(ctrlr));
+            ControlPanel menu_panel = menuControlPanel(true, panel_code, ctrlr);
+            if (menu_panel != ePANEL_NA && show_panel_marquee("default", menu_panel))
+                break;
+        }
         show_default_marquee();
         break;
 

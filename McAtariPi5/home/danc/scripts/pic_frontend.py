@@ -174,6 +174,7 @@ PANEL_TO_CTRLR = {
     code: cfg for _, cfg, code in CTRLR_PROFILES if code is not None
 }
 MERGE_SCRIPT = os.path.join(HOME, "scripts", "merge_cfg_to_ctrlr.py")
+DMARQUEES_FIFO = "/tmp/dmarquees_cmd"
 
 # Load or initialize state
 def load_state(path, default):
@@ -197,6 +198,7 @@ def save_state(path, value):
 # Initial state
 dual_display = load_state(PI5_DUAL_DISPLAY_FILE, True)
 pi3_present = load_state(PI3_PRESENT_FILE, True)
+_menu_daemon_available = dual_display
 panel = load_state(PANEL_FILE, "DC")  # DC, MC, MK, AC, NA
 ctrlr_cfg = load_state(CTRLR_FILE, DEFAULT_CTRLR_CFG)
 screen_horizontal = load_state(SCREEN_ORIENTATION_FILE, True)
@@ -341,6 +343,21 @@ def _output_choice(choice):
     pygame.quit()
     sys.exit(0)
 
+def _sync_menu_marquee():
+    if not _menu_daemon_available:
+        return
+
+    command = b"NA\n"
+    try:
+        fd = os.open(DMARQUEES_FIFO, os.O_WRONLY | os.O_NONBLOCK)
+        try:
+            if os.write(fd, command) != len(command):
+                raise OSError("incomplete dmarquees command")
+        finally:
+            os.close(fd)
+    except OSError as e:
+        print(f"[WARN] Could not update menu marquee: {e}", file=sys.stderr)
+
 def panel_menu():
     global panel
     options = [("None / Blank", "NA"), ("Atari FightStick", "MC"),
@@ -352,6 +369,7 @@ def panel_menu():
         panel = options[selected][1]
         save_state(PANEL_FILE, panel)
         _resolve_panel_ctrlr_mismatch(panel)
+        _sync_menu_marquee()
 
 def _resolve_panel_ctrlr_mismatch(selected_panel):
     global ctrlr_cfg
@@ -383,6 +401,7 @@ def ctrlr_menu():
         if target_panel is not None:
             panel = target_panel
             save_state(PANEL_FILE, panel)
+        _sync_menu_marquee()
 
 def select_ctrlr_cfg_menu(title_text, current_cfg):
     # Merge targets are files, so the two Atari hardware choices share one entry.
@@ -747,11 +766,13 @@ def toggle_dual_display():
     global dual_display
     dual_display = not dual_display
     save_state(PI5_DUAL_DISPLAY_FILE, dual_display)
+    _sync_menu_marquee()
 
 def toggle_pi3_present():
     global pi3_present
     pi3_present = not pi3_present
     save_state(PI3_PRESENT_FILE, pi3_present)
+    _sync_menu_marquee()
 
 def _check_xinmo():
     """Read xinmo plugin stats and return (label, color) for the status bar.
@@ -867,6 +888,8 @@ def shutdown_system():
     sys.exit(0)
 
 def main_menu():
+    _sync_menu_marquee()
+
     def launch_emulationstation():
         _output_choice("E")
 

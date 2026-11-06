@@ -126,6 +126,11 @@ photo sources and public-domain status are in
 Selecting a controller saves `~/.ctrlr` and its associated `~/.panel` (All
 Controllers keeps the panel). In MAME, restart the game to apply manual controller
 changes; the panel artwork updates immediately.
+While the picture frontend's menu is open on a three-display setup, the Pi 5
+panel display shows the selected panel with its default labels. A blank panel or
+the All Controllers profile shows the RetroPie marquee instead; the Pi 3
+marquee is unchanged. Display topology changes take effect after restarting the
+daemon.
 Selecting a panel separately offers **Explicit Map**, **All Controllers**, or
 **Ignore and Continue** if its expected controller differs. No Panel Image
 does not change the controller. Merge targets are restricted to the four unique
@@ -134,6 +139,8 @@ controller files.
 Deploy the updated frontend, Marquee and screen1png plugins, image, and rebuilt
 `dmarquees` daemon together to enable the `AC` panel on both display paths.
 Run headless frontend checks with `python tools/tests/pic_frontend_profiles_test.py`.
+On Linux, test the daemon's menu panel selection with
+`cc -o /tmp/dmarquees_menu_test tools/tests/dmarquees_menu_test.c dmarquees/helpers.c -lpng && /tmp/dmarquees_menu_test`.
 
 ### Per-game controller profiles in EmulationStation and MAME GUI
 

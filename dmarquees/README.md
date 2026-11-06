@@ -18,13 +18,15 @@ Linux daemon to display retro arcade game marquee images on a secondary monitor.
 
 ## Commands
 
-The daemon listens on `/tmp/dmarquee_cmd` for the following commands:
+The daemon listens on `/tmp/dmarquees_cmd` for the following commands:
 
 - `<shortname>` - Load and display `/home/danc/mnt/marquees/<shortname>.png`
 - `CLEAR` - Clear the screen (black)
 - `EXIT` - Exit the daemon
 - `RA` - Set frontend mode to RetroArch
 - `SA` - Set frontend mode to StandAlone
+- `NA` - Set menu mode; on a three-display Pi 5, show the selected panel with
+  default labels unless the panel is `NA` or the controller is `allctrlrs`
 - `RESET` - Reset the CRTC (re-acquire display)
 - `REFRESH` - Reload the current image from disk
 
@@ -59,6 +61,6 @@ sudo ./dmarquees [-f SA|RA|NA] [-u username] [-d /dev/dri/cardX] &
 
 Send commands via the FIFO:
 ```bash
-echo "sf" > /tmp/dmarquee_cmd  # Display Street Fighter marquee
-echo "CLEAR" > /tmp/dmarquee_cmd
+echo "sf" > /tmp/dmarquees_cmd  # Display Street Fighter marquee
+echo "CLEAR" > /tmp/dmarquees_cmd
 ```
