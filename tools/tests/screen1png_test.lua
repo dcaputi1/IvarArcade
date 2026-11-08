@@ -145,6 +145,13 @@ callbacks.frame()
 check(#draws == draw_count, "must not draw after stop")
 
 targets = setup()
+rom, state, screen_count = "___empty", "PANEL|___empty|DC|1", 0
+start_session(targets)
+check(opens[2] == "/tmp/dmarquees_dcpanel.png",
+    "MAME GUI should load the selected panel image for the spare output")
+callbacks.stop()
+
+targets = setup()
 rom, state, screen_count = "spyhunt", "PANEL|spyhunt|MK|1", 1
 targets[3] = output(false, false)
 start_session(targets)
