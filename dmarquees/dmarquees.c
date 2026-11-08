@@ -1314,6 +1314,28 @@ static bool show_panel_marquee(const char *shortname, ControlPanel panel_type)
     return true;
 }
 
+static void show_frontend_marquee(void)
+{
+    if (_splash_mode &&
+        read_bool_file(_pi5_dual_display_file, true) &&
+        read_bool_file(_pi3_is_present_file, true))
+    {
+        char panel_code[MAX_TOKEN] = {0};
+        char ctrlr[MAX_TOKEN] = {0};
+        if (!read_token_file(_panel_file, panel_code, sizeof(panel_code)))
+            ts_fprintf(stderr, "warning: cannot read menu panel from %s\n", _panel_file);
+        if (!read_token_file(_ctrlr_file, ctrlr, sizeof(ctrlr)))
+            ts_fprintf(stderr, "warning: cannot read menu controller from %s\n", _ctrlr_file);
+        trim(panel_code, strlen(panel_code));
+        trim(ctrlr, strlen(ctrlr));
+        ControlPanel menu_panel = menuControlPanel(true, panel_code, ctrlr);
+        if (menu_panel != ePANEL_NA && show_panel_marquee("default", menu_panel))
+            return;
+    }
+
+    show_default_marquee();
+}
+
 static void refresh_current_marquee(void)
 {
     if (!fb_map)
@@ -1429,35 +1451,19 @@ static void handle_fifo_command(char *cmd_str)
     case CMD_RA:
         _frontend_mode = eRA;
         ts_printf("dmarquees: frontend mode changed to RA\n");
-        show_default_marquee();
+        show_frontend_marquee();
         break;
 
     case CMD_SA:
         _frontend_mode = eSA;
         ts_printf("dmarquees: frontend mode changed to SA\n");
-        show_default_marquee();
+        show_frontend_marquee();
         break;
 
     case CMD_NA:
         _frontend_mode = eNA;
         ts_printf("dmarquees: frontend mode changed to NA\n");
-        if (_splash_mode &&
-            read_bool_file(_pi5_dual_display_file, true) &&
-            read_bool_file(_pi3_is_present_file, true))
-        {
-            char panel_code[MAX_TOKEN] = {0};
-            char ctrlr[MAX_TOKEN] = {0};
-            if (!read_token_file(_panel_file, panel_code, sizeof(panel_code)))
-                ts_fprintf(stderr, "warning: cannot read menu panel from %s\n", _panel_file);
-            if (!read_token_file(_ctrlr_file, ctrlr, sizeof(ctrlr)))
-                ts_fprintf(stderr, "warning: cannot read menu controller from %s\n", _ctrlr_file);
-            trim(panel_code, strlen(panel_code));
-            trim(ctrlr, strlen(ctrlr));
-            ControlPanel menu_panel = menuControlPanel(true, panel_code, ctrlr);
-            if (menu_panel != ePANEL_NA && show_panel_marquee("default", menu_panel))
-                break;
-        }
-        show_default_marquee();
+        show_frontend_marquee();
         break;
 
     case CMD_EXIT:
